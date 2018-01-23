@@ -1,0 +1,1123 @@
+html,body{
+	font-family: 'Roboto', sans-serif;
+	height: 100%;
+	background: transparent;
+}
+
+.ocultar{
+	display: none;
+}
+
+/*List*/
+.title-welcome{
+	font-size: 35px;
+	color: #bb903a;
+	font-weight: bold;
+}
+
+tr.sub-companies:last-child {
+	background-color: red;
+}
+
+.box-search{
+	border-radius: 8px;
+	border: solid 1px  #5e595c;
+	color: #5e595c;
+}
+
+.ico-search{
+	text-align: left;
+    font-size: 20px;
+    color: #5e595c;
+    padding: 5px 0 0 0;
+}
+
+.encabezados-list{
+	background-color:#37aa44;
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.comapnies-list tr{
+	border-bottom: 1px solid #575756;
+	border-top: 1px solid #575756;
+	font-size:18px;
+	background-color: #fff;
+	color: #1c6e64;
+}
+
+.comapnies-list td{
+	border: none !important;
+}
+
+.sub-companies{
+	cursor: pointer;
+}
+
+.sub-companies{
+	font-size: 14px !important;
+	background-color: #f0f0f0 !important;
+	color: #1c6e64 !important;
+	border:none !important;
+}
+
+.title-subcompanie{
+	margin: 0 58px;
+}
+
+.arrows-list{
+	cursor: pointer;
+}
+
+#table-list-companies tbody tr:first-child{
+	border-top:0px !important;
+}
+
+#table-list-companies>thead>tr>th{
+	border-bottom: 0px !important;
+}
+
+.table-radius-left{
+	border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.table-radius-right{
+	border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/*Index*/
+.container_head{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	box-shadow:#5e595c 0px 0px 7px 0px;
+}
+
+.title_menu{
+	font-size: 20px;
+	color: #5e595c;
+	font-weight: 500;
+}
+
+.title_date{
+	font-size: 14px;
+	color: #5e595c;
+	width: 50px;
+	font-weight: 500;
+	padding: 3px 0;
+}
+
+.welcome_title{
+	font-size: 24px;
+	color: #4F8D7E;
+}
+
+.welcome_paragrph{
+	color: #878787;
+	font-size: 15px;
+}
+
+.menu_btns{
+	padding-top: 35px;
+	padding-bottom: 14px;
+}
+
+.menu_btns img{
+	cursor: pointer;
+
+}
+
+.box_nom_emp{
+	overflow: hidden;
+	padding: 17px 0px;
+	margin: 0 0 0 30px;	
+}
+
+#maincircle{
+	padding-top: 15px;
+}
+
+.no_padding{
+	padding: 0 !important;
+}
+
+#sensor_proceso {
+	display: block;
+	position: absolute;
+	background-color: transparent;
+	top: 50px;
+	left: 512px;
+	width: 111px;
+	height: 108px;
+	cursor: pointer;
+	border-radius: 25%;
+}
+
+
+#sensor_edo_cta {
+	display: block;
+	position: absolute;
+	background-color: transparent;
+	top: 118px;
+	left: 687px;
+	width: 106px;
+	height: 138px;
+	cursor: pointer;
+	border-radius: 25%;
+}	
+
+#sensor_politicas {
+	display: block;
+	position: absolute;
+	background-color: transparent;
+	top: 301px;
+	left: 600px;
+	width: 133px;
+	height: 81px;
+	cursor: pointer;
+	border-radius: 25%;
+}
+
+#sensor_registros {
+	display: block;
+	position: absolute;
+	background-color:transparent;
+	top: 198px;
+	left: 456px;
+	width: 82px;
+	height: 138px;
+	cursor: pointer;
+	border-radius: 25%;
+}
+
+
+.box_blurs{
+	position: absolute; 
+	z-index: 2; 
+	background-color: transparent; 
+	top: 22%;
+	display: none;
+}
+
+/*New CSS*/
+.cont-body{
+	min-height: 100%;
+}
+
+.cont-info-index{
+	border: 2px #2f939d solid; 
+	border-radius: 10px;
+}
+
+.row-cont-info{
+	padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.txt-ctrl-volume{
+	color: #2f939d;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.main-range{
+	overflow: hidden;
+}
+
+.margen-box-info{
+	margin-top: 17px
+}
+
+.main-box-info{
+	border-right: 1px solid #2f939d;
+	height: 215px;
+}
+
+.main-notes{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.title-box-info{
+	background-color: #2f939d; 
+	border-radius: 14px; 
+	font-size: 18px; 
+	color: #fff;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-weight: bold;
+	overflow: hidden;
+}
+
+.title-box-data{
+	font-size: 15px;
+	font-weight: bold;
+	color: #2f939d;
+	padding: 10px 0 0 0;
+}
+
+.data-numeric{
+	font-size: 16px;
+	color: #5e595c;
+	padding: 10px 0 0 0;
+}
+
+/*Slider CSS*/
+.margen-slider{
+	margin-top: 20px;
+}
+
+.carousel-content {
+    color:black;
+    display:flex;
+    align-items:center;
+}
+
+.carousel-control{
+	top: 50% !important;
+	width: 10% !important;
+	display: inline-block !important;
+}
+
+.carousel-control.left{
+	background-image: none !important;
+}
+
+.carousel-control.right{
+	background-image: none !important;
+}
+
+/*Footer*/
+.main-icos-footer{
+	overflow: hidden;
+}
+.box-icos-footer{
+	top: 40px;
+}
+
+.banner-footer{
+	background-image: url('../images/pleca_inferior.png');
+	background-size: contain;
+	background-repeat: repeat-x;
+	height: 10px;
+}
+
+.txt-face, .txt-twitter{
+	font-size: 12px;
+	color: #00bfd6;
+	padding-top: 3px;
+}
+
+.cont-ico-footer{
+	width: auto;
+}
+
+/*iPhone*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) {
+	.box_nom_emp{
+		padding: 0px;
+		margin: 0px;
+		font-size: 13px;	
+	}
+	
+	#sensor_iva{
+		left: 67%;
+    	width: 25%;
+    	height: 46%;
+	}
+
+	#sensor_isr{
+		top: 8%;
+    	left: 21%;
+    	width: 42%;
+    	height: 27%;
+	}
+
+	#sensor_ieps{
+		left: 43%;
+    	width: 38%;
+	}
+
+	#sensor_isan{
+		left: 4%;
+    	width: 35%;
+	}
+
+	#sensor_ietu {
+		left: 7%;
+    	width: 22%;
+	}
+
+	.box_blurs{
+		top: 30%;
+	}
+
+	.ico-search{
+	    font-size: 14px;
+	    padding: 5px 0 0 0;
+	}
+
+	.box-icos-footer{
+		top: 0px;
+	}
+
+	.title-subcompanie{
+		margin: 0 50px;
+	}
+
+	.main-box-info{
+		border-right: none;
+		height: auto;
+		overflow: hidden;
+	}
+
+	.main-notes{
+		overflow: hidden;
+	}
+
+	.main-notes > div{
+		overflow: hidden;
+	}
+
+}
+
+/*iPad*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)  {
+	.box_blurs{
+		top: 36%;
+	}
+
+	.box-icos-footer{
+		top: 0px;
+	}
+}
+
+/******************Inicio de estilo de menu foggy*************************/
+#close_config
+{
+	font-family: Arial;
+	font-size: 18px;
+	display: block;
+	position: fixed;
+	color: #000;
+	top: 1.5%;
+	left: 92.5%;
+	cursor: pointer;
+	opacity: 0.25;
+}
+#close_config:hover
+{
+	opacity: 1;
+	text-decoration: underline;
+}
+
+#news
+{
+	display: block;
+	position: absolute;
+	top: 10%;
+	height: 80%;
+	left: 20%;
+	width: 60%;
+	overflow: auto;
+}
+
+
+
+.panel_foggy
+{
+	z-index: 99999999999999999;
+}
+
+#close
+{
+	display: block;
+	position: absolute;
+	left: 92.5%;
+	top: 2.5%;
+	height: auto;
+	font-size: 16px;
+	text-align: center;
+	color: #aa0000;
+	cursor: pointer;
+	z-index: 99999999999;
+}
+
+#launcher
+{
+	z-index: 9999999999999999999999;
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	display: block;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+}
+/*****************Fin del menu foggy ************************************/
+
+.font_menu{
+	color:#002287;
+	font-size: 25px;
+	text-align: center;
+}
+.panel_menu{
+	text-align: center;
+}
+
+/*** inicia estilo de icon moon ***/
+@font-face {
+	font-family: 'icomoon';
+	src:  url('../fonts/icomoon.eot?yytv6e');
+	src:  url('../fonts/icomoon.eot?yytv6e#iefix') format('embedded-opentype'),
+	url('../fonts/icomoon.ttf?yytv6e') format('truetype'),
+	url('../fonts/icomoon.woff?yytv6e') format('woff'),
+	url('../fonts/icomoon.svg?yytv6e#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-autorizar_activo .path1:before {
+	content: "\e903";
+	color: rgb(0, 149, 118);
+}
+.icon-autorizar_activo .path2:before {
+	content: "\e91a";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-autorizar_activo .path3:before {
+	content: "\e933";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-autorizar_inactivo .path1:before {
+	content: "\e934";
+	color: rgb(226, 226, 225);
+}
+.icon-autorizar_inactivo .path2:before {
+	content: "\e935";
+	margin-left: -1em;
+	color: rgb(128, 128, 128);
+}
+.icon-autorizar_inactivo .path3:before {
+	content: "\e964";
+	margin-left: -1em;
+	color: rgb(128, 128, 128);
+}
+.icon-detalle:before {
+	content: "\e902";
+	color: #303082;
+}
+.icon-aut_pendientes:before {
+	content: "\e901";
+	color: #009576;
+}
+.icon-icon_detallesetiqueta:before {
+	content: "\e91b";
+	color: #303082;
+}
+.icon-icon_incidencias .path1:before {
+	content: "\e919";
+	color: rgb(0, 149, 118);
+}
+.icon-icon_incidencias .path2:before {
+	content: "\e94d";
+	margin-left: -1.76171875em;
+	color: rgb(0, 149, 118);
+}
+.icon-icon_incidencias .path3:before {
+	content: "\e94e";
+	margin-left: -1.76171875em;
+	color: rgb(0, 149, 118);
+}
+.icon-icon_incidencias .path4:before {
+	content: "\e94f";
+	margin-left: -1.76171875em;
+	color: rgb(0, 149, 118);
+}
+.icon-icon_incidencias .path5:before {
+	content: "\e950";
+	margin-left: -1.76171875em;
+	color: rgb(48, 48, 130);
+}
+.icon-icon_notidecobro .path1:before {
+	content: "\e918";
+	color: rgb(48, 48, 130);
+}
+.icon-icon_notidecobro .path2:before {
+	content: "\e951";
+	margin-left: -1.2353515625em;
+	color: rgb(0, 149, 118);
+}
+.icon-icon_politicadecobros:before {
+	content: "\e907";
+	color: #008e7e;
+}
+.icon-icon_usuario .path1:before {
+	content: "\e917";
+	color: rgb(226, 226, 225);
+}
+.icon-icon_usuario .path2:before {
+	content: "\e952";
+	margin-left: -1em;
+	color: rgb(48, 48, 130);
+}
+.icon-icon_usuario .path3:before {
+	content: "\e953";
+	margin-left: -1em;
+	color: rgb(48, 48, 130);
+}
+.icon-icon_cancelar .path1:before {
+	content: "\e911";
+	color: rgb(233, 123, 111);
+}
+.icon-icon_cancelar .path2:before {
+	content: "\e954";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_cancelar .path3:before {
+	content: "\e955";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_corporativas:before {
+	content: "\e912";
+	color: #303082;
+}
+.icon-icon_dispositivousuario:before {
+	content: "\e913";
+	color: #303082;
+}
+.icon-icon_email:before {
+	content: "\e914";
+	color: #009576;
+}
+.icon-icon_etiquetas:before {
+	content: "\e915";
+	color: #008e7e;
+}
+.icon-icon_nota:before {
+	content: "\e916";
+	color: #009576;
+}
+.icon-icon_prederminadoagregar:before {
+	content: "\e908";
+	color: #303082;
+}
+.icon-icon_etiquetaasientoscontables .path1:before {
+	content: "\e900";
+	color: rgb(0, 142, 126);
+}
+.icon-icon_etiquetaasientoscontables .path2:before {
+	content: "\e904";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetaasientoscontables .path3:before {
+	content: "\e905";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetaasientoscontables .path4:before {
+	content: "\e906";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetaasientoscontables .path5:before {
+	content: "\e90a";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetaasientoscontables .path6:before {
+	content: "\e90e";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetaasientoscontables .path7:before {
+	content: "\e90f";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetaasientoscontables .path8:before {
+	content: "\e910";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetacobros .path1:before {
+	content: "\e909";
+	color: rgb(0, 142, 126);
+}
+.icon-icon_etiquetacobros .path2:before {
+	content: "\e956";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetacobros .path3:before {
+	content: "\e957";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-icon_etiquetasoliticas .path1:before {
+	content: "\e90b";
+	color: rgb(0, 142, 126);
+}
+.icon-icon_etiquetasoliticas .path2:before {
+	content: "\e90c";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-aprobado_icono .path1:before {
+	content: "\e91f";
+	color: rgb(105, 169, 77);
+}
+.icon-aprobado_icono .path2:before {
+	content: "\e920";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_aereo .path1:before {
+	content: "\e921";
+	color: rgb(98, 132, 189);
+}
+.icon-transporte_aereo .path2:before {
+	content: "\e922";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_terrestre .path1:before {
+	content: "\e923";
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path2:before {
+	content: "\e924";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path3:before {
+	content: "\e925";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_terrestre .path4:before {
+	content: "\e926";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path5:before {
+	content: "\e927";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path6:before {
+	content: "\e928";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path7:before {
+	content: "\e929";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path8:before {
+	content: "\e92a";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_terrestre .path9:before {
+	content: "\e92b";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path10:before {
+	content: "\e92c";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-transporte_terrestre .path11:before {
+	content: "\e92d";
+	margin-left: -1em;
+	color: rgb(96, 180, 217);
+}
+.icon-seminarios .path1:before {
+	content: "\e92e";
+	color: rgb(64, 137, 165);
+}
+.icon-seminarios .path2:before {
+	content: "\e92f";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-renta_autos .path1:before {
+	content: "\e930";
+	color: rgb(51, 48, 131);
+}
+.icon-renta_autos .path2:before {
+	content: "\e931";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-kilometraje:before {
+	content: "\e932";
+	color: #00a99b;
+}
+.icon-transporte_publico .path1:before {
+	content: "\e936";
+	color: rgb(99, 176, 171);
+}
+.icon-transporte_publico .path2:before {
+	content: "\e937";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_publico .path3:before {
+	content: "\e938";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_publico .path4:before {
+	content: "\e939";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_publico .path5:before {
+	content: "\e93a";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-transporte_publico .path6:before {
+	content: "\e93b";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-comida .path1:before {
+	content: "\e93c";
+	color: rgb(62, 144, 162);
+}
+.icon-comida .path2:before {
+	content: "\e93d";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-hospedaje .path1:before {
+	content: "\e93e";
+	color: rgb(49, 94, 156);
+}
+.icon-hospedaje .path2:before {
+	content: "\e93f";
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
+}
+.icon-tarjeta:before {
+	content: "\e91e";
+	color: #33337f;
+}
+.icon-cheques:before {
+	content: "\e91d";
+	color: #33337f;
+}
+.icon-acompanantes:before {
+	content: "\e91c";
+	color: #33337f;
+}
+.icon-ubicacion:before {
+	content: "\e940";
+	color: #4f8d7e;
+}
+.icon-tit_solicitud:before {
+	content: "\e941";
+	color: #4a9477;
+}
+.icon-icon_menupoliticas:before {
+	content: "\e90d";
+	color: #008e7e;
+}
+.icon-calendario:before {
+	content: "\e942";
+	color: #539476;
+}
+.icon-tit_crear_proyectos:before {
+	content: "\e943";
+	color: #4a9477;
+}
+.icon-subproyectos_verde:before {
+	content: "\e944";
+	color: #4a9477;
+}
+.icon-viaje_verde:before {
+	content: "\e945";
+	color: #4a9477;
+}
+.icon-viaje:before {
+	content: "\e946";
+	color: #33337f;
+}
+.icon-efectivo .path1:before {
+	content: "\e947";
+	color: rgb(51, 51, 127);
+}
+.icon-efectivo .path2:before {
+	content: "\e958";
+	margin-left: -1.8828125em;
+	color: rgb(255, 255, 255);
+}
+.icon-efectivo .path3:before {
+	content: "\e959";
+	margin-left: -1.8828125em;
+	color: rgb(51, 51, 127);
+}
+.icon-efectivo .path4:before {
+	content: "\e95a";
+	margin-left: -1.8828125em;
+	color: rgb(51, 51, 127);
+}
+.icon-efectivo .path5:before {
+	content: "\e95b";
+	margin-left: -1.8828125em;
+	color: rgb(255, 255, 255);
+}
+.icon-efectivo .path6:before {
+	content: "\e95c";
+	margin-left: -1.8828125em;
+	color: rgb(255, 255, 255);
+}
+.icon-efectivo .path7:before {
+	content: "\e95d";
+	margin-left: -1.8828125em;
+	color: rgb(51, 51, 127);
+}
+.icon-efectivo .path8:before {
+	content: "\e95e";
+	margin-left: -1.8828125em;
+	color: rgb(51, 51, 127);
+}
+.icon-efectivo .path9:before {
+	content: "\e95f";
+	margin-left: -1.8828125em;
+	color: rgb(51, 51, 127);
+}
+.icon-efectivo .path10:before {
+	content: "\e960";
+	margin-left: -1.8828125em;
+	color: rgb(255, 255, 255);
+}
+.icon-efectivo .path11:before {
+	content: "\e961";
+	margin-left: -1.8828125em;
+	color: rgb(255, 255, 255);
+}
+.icon-efectivo .path12:before {
+	content: "\e962";
+	margin-left: -1.8828125em;
+	color: rgb(255, 255, 255);
+}
+.icon-reloj:before {
+	content: "\e948";
+	color: #4a9477;
+}
+.icon-subproyectos:before {
+	content: "\e949";
+	color: #33337f;
+}
+.icon-proyectos_verde:before {
+	content: "\e94a";
+	color: #4a9477;
+}
+.icon-proyectos:before {
+	content: "\e94b";
+	color: #33337f;
+}
+.icon-mas .path1:before {
+	content: "\e94c";
+	color: rgb(74, 148, 119);
+}
+.icon-mas .path2:before {
+	content: "\e963";
+	margin-left: -0.95703125em;
+	color: rgb(255, 255, 255);
+}
+.icon-solicitud_menu:before {
+	content: "\e965";
+	color: #009576;
+}
+.icon-solicitud_menu_hover:before {
+	content: "\e966";
+	color: #9cd2c7;
+}
+.icon-buscar:before {
+	content: "\e967";
+	color: #303082;
+}
+.icon-estado_cta_menu_hover:before {
+	content: "\e968";
+	color: #9cd2c7;
+}
+.icon-estado_cta_menu:before {
+	content: "\e969";
+	color: #009576;
+}
+.icon-estado_cta:before {
+	content: "\e96a";
+	color: #009576;
+}
+.icon-facturas_menu_hover:before {
+	content: "\e96b";
+	color: #9cd2c7;
+}
+.icon-facturas_menu:before {
+	content: "\e96c";
+	color: #009576;
+}
+.icon-gasolina:before {
+	content: "\e96d";
+	color: #008e7e;
+}
+.icon-geolocalizacion_menu_hover:before {
+	content: "\e96e";
+	color: #9cd2c7;
+}
+.icon-geolocalizacion_menu:before {
+	content: "\e96f";
+	color: #009576;
+}
+.icon-icono_enviar:before {
+	content: "\e970";
+	color: #303082;
+}
+.icon-icono_guardar:before {
+	content: "\e971";
+	color: #303082;
+}
+.icon-icono_mapa:before {
+	content: "\e972";
+	color: #303082;
+}
+.icon-pago_deposito:before {
+	content: "\e973";
+	color: #303082;
+}
+.icon-pago_efectivo:before {
+	content: "\e974";
+	color: #303082;
+}
+.icon-pago_recibo:before {
+	content: "\e975";
+	color: #303082;
+}
+.icon-pago_transferencia:before {
+	content: "\e976";
+	color: #303082;
+}
+.icon-notificaciones:before {
+	content: "\e977";
+	color: #009576;
+}
+.icon-notificaciones_rojo:before {
+	content: "\e978";
+	color: #e97a6f;
+}
+.icon-solicitud .path1:before {
+  content: "\e979";
+  color: rgb(156, 210, 199);
+}
+.icon-solicitud .path2:before {
+  content: "\e97a";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-solicitud .path3:before {
+  content: "\e97b";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-solicitud .path4:before {
+  content: "\e97c";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pendientes .path1:before {
+  content: "\e97d";
+  color: rgb(156, 210, 199);
+}
+.icon-pendientes .path2:before {
+  content: "\e97e";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pendientes .path3:before {
+  content: "\e97f";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pendientes .path4:before {
+  content: "\e980";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pendientes .path5:before {
+  content: "\e981";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-nota:before {
+  content: "\e982";
+  color: #303082;
+}
+.icon-icono_mapa_hover:before {
+  content: "\e983";
+  color: #009576;
+}
+.icon-icono_guardar_hover:before {
+  content: "\e984";
+  color: #009576;
+}
+.icon-circulo_confirmado:before {
+  content: "\e985";
+  color: #009576;
+}
+.icon-circulo_pendiente:before {
+  content: "\e986";
+  color: #fe0;
+}
+.icon-circulo_rechazado:before {
+  content: "\e987";
+  color: #c60c0e;
+}
+.icon-fr_encontrado:before {
+  content: "\e988";
+  color: #59b67c;
+}
+.icon-fr_pendiente:before {
+  content: "\e989";
+  color: #fd0;
+}
+.icon-transferir_saldo:before {
+  content: "\e98a";
+  color: #26917f;
+}
+/*** finaliza estilo de icon moon **/
+
+
+/*** finaliza estilo de icon moon **/

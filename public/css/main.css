@@ -1,0 +1,373 @@
+.navbar{
+    min-height: 100px;
+}
+
+
+
+.panel {
+    box-shadow: 0 1px 1px rgba(0,0,0,0);
+    border: 0px solid transparent;
+}
+
+#logo_header {
+     display: block;
+     position: absolute;
+     width: auto;
+     height:60px;
+     top:   25px;
+     left: 10%;
+ }
+
+.title_name{
+    margin-top: 40px;
+}
+
+.label_icon{
+    color: green;
+    font-size:23px;
+}
+
+
+.glyphicon {
+    cursor: pointer;
+}
+
+.glyphicon-success{
+    color: green;
+}
+
+.glyphicon-warning{
+    color: red;
+}
+
+.glyphicon-danger{
+    color:yellow;
+}
+
+.glyphicon-default{
+    color:darkblue;
+}
+
+.hidden{
+    display: none;
+}
+
+.titulo{
+    text-align: center;
+    color: #009577;
+}
+.conten-img{
+    margin: auto;
+    width: 50%;
+    height: 30%;
+    padding: 10px;
+    margin-top: 5%;
+}
+.conten-img-title{
+    text-align: center;
+    color: #009577;
+    margin-top: 10%;
+    font-weight: bold;
+    font-size: 16px;
+}
+.conten-img-2{
+    margin: auto;
+    width: 50%;
+    height: 30%;
+    padding: 10px;
+    margin-top: 5%;
+    float: left;
+}
+.conten-img-title-2{
+    text-align: center;
+    color: #009577;
+    margin-top: 5%;
+    font-weight: bold;
+    font-size: 16px;
+    float: left;
+}
+.title-row{
+    text-align:left;
+    color:#2E3082;
+    font-weight: bold;
+    font-size: 20px;
+    float: left;
+    padding-bottom: 10px;
+	margin-top: 15px;
+
+}
+.table-head{
+    text-align: center;
+    background-color:#e2e2e1;
+    color: #2E3082;
+	border-radius: 12px;
+    height: 10%;
+}
+.icon-30{
+    font-size: 45px;
+    text-align: center;
+}
+.text-tr{
+    margin-top: 5px;
+    color: #2E3082;
+	border-bottom: #ddd 1px solid;
+	padding:20px;
+    line-height: 1.42857143;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	vertical-align: middle;
+}
+
+.center{
+	z-index: 0;
+	text-align: center;
+}
+
+.titulo-pantalla{
+    text-align: center;
+    color: #009577;
+	font-size: 30px;
+}
+.titulo-pantalla-azul {
+    text-align: center;
+    color: #2B2D80;
+    font-size: 30px;
+}
+.btn-save{
+    background-color: #E97A70;
+    color: white;
+    margin-left: 20px;
+}
+.btn-cancelar{
+    background-color: gray;
+    color: white;
+    margin-left: 20px;
+}
+.conten-img-title{
+    font-size: 18px;
+    color: #4a9477;
+    padding-top: 20px;
+}
+.label-fechas{
+    font-size: 16px;
+    color: #6f6f6e;
+}
+.form-fecha{
+    border-radius: 5px;
+    border:#33337f solid 1px;
+    width: 80px;
+    margin-top: 5px;
+}
+.form-search{
+    border-radius: 5px;
+    border:#33337f solid 1px;
+    width: 160px;
+    margin-top: 5px;
+}
+
+.form-search2{
+    border-radius: 5px;
+    border:#33337f solid 1px;
+    width: 90%;
+    margin-top: 5px;
+    padding: 5px;
+}
+#dias{
+    display: inline-block;
+    padding: 16px;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #c9dde0;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+.label-dia{
+    margin-top: 10%;
+    display: inline-block;
+}
+.element-viatico{
+    font-size: 60px;
+    cursor: pointer;
+}
+.element-div{
+    padding-left: 5px;
+    padding-top: 10px;
+}
+.element-div-left{
+    padding-left: 20px;
+    padding-top: 10px;
+}
+.element-list{
+    font-size: 33px;
+}
+.in-line{
+    display: inline-block;
+}
+.element-div{
+    padding: 10px;
+    cursor: pointer;
+}
+
+#tabla-debito {
+
+    background:#e8e9e8;
+    padding: 10px;
+    color:#4A9477;
+    font-size:15px;
+    text-align: center;
+}
+
+#tabla-cheques {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background:#e8e9e8;
+    padding: 10px;
+    color:#4A9477;
+    font-size:15px;
+    text-align: center;
+}
+
+#tabla-credito {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background:#e8e9e8;
+    padding: 10px;
+    color:#4A9477;
+    font-size:15px;
+    text-align: center;
+}
+
+#tabla-efectivo {
+
+    padding: 10px;
+    color:#4A9477;
+    font-size:15px;
+    text-align: center;
+}
+
+#tabla-amex {
+
+    padding: 10px;
+    color:#4A9477;
+    font-size:15px;
+    text-align: center;
+}
+
+#nacional {
+    background: #bfdadd;
+    border-radius: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-align: center;
+    margin-right: 3px;
+}
+
+#extranjero {
+    background: #bfdadd;
+    border-radius: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-align: center;
+    margin-right: 3px;
+}
+#total{
+    display: inline-block;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #008e7e;
+    color: white;
+    font-size: 30px;
+    vertical-align: middle;
+
+}
+
+#autorizacion{
+    display: inline-block;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #008e7e;
+    color: white;
+    font-size: 30px;
+    vertical-align: middle;
+
+}
+
+.texto{
+    font-size: 16px;
+    color: #706f6f;
+    text-align: center;
+}
+
+.center{
+    text-align: center;
+}
+
+.enviar-btn{
+    background-color: #e97a6f;
+    border-radius: 10px;
+    color:#ffffff;
+    border:none;
+    font-size: 12px;
+    vertical-align: middle;
+    padding: 8px;
+    margin-top: 40px;
+    margin-left: 20px;
+    text-align: center;
+
+}
+
+.icon-tam2 {
+    font-size: 40px;
+    padding-left: 10px;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.titulo-pantalla{
+    text-align: center;
+    color: #009577;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.numero-dias{
+    font-size: 30px;
+    color:#303082;
+}
+
+.dias-txt{
+    color:#303082;
+    font-size: 17px;
+}
+
+th, td{
+    color:#303082;
+    font-size: 15px;
+    vertical-align: middle;
+
+}
+
+hr {
+    border:#008e7e 1px solid;
+}
+h2{
+    font-size: 18px;
+    color: white;
+}

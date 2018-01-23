@@ -1,0 +1,242 @@
+.tree { margin: 1em; }
+
+    .tree input {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+
+    .tree input ~ ul { display: none; }
+
+    .tree input:checked ~ ul { display: block; }
+
+    /* ————————————————————–
+      Tree rows
+    */
+    .tree li {
+        line-height: 1.2;
+        position: relative;
+        padding: 0 0 1em 1em;
+    }
+
+    .tree ul li { padding: 1em 0 0 1em; }
+
+    .tree > li:last-child { padding-bottom: 0; }
+
+    /* ————————————————————–
+      Tree labels
+    */
+    .tree_label {
+        position: relative;
+        display: inline-block;
+        background: #fff;
+    }
+
+    label.tree_label { cursor: pointer; }
+
+    label.tree_label:hover { color: #666; }
+
+    /* ————————————————————–
+      Tree expanded icon
+    */
+    label.tree_label:before {
+        background: #099C7F;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+        float: left;
+        margin: 0 1em 0 -2em;
+        width: 1.2em;
+        height: 1.2em;
+        border-radius: 1em;
+        content: '+';
+        text-align: center;
+        line-height: .9em;
+    }
+
+    :checked ~ label.tree_label:before { content: '–'; }
+    :checked ~ label.tree_label i.fa:before { color: #2C398E;}
+
+
+    /* ————————————————————–
+      Tree branches
+    */
+    :checked ~ i.fa-folder-open:before {
+        color: #2C398E;
+    }
+    .fa.fa-suitcase:before{
+        color: #099C7F;
+    }
+    .fa.fa-suitcase.fa-form-title:before{
+        color: #2C398E;
+    }
+    .fa-folder-open:before {
+        color: #099C7F;
+    }
+    .fa.fa-plane:before{
+        color: #2C398E;
+    }
+    .tree li:before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -.5em;
+        display: block;
+        width: 0;
+        border-left: 1px solid #777;
+        content: "";
+    }
+
+    .tree_label:after {
+        position: absolute;
+        top: 0;
+        left: -1.5em;
+        display: block;
+        height: 0.5em;
+        width: 1em;
+        border-bottom: 1px solid #777;
+        border-left: 1px solid #777;
+        border-radius: 0 0 0 .3em;
+        content: '';
+    }
+
+    label.tree_label:after { border-bottom: 0; }
+
+    :checked ~ label.tree_label:after {
+        border-radius: 0 .3em 0 0;
+        border-top: 1px solid #777;
+        border-right: 1px solid #777;
+        border-bottom: 0;
+        border-left: 0;
+        bottom: 0;
+        top: 0.5em;
+        height: auto;
+    }
+
+    .tree li:last-child:before {
+        height: 1em;
+        bottom: auto;
+    }
+
+    .tree > li:last-child:before { display: none; }
+
+    .tree_custom {
+        display: block;
+        background: #eee;
+        padding: 1em;
+        border-radius: 0.3em;
+    }
+    .pre-scrollable {
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+    .titulo{
+        text-align: center;
+        color: #009577;
+    }
+    .conten-img{
+        margin: auto;
+        width: 50%;
+        height: 30%;
+        padding: 10px;
+        margin-top: 5%;
+    }
+    .conten-img-title{
+        text-align: center;
+        color: #009577;
+        margin-top: 10%;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .add_project_back{
+        background-color: #099C7F;
+        color: white;
+        border-radius: 15px;
+        width: 50%;
+        height: 50%;
+        text-align: center;
+    }
+
+
+
+    .input-group-btn .btn-group {
+        display: flex !important;
+    }
+    .btn-group .btn {
+        border-radius: 0;
+        margin-left: -1px;
+    }
+    .btn-group .btn:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .btn-group .form-horizontal .btn[type="submit"] {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+
+    @media screen and (min-width: 768px) {
+        #adv-search {
+
+            margin: 0 auto;
+        }
+        .dropdown.dropdown-lg {
+            position: static !important;
+        }
+        .dropdown.dropdown-lg .dropdown-menu {
+            min-width: 500px;
+        }
+    }
+    .add_project{
+        cursor: pointer;
+        color: white;
+    }
+    .panel-title{
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 20px;
+        color: #009577;
+    }
+    .label-form{
+        color: #2C398E;
+    }
+    .form-group {
+        margin-bottom: 9px;
+    }
+    input.form-control{
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: black;
+        background-image: none;
+        border: 1px solid #2C398E;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    textarea.form-control{
+        background: transparent;
+        border: 1px solid #2C398E;
+        color: black;
+    }
+    select.form-control{
+        border: 1px solid #2C398E;
+        color: black;
+        background: transparent;
+    }
+    .btn-save{
+        background-color: #E97A70;
+        color: white;
+    }
+    .content-plus{
+
+        font-size: 30px;
+        cursor: pointer;
+    }
