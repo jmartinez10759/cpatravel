@@ -24,7 +24,7 @@ class ViajeWebController extends MasterWebController
      */
 	public function create( Request $request){
 
-    	$url        = "http://".$this->_domain."/api/travel/viajes";
+    	  $url        = "http://".$this->_domain."/api/travel/viajes";
         $url_get    = "http://".$this->_domain."/api/travel/viajes?nombre=".$request->nombre."&viaje=".$request->viaje;
         $headers = [ 
             'Content-Type'    => 'application/json'
@@ -73,10 +73,9 @@ class ViajeWebController extends MasterWebController
 		$response = self::endpoint($url,$headers,$data,$method);
 
         if ($response->success == true) {
-            /*return json_encode( ['success' => true, 'result' => $response->result, 'message' => 'Datos obtenidos con exito.'] );*/
+            
             return message( $response->success, $response->result, $response->message );
         }else{
-            #return json_encode(['success' => false, 'message' => 'Favor de verificar los regisros enviados.']);
             return message( $response->success,[], $response->message );
         }
 
@@ -120,6 +119,37 @@ class ViajeWebController extends MasterWebController
         }else{
             return message($response->success,[],$response->message);
         }
+
+    }
+    /**
+     *Metodo controller donde se utiliza para actualizar los datos
+     *@access public
+     *@param Request $resquest [description]
+     *@return
+     */
+    public function actualizar( Request $request ){
+
+        $url        = "http://".$this->_domain."/api/travel/viajes";
+        $headers = [ 
+            'Content-Type'    => 'application/json'
+            ,'usuario'        => $_SERVER['HTTP_USUARIO']
+            ,'token'          => $_SERVER['HTTP_TOKEN']
+        ];
+        $data = [
+                'data' => [
+                        'id_viaje'          => $request->id_viaje
+                        ,'nombre'           => $request->nombre
+                        ,'viaje'            => $request->viaje
+                        ,'status'           => $request->status
+                    ]
+            ];
+        $method = 'put';
+        $response = self::endpoint($url,$headers,$data,$method);
+        if ($response->success == true) {
+            return message( $response->success, $response->result, $response->message );
+        }else{
+            return message( $response->success, [], $response->message );
+        }        
 
     }
 

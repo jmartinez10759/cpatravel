@@ -27,13 +27,12 @@ class HomeController extends Controller
     public function index(){
       
         if(Session::get('user_id') != NULL && Session::get('token') != NULL){
+          
             $data = [
-              'id_usuario'    => Session::get('user_id'),
-              'token'         => Session::get('token'),
-              'titulo'        => "Bienvenid@ a CPA Travel",
-              'descripcion1'  => "CPA Travel establece el procedimiento administrativo para otorgar viáticos y realizar su comprobación, así como, estandarizar y optimizar el control del manejo de gastos.",
-              'descripcion2'  => "CPA Travel tendrá la posibilidad de generar  y verificar proyectos y sub-proyectos, para de esta manera distribuir de manera correcta la asignación de los viáticos a cada uno de los empleados.",
-              'descripcion3'  => "CPA Travel tiene control de la aprobación de las asignaciones de los CFDI’S, al presupuesto de viáticos, y el cierre de los proyectos y sub-proyectos."
+              'titulo'        => "Bienvenid@ a CPA Travel"
+              ,'descripcion1'  => "CPA Travel establece el procedimiento administrativo para otorgar viáticos y realizar su comprobación, así como, estandarizar y optimizar el control del manejo de gastos."
+              ,'descripcion2'  => "CPA Travel tendrá la posibilidad de generar  y verificar proyectos y sub-proyectos, para de esta manera distribuir de manera correcta la asignación de los viáticos a cada uno de los empleados."
+              ,'descripcion3'  => "CPA Travel tiene control de la aprobación de las asignaciones de los CFDI’S, al presupuesto de viáticos, y el cierre de los proyectos y sub-proyectos."
             ];
             return view('template/page-container',$data);
            #return view('template/dashboard',$data);

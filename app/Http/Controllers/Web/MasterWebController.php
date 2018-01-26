@@ -27,22 +27,21 @@ class MasterWebController extends Controller
      */
     public function verify_permison(){
 
-    	$server        = $_SERVER['REQUEST_METHOD'];
+        $server        = $_SERVER['REQUEST_METHOD'];
         $http_usuario  = isset( $_SERVER['HTTP_USUARIO'] )? $_SERVER['HTTP_USUARIO']:"";
         $http_token    = isset( $_SERVER['HTTP_TOKEN'] )? $_SERVER['HTTP_TOKEN']:"";
 
         $url_permisos   = "http://52.44.90.182/api/privileges";
         $url_token      = "http://52.44.90.182/api/userData";
-    	$headers = [
-    		'Content-Type' => 'application/json'
-    	];
-    	
-    	$data = [
-    		'token' => $http_token
-    		,'usuario' => $http_usuario
-    	];
-        #debuger( $_SERVER );
-
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        
+        $data = [
+            'token'       => $http_token
+            ,'usuario'    => $http_usuario
+        ];
+        
         if ($http_token && $http_usuario) {
             $token = self::endpoint($url_token,$headers, $data ,'post');
             if ( isset($token->error) && $token->error == true ) {

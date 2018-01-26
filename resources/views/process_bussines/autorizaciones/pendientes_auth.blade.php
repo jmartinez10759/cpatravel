@@ -362,53 +362,7 @@
         <span class="icon-detalle"></span>
         <span class="icon-icon_cancelar"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
         <span class="icon-autorizar_inactivo"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
-
-        <div class="row tabla">
-            <div class="col-md-12 col-xs-12">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tbody>
-                    <tr>
-                        <td class="head-proyecto">PROYECTO</td>
-                        <td class="head-subproyecto">SUBPROYECTO</td>
-                        <td class="head-viaje">VIAJE</td>
-                        <td class="head-monto">MONTO</td>
-                        <td class="head-fecha">FECHA DE SOLICITUD</td>
-                        <td class="head-fecha">DÍAS</td>
-                        <td colspan="5" class="head-dias">&nbsp;</td>
-                    </tr>
-                    @foreach($data as $a)
-                        <tr>
-                            <td class="datos-auto" width="15%">{{ $a->project->name }}</td>
-                            <td class="datos-auto" width="20%">{{ $a->subproject->name }}</td>
-                            <td class="datos-auto" width="15%">{{ $a->travel->name }}</td>
-                            <td class="datos-auto total" width="10%">{{ $a->total_amount }} </td>
-                            <td class="datos-auto" width="20%">{{ $a->created_at }}</td>
-                            <td class="datos-auto" width="4%">{{ $a->days }}</td>
-                            <td class="datos-auto" width="3%">
-                                <a href="{{ route('detail_pending', ['iden' => $a->iden]) }}" target="_blank"><span class="icon-detalle" data-id="{{  $a->iden }}"></span></a>
-                            </td>
-                            <td class="datos-auto" width="3%"><span class="icon-icon_cancelar"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
-                            @if($a->total_amount >= $modeladoStage->umbral)
-                                @foreach($modeladoStage->flujoAlterno as $f)
-                                    <td class="datos-auto" data-toggle="tooltip" data-placement="top" title="{{ $f->responsable }}" width="3%"><span class="icon-autorizar_inactivo"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
-                                @endforeach
-                            @else
-                                @foreach($modeladoStage->flujoNormal as $f)
-                                    <td class="datos-auto" data-toggle="tooltip" data-placement="top" title="{{ $f->responsable }}" width="3%"><span class="icon-autorizar_inactivo"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
-                                @endforeach
-                            @endif
-
-                            <!--
-                            <td class="datos-auto" width="3%"><span class="icon-autorizar_inactivo"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
-                            <td class="datos-auto" width="3%"><span class="icon-autorizar_activo"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
-                             -->
-                        </tr>
-                    @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        
     </div>
     <script>
         $(document).ready(function(){

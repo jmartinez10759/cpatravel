@@ -39,9 +39,6 @@ class TblSubProyecto extends Model
     		return message(false,[],"Registros no encontrados.");
     	}
 
-
-
-
     }
 
 

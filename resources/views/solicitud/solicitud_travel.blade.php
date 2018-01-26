@@ -350,7 +350,7 @@
                                                     <button type="button" id="save_solicitud" url="{{ $cargar_solicitud }}"  class="btn btn-danger" onclick="save_solicitud(this)">Guardar Solicitud</button>
                                                 </div>
                                                 <div class="col-sm-6" >
-                                                    <button type="button" url="{{ $cargar_solicitud }}" class="btn btn-info" onclick="send_solicitud(this)" disabled="" id="send_solicitudes" style="display: none;">Guardar Solicitud</button>
+                                                    <button type="button" url="{{ $cargar_solicitud }}" class="btn btn-info" onclick="send_solicitud(this)" disabled="" id="send_solicitudes" style="display: none;">Enviar Solicitud</button>
                                                 </div>
 
                                             </div>
@@ -364,7 +364,7 @@
                                                 </div>
                                                 <input type="hidden" name="user_id_autorization" id="user_id_autorization" value="af125f96-6750-44c2-bdde-67b9d23b131e" class="user_id_autorization">
                                                 <br>
-                                                Pendiente por Autorizar {{ $modeladoStage->supervisor }}
+                                                Pendiente por Autorizar ..
                                         </div>
                                     </div>
                                 </div>

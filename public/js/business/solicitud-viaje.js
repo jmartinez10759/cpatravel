@@ -15,7 +15,6 @@ $().ready(function(){
                 $('.numero-dias').text( dias );
                 $('.numero-dias-txt').val( dias );
                 if (dias < 0) {
-                    //buildSweetAlert('Fechas Incorrectas','La fecha inicial no debe ser mayor a la final','error');
                     pnotify('Fechas Incorrectas','La fecha inicial no debe ser mayor a la final','error');
                     return;
                 }
@@ -77,7 +76,7 @@ $().ready(function(){
      */
   function show_subproyecto(object){
     ///subproyectos/subproyectobyid
-    var url = $(object).attr('url');
+    var url = domain('subproyectos/subproyectobyid');
     var fields = {
       'id_proyecto' : $(object).val()
     }
@@ -97,15 +96,15 @@ $().ready(function(){
                 $('#viajes').attr('disabled',true);
         });
   
-    }
+  }
     /**
      *Funcion para obtener los viajes
      *@param
      *@return
      */
   function show_viajes(object){ 
-    //viaje/viajebyid
-    var url = $(object).attr('url');
+    //viajes/viajebyid
+    var url = domain('viajes/viajebyid');
     var fields = {
       'id_subproyecto' : $(object).val()
       ,'id_proyecto' : $('#proyecto').val()
@@ -124,7 +123,7 @@ $().ready(function(){
             $('#viajes').attr('disabled',true);
         });
 
-    }
+  }
     /**
      *Funcion que carga la vista para crear el formulario de los viaticos
      *@access public

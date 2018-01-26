@@ -134,8 +134,37 @@ class ProyectoWebController extends MasterWebController
           }
 
     }
+    /**
+     *Metodo controller donde se utiliza para actualizar los datos
+     *@access public
+     *@param Request $resquest [description]
+     *@return
+     */
+    public function actualizar( Request $request ){
+
+        $url = "http://".$this->_domain."/api/travel/proyecto";
+        $headers = [ 
+            'Content-Type'  => 'application/json'
+            ,'usuario'      => $_SERVER['HTTP_USUARIO']
+            ,'token'        => $_SERVER['HTTP_TOKEN']
+        ];
+        $data = [ 'data' => [
+                         'id_proyecto'  => $request->id_proyecto
+                        ,'nombre'       => $request->nombre
+                        ,'proyecto'     => $request->proyecto
+                        ,'status'       => $request->status
+              ]
+        ];
+        $method = 'put';
+        $response = self::endpoint($url,$headers,$data,$method);
+        if ($response->success == true) {
+            return message( $response->success, $response->result, $response->message );
+        }else{
+            return message( $response->success, [], $response->message );
+        }
 
 
+    }
 
 
 

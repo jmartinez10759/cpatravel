@@ -13,17 +13,13 @@ $().ready(function(){
           ,'group_id'     :  json.id_grupo
           ,'description'  :  json.description
       }
-      var path_url = $('#path_url').val();
-      var main = $('#path_index').val();
-      requestAjaxSend( path_url, fields ,function(msg){
-    			
-          if (msg.success === true) {
-    			  	window.location= main ;
-    			}else{ 
-    				alert("Error en la peticion"); 
-    			}
-
-      },false, false, false, false,'GET',false);
+      var url = domain('generate/business');
+      var main = domain('home');
+      detalles_register(url,fields,function(json){
+          window.location= main ;
+      },function(json){
+        alert("Error en la peticion"); 
+      });
       
 
     }

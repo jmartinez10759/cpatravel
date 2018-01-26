@@ -1,8 +1,5 @@
 @extends('template.dashboard')
 @section('content')
-
-        <input type="hidden" id="id_usuario" value="{{ $id_usuario }}">
-        <input type="hidden" id="token" value="{{ $token }}">
         <div class="container">
             <div class="row">
                 <div class="container">

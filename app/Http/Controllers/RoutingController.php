@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Session;
-use App\Label;
-use App\Country;
-use App\StatusAccount;
+#use App\Label;
+#use App\Country;
 use App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Request as Solicitude;
 use App\Model\Apirest\TblSolicitud;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Web\MasterWebController;
+use App\Http\Controllers\Web\estado_cuenta\EstadoCuentaWebController;
 
 class RoutingController extends MasterWebController
 {
@@ -27,7 +27,6 @@ class RoutingController extends MasterWebController
      *@return void
      */
     public function index( Request $request ){
-        
 
         #esta parte se podria evitar si se trajeran los datos desde la DB por cada rol y/o usuario
         $method_path = [
@@ -186,9 +185,9 @@ class RoutingController extends MasterWebController
      *@return void
      */
     public static function pending( Request $request ){
-    
-        $data= Solicitude::where('status',2)->where('user_id',Session::get('user_id'))->get();
-        $modeladoStage = ServiciosController::getStateBusiness($state = 1)->getData();
+        
+        #$data= Solicitude::where('status',2)->where('user_id',Session::get('user_id'))->get();
+        #$modeladoStage = ServiciosController::getStateBusiness($state = 1)->getData();
         #return view('authorizations.pending',compact('data','modeladoStage'));
         #se realiza una conulta por estatus para mostrar unicamante las solicitudes pendientes.
         $where = [
@@ -248,12 +247,11 @@ class RoutingController extends MasterWebController
 
 
         $datos = [
-            'data' => $data
-            ,'modeladoStage' => $modeladoStage
-            ,'avatar'               => ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
+            'avatar'               => ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
             ,'usuario'              => Session::get('name')
             ,'table_pendientes'     => data_table_general($table)
         ];
+        #debuger($datos);
         return view( 'process_bussines.autorizaciones.pendientes_auth',$datos );
     
     }
@@ -264,14 +262,9 @@ class RoutingController extends MasterWebController
      */
     public static function accountStatus( Request $request ){
 
-        $data = [
-            'titulo_principal' => "Estados de Cuenta"
-            ,'avatar'          => ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
-            ,'usuario'         => Session::get('name')
-        ];
-
-        return view('account.estados_cuenta',$data);
-    
+        #se manda a llamar el controller de Estados de cuenta.
+        $estados_cuenta = new EstadoCuentaWebController;
+        return $estados_cuenta->index();
     }
     
 

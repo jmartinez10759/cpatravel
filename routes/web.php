@@ -102,14 +102,17 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('proyecto','ProyectoWebController@index')->name('create_project');
     Route::get('proyecto/showById','ProyectoWebController@showById')->name('proyectosById');
     Route::post('proyecto/create','ProyectoWebController@create')->name('create_proyectos');
+    Route::post('proyecto/actualizar','ProyectoWebController@actualizar')->name('update_proyectos');
     #ruta para subproyectos
     Route::get('subproyectos','SubProyectoWebController@index')->name('subproyectos');
     Route::get('subproyectos/subproyectobyid','SubProyectoWebController@show_subproyectos')->name('show_subproyectos');
     Route::post('subproyectos/create','SubProyectoWebController@create')->name('create_subproyectos');
+    Route::post('subproyectos/actualizar','SubProyectoWebController@actualizar')->name('update_subproyectos');
     #ruta de viajes
     Route::get('viajes','ViajeWebController@show')->name('show_viajes');
     Route::get('viajes/viajebyid','ViajeWebController@show_by_id')->name('show_by_id');
     Route::post('viajes','ViajeWebController@create')->name('create_viajes');
+    Route::post('viajes/actualizar','ViajeWebController@actualizar')->name('update_viajes');
 
     ####################### SECCCION DE VIATICOS ########################
     #busqueda de proyectos

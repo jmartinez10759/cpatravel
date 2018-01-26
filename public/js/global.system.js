@@ -774,8 +774,8 @@ function check_status_xhr(status, title, text, type, accept) {
                                     dictRemoveFile: "layoutLang['eliminar_file']",
                                     dictMaxFilesExceeded: "No se puede subir mas archivos de los permitidos",
                                     headers: {
-                                        'usuario': $myLocalStorage.get('id_usuario')
-                                        ,'token':  $myLocalStorage.get('token')
+                                        'usuario': $('#id_usuario').val()
+                                        ,'token':  $('#token').val()
                                         ,'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                     },
                                     //dictRemoveFile:true,

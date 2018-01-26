@@ -52,7 +52,6 @@ class SubProyectoWebController extends MasterWebController
     public function create (Request $request){
 
     	$url = "http://".$this->_domain."/api/travel/subproyectos";
-
     	$headers = [ 
         		'Content-Type'    => 'application/json'
         		,'usuario'        => $_SERVER['HTTP_USUARIO']
@@ -136,6 +135,36 @@ class SubProyectoWebController extends MasterWebController
             return message(true,$result,'Consulta exitosa');
         }else{
             return message(false,[],$response->message);
+        }
+
+    }
+    /**
+     *Metodo controller donde se utiliza para actualizar los datos
+     *@access public
+     *@param Request $resquest [description]
+     *@return
+     */
+    public function actualizar( Request $request ){
+        
+        $url = "http://".$this->_domain."/api/travel/subproyectos";
+        $headers = [ 
+                'Content-Type'    => 'application/json'
+                ,'usuario'        => $_SERVER['HTTP_USUARIO']
+                ,'token'          => $_SERVER['HTTP_TOKEN']
+            ];
+        $data = ['data' => [
+                        'id_subproyecto'    => $request->id_subproyecto
+                        ,'nombre'           => $request->nombre
+                        ,'sub_proyecto'     => $request->sub_proyecto
+                        ,'status'           => $request->status
+                    ]
+                ];
+        $method = 'put';
+        $response = self::endpoint($url,$headers,$data,$method);
+        if ($response->success == true) {
+            return message( $response->success, $response->result, $response->message );
+        }else{
+            return message( $response->success, [], $response->message );
         }
 
     }

@@ -21,6 +21,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 banner-footer"></div>
+        <!-- <div class="col-md-12 banner-footer"></div> -->
     </div>
 </footer>

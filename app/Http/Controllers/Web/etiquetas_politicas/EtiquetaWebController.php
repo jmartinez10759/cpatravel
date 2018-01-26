@@ -13,13 +13,10 @@ use App\Http\Controllers\Web\MasterWebController;
 class EtiquetaWebController extends MasterWebController
 {
    
-   	#private $_permits;
     public function __construct(){
 
         parent::__construct();
         $this->session_expire();
-        #$this->_permits=  self::verify_permison();
-    
     } 
     /**
      *Metodo controller para mostrar la vista de Etiquetas y politicas
@@ -36,7 +33,6 @@ class EtiquetaWebController extends MasterWebController
             ,'token'        => $_SERVER['HTTP_TOKEN']
         ];
         $method = 'get';
-         #$response = TblEtiqueta::get();
     	$response = self::endpoint($url,$headers,[],$method);
         #debuger($response->success);
         $predeterminada = [];
@@ -179,9 +175,9 @@ class EtiquetaWebController extends MasterWebController
             #debuger(json_encode($data));
             $politicas = $this->endpoint($urls,$headers,$data,$method);
             if ($politicas->success == true) {
-                return json_encode(['success' => true, 'menssage' => $politicas->message]);
+                return message($politicas->success,$politicas->result,$politicas->message);
             }else{
-                return json_encode( ['success' => false] );
+                return message($politicas->success,[],$politicas->message);
             }
 
         }else{
@@ -235,10 +231,10 @@ class EtiquetaWebController extends MasterWebController
 
             ];
             #debuger($response);
-            return json_encode(['success'=> true, 'result' => $response]);
+            return message($politicas->success,$response,$politicas->message);
 
         }else{
-            return json_encode(['success' => false]);
+            return message($politicas->success,[],$politicas->message);
         }
 
         return json_encode(['success' => false, "message" => "No se encontro ningun registro"]);
@@ -293,13 +289,14 @@ class EtiquetaWebController extends MasterWebController
                 #debuger(json_encode($data));
                 $politicas = $this->endpoint($urls,$headers,$data,$method);
                 if ($politicas->success == true) {
-                    return json_encode(['success' => true, 'menssage' => $politicas->message]);
+                    #return json_encode(['success' => true, 'menssage' => $politicas->message]);
+                    return message($politicas->success,$politicas->result,$politicas->message);
                 }else{
-                    return json_encode( ['success' => false] );
+                    return message($politicas->success,[],$politicas->message);
                 }
 
             }else{
-                return json_encode( ['success' => false] );
+                return message($politicas->success,[],$politicas->message);
             }
 
 

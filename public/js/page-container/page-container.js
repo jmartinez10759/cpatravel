@@ -1,97 +1,6 @@
 $().ready(function(){
    $('#modal_dialog').css('width','101%');
-   $myLocalStorage.set('id_usuario',$('#id_usuario').val());
-   $myLocalStorage.set('token',$('#token').val());
 });
-/**
- *Funcion para la carga de la vista con mas opciones y sus respectivos menus
- *@param
- *@return void
- */
- 	function openview(object){
-
-        $('#button_back_general').attr('disabled',true);
-          var url = $(object).attr('url');
-           requestAjaxSend(url,false,function(json){
-
-                  $("#content-view").css('background-color',"#fff");
-                  $("#content-view").css('opacity',"0.98");
-                  $("#content-view").css('top',"0");
-                  $("#content-view").css('left',"0");
-                  $("#content-view").css('width',"100%");
-                  $("#content-view").css('height',"100%");
-                  $("#content-view").css('position',"absolute");
-                  $("#content-view").css('z-index',"21474");
-                  $('#content-view').show('slow');
-                  $('#container-views').html(json);
-                  //$("#content-view").css('position',"fixed");
-                  //$("#content-view").css('display',"block");
-
-           },function(header){
-                header.setRequestHeader("usuario",$myLocalStorage.get('id_usuario'));
-                header.setRequestHeader("token", $myLocalStorage.get('token'));
-                header.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
-           },false,false,false,'GET',"HTML",false);
-
- 	}
-
-  /**
-   *Funcion para cerrar la ventana por completo
-   *@param object
-   *@return void
-   */
- 	 function hideview(object){
- 		   $('#content-view').hide('slow');
-   }
-/**
- *Funcion para cargar las vistas necesarias html de una platilla
- *@param  object [description]
- *@return void
- */
-    function load_views(object){
-
-        $('#button_back_general').attr('disabled',false);
-        var url = $(object).attr('url');
-
-        requestAjaxSend(url,false,function(json){
-           loader_hide_msj();
-           $('#container-views').html('');
-           $('#container-views').html(json);
-        },function(header){
-              header.setRequestHeader("usuario",$myLocalStorage.get('id_usuario'));
-              header.setRequestHeader("token", $myLocalStorage.get('token'));
-              header.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
-              loader_msj();
-        },false,false,false,'GET',"HTML",false);
-
-    }
-  /**
-   *Carga la vista html por medio de jquery ajax
-   *@param ruta [description]
-   *@return html
-   */
-   function carga_vista_html( ruta, ruta_back ){
-
-      $('#button_back_general').attr('disabled',false);
-      $('#button_back_general').removeAttr('onclick');
-      $('#button_back_general').attr('onclick','carga_vista_html("'+ruta_back+'")');
-
-      var url = domain( ruta );
-      var fields = false;
-
-      requestAjaxSend(url,fields,function(json){
-           loader_hide_msj();
-           $('#container-views').html('');
-           $('#container-views').html(json);
-        },function(header){
-              header.setRequestHeader("usuario",$myLocalStorage.get('id_usuario'));
-              header.setRequestHeader("token", $myLocalStorage.get('token'));
-              header.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
-              loader_msj();
-        },false,false,false,'GET',"HTML",false);
-
-
-   }
  /**
   *Funcion para guardar los registros de proyectos utilizando a api correspondiente 
   *@param object [description ]
@@ -99,7 +8,6 @@ $().ready(function(){
   */
     function save_register(object){
 
-      //cambiar el formato de inserccion para reduccir lineas de codigo utilizando las funciones de master.js en este caso utilizar la de create_register
       var fomulario = $(object).attr('form');
 
         if (fomulario == 'form-proyectos') {
@@ -151,7 +59,62 @@ $().ready(function(){
         }
 
     }
-    /**
+  /**
+   *Funcion para la actualizacion de los datos de los proyectos, subproyectos y/o viajes
+   *@return json
+   */
+   function actualizar(object){
+
+      var fomulario = $(object).attr('form');
+
+        if (fomulario == 'form-proyectos') {
+
+            var url = domain('proyecto/actualizar');
+            var fields = {
+              'id_proyecto' : $('#id_proyecto').val()
+              ,'nombre'     : $('#nombre').val()
+              ,'proyecto'   : $('#proyecto').val()
+              ,'status'     : $('#status').val()
+            }
+            // se manda a llamar la funcion que se creo.
+            update_register(url,fields,function(json){
+                carga_vista_html('proyecto','business/process');
+            });
+
+        }
+        if (fomulario == 'form-subproyectos') {
+
+            var url = domain('subproyectos/actualizar');
+              var fields = {
+                'id_subproyecto'  : $('#id_subproyecto').val()
+                ,'nombre'          : $('#sub_nombre').val()
+                ,'sub_proyecto'    : $('#sub_proyecto').val()
+                ,'status'          : $('#sub_status').val()
+              }
+              update_register(url,fields,function(json){
+                  carga_vista_html('proyecto','business/process');
+
+              });
+
+        }
+        if (fomulario == 'form-viajes') {
+          
+              var url = domain('viajes/actualizar');
+              var fields = {
+                'id_viaje'        : $('#id_viaje').val()
+                ,'nombre'          : $('#viaje_nombre').val()
+                ,'viaje'           : $('#viaje').val()
+                ,'status'          : $('#viaje_status').val()
+              }
+              update_register(url,fields,function(json){
+                  carga_vista_html('proyecto','business/process');
+              });
+              
+        }
+
+
+   }
+  /**
    *Funcion para mostrar el div de subproyectos
    *@param
    *@return
@@ -167,10 +130,23 @@ $().ready(function(){
     *Funcion para la crear un subproyecto
     *@return void
     */
+    function add_proyectos(){
+
+      clear_values(['id_proyecto','id_subproyecto','id_viaje','nombre','proyecto','status']);
+      $('.save_register').show('slow');
+      $('.actualizar').hide('slow');
+
+    }
+   /**
+    *Funcion para la crear un subproyecto
+    *@return void
+    */
     function add_subproyectos(){
 
       clear_values(['id_subproyecto','sub_nombre','sub_proyecto','sub_status']);
       show_div_subproyecto();
+      $('.save_register').show('slow');
+      $('.actualizar').hide('slow');
 
     }
     /**
@@ -181,6 +157,8 @@ $().ready(function(){
 
         show_div_viaje();
         clear_values(['id_viaje','viaje_nombre','viaje','viaje_status']);
+        $('.save_register').show('slow');
+        $('.actualizar').hide('slow');
       
     }
    /**
@@ -216,6 +194,8 @@ $().ready(function(){
           $('#div_proyecto').show('slow');
           $('#div_subproyecto').hide('slow');
           $('#div_viajes').hide('slow');
+          $('.save_register').hide();
+          $('.actualizar').show('slow');
 
       });
 
@@ -278,6 +258,8 @@ $().ready(function(){
                 show_div_viaje();
                 $('#div_proyecto').hide('slow');
                 $('#div_subproyecto').hide('slow');
+                $('.save_register').hide();
+                $('.actualizar').show('slow');
 
           });
 
@@ -315,8 +297,8 @@ $().ready(function(){
              $('#container-views').html(json);
              $('#id_solicitud').val(fields.id_solicitud);
           },function(header){
-                header.setRequestHeader("usuario",$myLocalStorage.get('id_usuario'));
-                header.setRequestHeader("token", $myLocalStorage.get('token'));
+                header.setRequestHeader("usuario",$('#id_usuario').val() );
+                header.setRequestHeader("token", $('#token').val() );
                 header.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
                 loader_msj();
           },false,false,false,'GET',"HTML",false);
@@ -341,8 +323,8 @@ $().ready(function(){
               $('#container-views').html(json);
               $('#filtro_estatus').val(fields.estatus);
           },function(header){
-                header.setRequestHeader("usuario",$myLocalStorage.get('id_usuario'));
-                header.setRequestHeader("token", $myLocalStorage.get('token'));
+                header.setRequestHeader("usuario",$('#id_usuario').val() );
+                header.setRequestHeader("token", $('#token').val() );
                 header.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
                 loader_msj();
           },false,false,false,'GET',"HTML",false);

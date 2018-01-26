@@ -62,6 +62,7 @@ class ViaticoDetalleWebController extends MasterWebController
             'etiquetas' => $etiquetas
             ,'viaticos' => $viaticos 
             ,'success'  => true
+            ,'message' => "Transaccion Exitosa"
         ];
         #debuger($respuesta);
         return json_encode( $respuesta );
@@ -152,7 +153,7 @@ class ViaticoDetalleWebController extends MasterWebController
                 $respuesta = json_to_object( MontoSolicitudController::guardar( $request ) );
                 if ( $respuesta->success == true ) {
 
-                    return json_encode( ['success' => true, 'result' => $respuesta->result ] );
+                    return json_encode( ['success' => true, 'result' => $respuesta->result,'message' => "Transaccion Exitosa" ] );
 
                 }
 
@@ -201,7 +202,7 @@ class ViaticoDetalleWebController extends MasterWebController
             #debuger($respuesta->result);
             if ( $respuesta->success == true ) {
                     //return json_encode( ['success' => true, 'result' => $respuesta->result ] );
-                    return json_encode( ['success' => true, 'result_viaticos' => $result, 'result_montos' => $respuesta->result ] );
+                    return json_encode( ['success' => true, 'result_viaticos' => $result, 'result_montos' => $respuesta->result ,'message' => "Transaccion Exitosa" ] );
 
                 }
         }
@@ -227,7 +228,7 @@ class ViaticoDetalleWebController extends MasterWebController
 
         if( $montos->success == true ){
             $viaticos = CatViaticoDetalle::where( $where )->delete();
-            return json_encode(['success' => true]);
+            return json_encode(['success' => true ,'message' => "Transaccion Exitosa"]);
 
         }
 

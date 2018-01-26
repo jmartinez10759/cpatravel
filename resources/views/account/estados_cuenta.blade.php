@@ -35,11 +35,11 @@
 					</div>
 					<div class="col-sm-5 right">
 						<span class="icon-calendario"></span> De:
-						<input type="text" class="form-control" id="">
+						<input type="text" class="form-control" id="datepicker_inicio">
 					</div>
 					<div class="col-sm-5 right">
 						<span class="icon-calendario"></span> A:
-						<input type="text" class="form-control" id="">
+						<input type="text" class="form-control" id="datepicker_fin">
 					</div>	
 
 				</div>
@@ -53,37 +53,27 @@
 			
 		<div class="col-sm-2">
 			<span class="icon-proyectos_verde"></span> Proyectos
-			<select class="form-control">
-				<option></option>
-			</select>
+			{!! $select_proyecto !!}
 		</div>
 		
 		<div class="col-sm-2">
 			<span class="icon-subproyectos_verde"></span> Subproyectos
-			<select class="form-control">
-				<option></option>
-			</select>
+			{!! $select_subproyecto !!}
 		</div>
 		
 		<div class="col-sm-2">
 			<span class="icon-viaje_verde"></span> Viajes
-			<select class="form-control">
-				<option></option>
-			</select>
+			{!! $select_viaje !!}
 		</div>
 		
 		<div class="col-sm-2">
 			<label class="control-label">Estatus</label>
-			<select class="form-control">
-				<option></option>
-			</select>
+			{!! $select_estatus !!}
 		</div>
 		
 		<div class="col-sm-2">
 			<label class="control-label">Etiquetas </label>
-			<select class="form-control">
-				<option></option>
-			</select>
+			{!! $select_etiquetas !!}
 		</div>
 
 		<div class="col-sm-2">
@@ -175,7 +165,7 @@
 
 
 
-
+<script type="text/javascript" src="{{ asset('js/estados_cuenta/estados_cuenta.js') }}"></script>
 
 </div>
 @endsection

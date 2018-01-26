@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita3d6378d0730a665a9453e7472339610
+class ComposerStaticInit5c1e25be00814e5e779d7994f97c4c36
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -397,6 +397,7 @@ class ComposerStaticInita3d6378d0730a665a9453e7472339610
         'App\\Http\\Controllers\\Web\\SolicitudViajeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/SolicitudViajeController.php',
         'App\\Http\\Controllers\\Web\\ViaticoDetalleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/ViaticoDetalleController.php',
         'App\\Http\\Controllers\\Web\\ViaticoDetalleWebController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/ViaticoDetalleWebController.php',
+        'App\\Http\\Controllers\\Web\\estado_cuenta\\EstadoCuentaWebController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/estado_cuenta/EstadoCuentaWebController.php',
         'App\\Http\\Controllers\\Web\\etiquetas_politicas\\EtiquetaWebController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/etiquetas_politicas/EtiquetaWebController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AuthSession' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthSession.php',
@@ -413,6 +414,7 @@ class ComposerStaticInita3d6378d0730a665a9453e7472339610
         'App\\ModelWeb\\CatSolicitudMonto' => __DIR__ . '/../..' . '/app/ModelWeb/CatSolicitudMonto.php',
         'App\\ModelWeb\\CatViaticoDetalle' => __DIR__ . '/../..' . '/app/ModelWeb/CatViaticoDetalle.php',
         'App\\ModelWeb\\TblHorario' => __DIR__ . '/../..' . '/app/ModelWeb/TblHorario.php',
+        'App\\ModelWeb\\estado_cuenta\\EstadoCuentaWebModel' => __DIR__ . '/../..' . '/app/ModelWeb/estado_cuenta/EstadoCuentaWebModel.php',
         'App\\ModelWeb\\etiquetas_politicas\\EtiquetaWebModel' => __DIR__ . '/../..' . '/app/ModelWeb/etiquetas_politicas/EtiquetaWebModel.php',
         'App\\Model\\Apirest\\TblEtiqueta' => __DIR__ . '/../..' . '/app/Model/Apirest/TblEtiqueta.php',
         'App\\Model\\Apirest\\TblPolitica' => __DIR__ . '/../..' . '/app/Model/Apirest/TblPolitica.php',
@@ -500,6 +502,8 @@ class ComposerStaticInita3d6378d0730a665a9453e7472339610
         'CreateCityCodesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_30_193811_create_city_codes_table.php',
         'CreateCompanionTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_22_162616_create_companion_table.php',
         'CreateCountryTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_31_213556_create_country_table.php',
+        'CreateEstadocuentasTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_26_042614_create_estadocuentas_table.php',
+        'CreateEstatusTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_26_043232_create_estatus_table.php',
         'CreateEtiquetaTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_12_224157_create_etiqueta_table.php',
         'CreateFoodTagTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_29_181951_create_food_tag_table.php',
         'CreateHorarioTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_18_194206_create_horario_table.php',
@@ -508,6 +512,7 @@ class ComposerStaticInita3d6378d0730a665a9453e7472339610
         'CreateLodgingTagTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_28_204027_create_lodging_tag_table.php',
         'CreateMileageTagTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_30_152856_create_mileage_tag_table.php',
         'CreateMontosTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_21_213622_create_montos_table.php',
+        'CreateMovimientosTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_26_043249_create_movimientos_table.php',
         'CreateMunicipalitiesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_31_185052_create_municipalities_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePoliticaTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_12_224215_create_politica_table.php',
@@ -3734,10 +3739,10 @@ class ComposerStaticInita3d6378d0730a665a9453e7472339610
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita3d6378d0730a665a9453e7472339610::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita3d6378d0730a665a9453e7472339610::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita3d6378d0730a665a9453e7472339610::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita3d6378d0730a665a9453e7472339610::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5c1e25be00814e5e779d7994f97c4c36::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5c1e25be00814e5e779d7994f97c4c36::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5c1e25be00814e5e779d7994f97c4c36::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5c1e25be00814e5e779d7994f97c4c36::$classMap;
 
         }, null, ClassLoader::class);
     }

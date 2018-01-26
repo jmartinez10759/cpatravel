@@ -39,12 +39,12 @@ class AcompananteController extends MasterWebController
         		$result = [];
 		    	for ($i=0; $i < count( $request->acompanantes ); $i++) { 
 		    		
-		    		$result = [
+		    		$insert = [
 		    			'id_solicitud' 		=> $request->id_solicitud
 		    			,'id_empresa' 		=> $request->id_empresa
 		    			,'id_usuario' 		=> $request->acompanantes[$i]
 		    		];
-					CatSolicitudCompanion::create( $result );
+					CatSolicitudCompanion::create( $insert );
 		    	}
 
 				$result = [];

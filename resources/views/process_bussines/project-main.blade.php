@@ -96,9 +96,9 @@
 
         	</div>
 
-            <input type="text" id="id_proyecto">
-            <input type="text" id="id_subproyecto">
-            <input type="text" id="id_viaje">
+            <input type="hidden" id="id_proyecto">
+            <input type="hidden" id="id_subproyecto">
+            <input type="hidden" id="id_viaje">
 
         	<div class="row col-sm-6">
 
@@ -138,13 +138,14 @@
                                             </div>
                                             <div class='form-group'>
                                                 <div class="col-md-12">
-                                                    <button type="button" class="btn btn-save pull-right" form="form-proyectos" url="{{route('create_proyectos')}}" onclick="save_register(this)">Registrar</button>
+                                                    <button type="button" class="btn btn-save pull-right save_register" form="form-proyectos" onclick="save_register(this)">Registrar</button>
+                                                    <button type="button" class="btn btn-primary pull-right actualizar" form="form-proyectos" onclick="actualizar(this)" style="display: none;">Actualizar</button>
                                                 </div>
                                             </div>
                                     </form>
                                         <div class="form-group pull-right content-plus" id="add-show" style="display: none;">
                                             <span class="icon-mas">
-                                                    <span class="path1"></span><span class="path2" data-toggle="tooltip" title="Agregar Proyecto" onclick="clear_values(['id_proyecto','id_subproyecto','id_viaje','nombre','proyecto','status'])"></span>
+                                                    <span class="path1"></span><span class="path2" data-toggle="tooltip" title="Agregar Proyecto" onclick="add_proyectos()"></span>
                                             </span>
                                                 <i class="icon-subproyectos_verde" onclick="add_subproyectos()" data-toggle="tooltip" title="Agregar Sub Proyecto"> </i>
                                         </div>
@@ -198,14 +199,15 @@
                                             </div>
                                             <div class='form-group'>
                                                 <div class="col-md-12">
-                                                    <button type="button" class="btn btn-save pull-right" form="form-subproyectos" url="{{route('create_subproyectos')}}" onclick="save_register(this)">Registrar</button>
+                                                    <button type="button" class="btn btn-save pull-right save_register" form="form-subproyectos" onclick="save_register(this)">Registrar</button>
+                                                    <button type="button" class="btn btn-primary pull-right actualizar" form="form-subproyectos" onclick="actualizar(this)" style="display: none;">Actualizar</button>
                                                 </div>
                                             </div>
 
                                         </form>
                                         <div class="form-group pull-right content-plus" id="add-show-viaje" style="display: none;">
                                             <span class="icon-mas">
-                                                <span class="path1"></span><span class="path2" onclick="clear_values(['id_subproyecto','sub_nombre','sub_proyecto','sub_status']);" data-toggle="tooltip" title="Agregar Sub Proyecto"></span>
+                                                <span class="path1"></span><span class="path2" onclick="add_subproyectos()" data-toggle="tooltip" title="Agregar Sub Proyecto"></span>
                                             </span>
                                             <i class="icon-viaje_verde" data-toggle="tooltip" title="Agregar Viaje" onclick="add_viajes()" d> </i>
                                         </div>
@@ -274,30 +276,14 @@
                                             </div> -->
                                             <div class='form-group'>
                                                 <div class="col-md-12">
-                                                    <button 
-                                                        type="button" 
-                                                        class="btn btn-save pull-right" 
-                                                        form="form-viajes" 
-                                                        onclick="save_register(this)" 
-                                                        url="{{route('create_viajes')}}">Registrar
-                                                    </button>
-
-                                                    <button 
-                                                        type="button" 
-                                                        class="btn btn-primary pull-right" 
-                                                        onclick="update_general()"
-                                                        style="display: none"
-                                                        id="button_update">
-                                                        Actualizar
-                                                    </button>
-
-
+                                                    <button type="button" class="btn btn-save pull-right save_register" form="form-viajes" onclick="save_register(this)">Registrar</button>
+                                                    <button type="button" class="btn btn-primary pull-right actualizar" form="form-viajes" onclick="actualizar(this)" style="display: none;">Actualizar</button>
                                                 </div>
                                             </div>
                                     </form>
                                     <div class="form-group pull-right content-plus" id="add-show-viaje" style="display: block;">
                                         <span class="icon-mas">
-                                            <span class="path1"></span><span class="path2" onclick="clear_values(['id_viaje','viaje_nombre','viaje','viaje_status']);" data-toggle="tooltip" title="Agregar Sub Proyecto"></span>
+                                            <span class="path1"></span><span class="path2" onclick="add_viajes()" data-toggle="tooltip" title="Agregar Sub Proyecto"></span>
                                         </span>
                                     </div>
 

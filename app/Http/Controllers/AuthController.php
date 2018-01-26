@@ -9,25 +9,25 @@ use Mockery\Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\Template\TemplateController;
+use App\Http\Controllers\Web\MasterWebController;
 
-class AuthController extends Controller
+class AuthController extends MasterWebController
 {
 
-    public function index()
+    /*public function index()
     {
         return view('home');
-    }
+    }*/
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+   /* public function create()
     {
         dd('entra a la funcion');
-    }
+    }*/
 
     /**
      * Store a newly created resource in storage.
@@ -39,45 +39,23 @@ class AuthController extends Controller
     {
         try {
             
-            #$url= 'http://cpaaccess.cpalumis.com.mx/api/usuario/login';
-            $client = new Client();
-            $url= 'http://52.44.90.182/api/login';   
-        #manda a llamar el servicio para saber si existe el usuario a logguear
-            $response = $client->post($url, [
-                'headers'=> [
-                    'Content-Type' => 'application/json'
-                ],
-                'body'    =>json_encode([
-                    "email"     =>$request->email,
-                    "password"  =>$request->password,
-                    "servicio"  =>"7",
-                    #"origen"    =>"web"
-                    ])
-            ]);
+          /*  #$url= 'http://cpaaccess.cpalumis.com.mx/api/usuario/login';*/
+            $url        = 'http://52.44.90.182/api/login';
+            $headers    = ['Content-Type' => 'application/json'];
+            $data       = ['email' => $request->email ,'password' => $request->password ,'servicio' =>7];
+            $method     = 'post';
+            $response   = self::endpoint($url,$headers,$data,$method);
 
-            $zonerStatusCode = $response->getStatusCode();
-            $zonerResponse = json_decode($response->getBody());
-        #valida si el mensaje de success es true y almacena los datos en session
-            if( isset($zonerResponse->success) ){
-                $request->session()->put('user_id', $zonerResponse->request->user_id );
-                $request->session()->put('token',trim($zonerResponse->request->token));
-                $request->session()->put('name',$zonerResponse->request->name);
-                $request->session()->put('img',$zonerResponse->request->img);
-                $request->session()->put('lastName',$zonerResponse->request->lastName);
-                $request->session()->put('rol',$zonerResponse->request->rol);
-                $request->session()->put('structure',$zonerResponse->request->structure);
-                
-                return redirect()->route('list');
+            if ( isset( $response->sucess ) && $response->sucess == true) {
+                $session = [
+                    'user_id'   => $response->usuario[0]->usuario
+                    ,'token'    => $response->token
+                    ,'name'     => $response->usuario[0]->nombre
+                ];
+                Session::put($session);
 
-            } else if( isset($zonerResponse->sucess) && $zonerResponse->sucess){
-                #este es el servicio de prueba 
-                $response = $zonerResponse->usuario[0];
-                $request->session()->put('user_id', $response->usuario );
-                $request->session()->put('token',trim($zonerResponse->token));
-                $request->session()->put('name',$response->nombre);
                 return redirect()->route('list');
             }
-
             return redirect('/');
 
         } catch (\Exception $e) {
@@ -91,10 +69,10 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    /*public function show($id)
     {
         //
-    }
+    }*/
 
     /**
      * Show the form for editing the specified resource.
@@ -102,10 +80,10 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    /*public function edit($id)
     {
         //
-    }
+    }*/
 
     /**
      * Update the specified resource in storage.
@@ -114,10 +92,10 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /*public function update(Request $request, $id)
     {
         //
-    }
+    }*/
 
     /**
      * Remove the specified resource from storage.
@@ -125,29 +103,24 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    /*public function destroy($id)
     {
         //
-    }
+    }*/
+    /**
+     *Metodo para destruir las sessiones activas y salir del sistema
+     *@access public
+     *@return void
+     */
+    public function logout(){
 
-    public  function logout(){
-       # echo "redirecino";exit();
-
-        Session::forget('user_id');
-        Session::forget('token');
-        Session::forget('business_id');
-        Session::forget('goup_id');
-        Session::forget('business_description');
-
-        Session::forget('name');
-        Session::forget('img');
-        Session::forget('lastName');
-        Session::forget('request_id');
-
+        $logout =['user_id','token','business_id','group_id','business_description','name','lastName','request_id','img'];
+        Session::forget($logout);
         return redirect('/');
+
     }
 
-    public function autocompletSearch(Request $request){
+    /*public function autocompletSearch(Request $request){
         $query = (!empty($request->input('query'))) ? strtolower($request->input('query')) : null;
 
         $databaseUsers = array(
@@ -179,7 +152,7 @@ class AuthController extends Controller
 
         return response()->json($resultUsers);
 
-    }
+    }*/
 
 
 }
