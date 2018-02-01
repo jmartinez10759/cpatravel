@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class MasterWebController extends Controller
 {
@@ -33,14 +34,8 @@ class MasterWebController extends Controller
 
         $url_permisos   = "http://52.44.90.182/api/privileges";
         $url_token      = "http://52.44.90.182/api/userData";
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        
-        $data = [
-            'token'       => $http_token
-            ,'usuario'    => $http_usuario
-        ];
+        $headers = ['Content-Type' => 'application/json'];
+        $data = ['token' => $http_token ,'usuario' => $http_usuario ];
         
         if ($http_token && $http_usuario) {
             $token = self::endpoint($url_token,$headers, $data ,'post');
@@ -53,9 +48,10 @@ class MasterWebController extends Controller
         if ( isset( $permisson->rows[0] ) ) {
         	$permisson =  $permisson->rows[0]->perfil_id;
         	$this->_tipo_user = $permisson;
-        }
-        if ( !in_array($permisson, [21,19,44,45])) {
-        	return $this->show_error(0);
+
+        }else{ $permisson = 0; }
+        if ( !in_array( $permisson, [21,19,44,45] )) {
+            return $this->show_error(0);
         }
 
         #return $this->show_error(0);
@@ -239,9 +235,31 @@ class MasterWebController extends Controller
      *@return void
      */
     public function session_expire(){
-        #debuger( $this->verify_permison() );
+
         if ( $this->verify_permison() ) { die( view('auth.session_expire') ); };
 
+    }
+    /**
+     *Metodo donde parsea la cadena
+     *@access public
+     *@return array $datos [description]
+     */
+    public function parser_string(){
+
+        $datos = [];
+        if ($_SERVER['QUERY_STRING']) {
+            $params = explode("&", $_SERVER['QUERY_STRING']);
+            $params = implode("=", $params);
+            $params = explode("=", $params);
+            $i = 1;
+            foreach ($params as $key => $value) {
+                if ($key%2 == 0 ) {
+                   $datos[$value] = $params[$i];
+                }
+                $i++;
+            }
+        }
+        return $datos;
     }
 
 

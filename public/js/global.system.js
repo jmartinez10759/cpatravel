@@ -984,6 +984,7 @@ function download_pdf_general(url,data,success ){
 
         });
 
+        $('#'+id_table+' tbody').html('');
         $('#'+id_table+' tbody').html(tbody);
      }
      /**

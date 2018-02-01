@@ -337,8 +337,7 @@ $().ready(function(){
      */
      function cancel_solicitud( fields ){
 
-        buildSweetAlertOptions( "Cancelar Solicitud", "¿Estas Seguro de Realizar esta accion?", function(){
-
+        //buildSweetAlertOptions( "Cancelar Solicitud", "¿Estas Seguro de Realizar esta accion?", function(){
             var url = domain('solicitud/cancel');
             //se manda a llamar una funcion del js master para la actualizacion del estatus
             update_register(url,fields,function(json){
@@ -346,6 +345,6 @@ $().ready(function(){
             });
 
 
-        } );
+        //} );
 
      }

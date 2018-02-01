@@ -197,9 +197,6 @@
                                 <div class="row">
                                     <a id="{{$etiqueta->id_etiqueta}}" url="{{ $viaticos }}" onclick="select_viatico(this)" >
                                     <div class="col-md-5 col-sm-5 element-div" data-toggle="tooltip" title="{{ $etiqueta->etiqueta_nombre }}">
-                                        <!-- <span class="fa {{ $etiqueta->etiqueta_img }} element-viatico" tooltip="{{ $etiqueta->etiqueta_nombre }}">
-                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
-                                        </span> -->
                                         <img src="{{ $etiqueta->etiqueta_img }}">
                                     </div>
                                     </a>

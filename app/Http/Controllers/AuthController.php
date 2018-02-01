@@ -35,17 +35,16 @@ class AuthController extends MasterWebController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store( Request $request )
     {
         try {
-            
           /*  #$url= 'http://cpaaccess.cpalumis.com.mx/api/usuario/login';*/
             $url        = 'http://52.44.90.182/api/login';
             $headers    = ['Content-Type' => 'application/json'];
             $data       = ['email' => $request->email ,'password' => $request->password ,'servicio' =>7];
             $method     = 'post';
             $response   = self::endpoint($url,$headers,$data,$method);
-
+            #debuger($_SERVER);
             if ( isset( $response->sucess ) && $response->sucess == true) {
                 $session = [
                     'user_id'   => $response->usuario[0]->usuario
@@ -114,7 +113,18 @@ class AuthController extends MasterWebController
      */
     public function logout(){
 
-        $logout =['user_id','token','business_id','group_id','business_description','name','lastName','request_id','img'];
+        $logout =[
+            'user_id'
+            ,'token'
+            ,'business_id'
+            ,'group_id'
+            ,'business_description'
+            ,'name'
+            ,'lastName'
+            ,'request_id'
+            ,'img'
+            ,'id_solicitud'
+        ];
         Session::forget($logout);
         return redirect('/');
 

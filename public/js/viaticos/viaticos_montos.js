@@ -145,6 +145,8 @@ $().ready(function(){
 				};
 				//se manda a llamar esta funcion para la actualizacion de los monto y viaticos
 				update_register(url,fields,function(json){
+					$('.btn-default').attr('disabled',false);
+                    $('.btn-default').removeClass('hidden');
 					detail_solicitud(fields.id_solicitud);
 				});
 

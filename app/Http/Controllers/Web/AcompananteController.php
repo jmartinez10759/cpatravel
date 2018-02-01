@@ -15,11 +15,12 @@ use App\Http\Controllers\Web\MasterWebController;
 
 class AcompananteController extends MasterWebController
 {
-    private $_permits;
+    /*private $_permits;*/
     
     public function __construct(){
         parent::__construct();
-        $this->_permits=  self::verify_permison();
+        $this->session_expire();
+        /*$this->_permits=  self::verify_permison();*/
     }
     /**
      *Metodo para realizar la consulta de los montos por medio de id_viaticos
@@ -66,7 +67,6 @@ class AcompananteController extends MasterWebController
         catch (\Exception $e)
         {
             DB::rollback();
-            #Informemos con un echo
             return json_encode(['success' => false, 'menssage' => $e->getMessage() ]);
         }
         #Hacemos los cambios permanentes ya que no hay errores

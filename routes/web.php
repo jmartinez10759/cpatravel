@@ -5,7 +5,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('beginin');
 Route::post('/home', 'AuthController@store')->name('auth.store');
 #Route::post('/home', 'LoginController@login')->name('auth.store');
-Route::get('/func', 'PruebaController@func');
+#Route::get('/func', 'PruebaController@func');
 
 Route::group(['middleware' => ['auth.session']], function () {
 
@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::resource('travel','TravelWebController');
     Route::resource('label','LabelWebController');
 
-
+/*
     Route::get('prueba/search','PruebaController@search')->name('search');
     Route::get('autocomplete','PruebaController@autocomplete')->name('autocomplete');
 
@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('rentcar/create','RentCarTagController@create')->name('rent_cart_create');
     Route::get('seminar/create','SeminarTagController@create')->name('seminar_create');
     Route::get('taxi/create','TaxiTagController@create')->name('taxi_create');
-    Route::get('pending/detail/{iden}','RequestController@detail')->name('detail_pending');
+    Route::get('pending/detail/{iden}','RequestController@detail')->name('detail_pending');*/
 
 
 
@@ -72,18 +72,14 @@ Route::group(['middleware' => ['auth.session']], function () {
 
     ####################### SECCCION DE MENU PRICIPAL ########################
     #rutas principales de la vista principal y menu principal.
+
     Route::get('business/process','RoutingController@businessProcess')->name('business_process');
     Route::get('authorization','RoutingController@viaje_authorization')->name('authorization_travel');
     Route::get('policies','RoutingController@policies')->name('policies');
     Route::get('pending','RoutingController@pending')->name('pending');
     Route::get('account/status','RoutingController@accountStatus')->name('account_status');
     Route::get('registration/conciliation','RoutingController@registrationConciliation')->name('registration_conciliation');
-    /*Route::get('business/process','RoutingController@index')->name('business_process');
-    Route::get('authorization','RoutingController@index')->name('authorization_travel');
-    Route::get('policies','RoutingController@index')->name('policies');
-    Route::get('pending','RoutingController@index')->name('pending');
-    Route::get('account/status','RoutingController@index')->name('account_status');
-    Route::get('registration/conciliation','RoutingController@index')->name('registration_conciliation');*/
+    
 
     ####################### SECCCION DE SOLICITUD DE VIAJE ########################
     #se crea la ruta de la solicitud de viaje crud
@@ -95,6 +91,14 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::post('solicitud/particular','Web\SolicitudViajeController@show_register_solicitud')->name('solicitud_show_solicitud');
     Route::get('solicitud/consulta','Web\SolicitudViajeController@consulta_solicitud')->name('consulta_solicitud');
     Route::post('solicitud/cancel','Web\SolicitudViajeController@cancel_solicitud')->name('cancel');
+
+    ####################### SECCCION DE SOLICITUDES PENDIENTES  ########################
+    Route::get('pendientes','Web\PendientesWebController@index')->name('pendientes');
+
+    ####################### SECCCION DE ESTADOS DE CUENTA  ########################
+    Route::get('estadoscuenta','Web\estado_cuenta\EstadoCuentaWebController@index')->name('estadoscuenta');
+    Route::get('estadoscuenta/filtros','Web\estado_cuenta\EstadoCuentaWebController@filtros')->name('filtros');
+
 
     ####################### SECCCION DE PROYECTOS, SUBPROYECTOS Y VIAJES ########################
 
@@ -134,9 +138,10 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::post('politicas/eliminar','Web\etiquetas_politicas\EtiquetaWebController@eliminar_politicas')->name('eliminar_politicas');
     Route::post('politicas/upload','Web\etiquetas_politicas\EtiquetaWebController@upload')->name('upload');
 
+    ####################### SECCCION DE AUTORIZACION ########################
 
-
-
+    Route::get('autorizacion/{id_solicitud?}','Web\autorizacion\AutorizacionWebController@login_auth')->name('autorizacion');
+    Route::post('autorizacion','Web\autorizacion\AutorizacionWebController@auth')->name('page_auth');
     # Inicio de solicitud de viaje 
     
     /*Route::get('solicitude/lodging/{iden}','SolicitudeController@lodging')->name('label_hospedaje');
@@ -154,8 +159,8 @@ Route::group(['middleware' => ['auth.session']], function () {
 
 
     #Route::get('/prueba/logout', 'PruebaController@logout')->name('logout');
-    Route::get('vista','PruebaController@vista')->name('vista');
+    /*Route::get('vista','PruebaController@vista')->name('vista');
     Route::get('prueba','PruebaController@prueba');
     Route::get('prueba/view','PruebaController@pruebaView');
     Route::get('prueba/inbox','ServiciosController@modeladoInbox');
-    Route::get('business/state/{state}','ServiciosController@getStateBusiness');
+    Route::get('business/state/{state}','ServiciosController@getStateBusiness');*/

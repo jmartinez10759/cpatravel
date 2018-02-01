@@ -35,7 +35,6 @@ class HomeController extends Controller
               ,'descripcion3'  => "CPA Travel tiene control de la aprobación de las asignaciones de los CFDI’S, al presupuesto de viáticos, y el cierre de los proyectos y sub-proyectos."
             ];
             return view('template/page-container',$data);
-           #return view('template/dashboard',$data);
         }else{
           return view('auth.login');
         }
@@ -92,7 +91,7 @@ class HomeController extends Controller
 }*/
     }
 
-    public static function prueba($header){
+    /*public static function prueba($header){
         try {
             $client = new Client();
             $body =[];
@@ -115,5 +114,5 @@ class HomeController extends Controller
                 return response()-jason(['error' => false,'message' =>'algo_paso']);
             }
         }
-    }
+    }*/
 }

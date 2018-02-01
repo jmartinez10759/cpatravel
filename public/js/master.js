@@ -127,25 +127,29 @@ $().ready(function(){
  }
  /**
  *Funcion para la carga de la vista con mas opciones y sus respectivos menus
- *@param
+ *@param url string [description]
  *@return void
  */
- 	function openview(object){
+ 	function openview( path_url ){
 
         $('#button_back_general').attr('disabled',true);
-          var url = $(object).attr('url');
+          //var url = $(object).attr('url');
+          var url = domain(path_url);
            requestAjaxSend(url,false,function(json){
 
-                  $("#content-view").css('background-color',"#fff");
-                  $("#content-view").css('opacity',"0.98");
-                  $("#content-view").css('top',"0");
-                  $("#content-view").css('left',"0");
-                  $("#content-view").css('width',"100%");
-                  $("#content-view").css('height',"100%");
-                  $("#content-view").css('position',"absolute");
-                  $("#content-view").css('z-index',"21474");
-                  $('#content-view').show('slow');
-                  $('#container-views').html(json);
+	           	  
+	              //$("#content_general").css('position',"relative");
+	           	  $('#cargador_general').hide();
+	              $("#content-view").css('background-color',"#fff");
+	              $("#content-view").css('opacity',"0.98");
+	              $("#content-view").css('top',"0");
+	              $("#content-view").css('left',"0");
+	              $("#content-view").css('width',"100%");
+	              $("#content-view").css('height',"100%");
+	              $("#content-view").css('position',"absolute");
+	              $("#content-view").css('z-index',"21474");
+	              $('#content-view').show('slow');
+	              $('#container-views').html(json);
                   //$("#content-view").css('position',"fixed");
                   //$("#content-view").css('display',"block");
 
@@ -153,6 +157,7 @@ $().ready(function(){
                 header.setRequestHeader("usuario",$('#id_usuario').val());
 	            header.setRequestHeader("token", $('#token').val());
                 header.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+                cargador_general();
            },false,false,false,'GET',"HTML",false);
 
  	}
@@ -216,3 +221,20 @@ $().ready(function(){
 
 
    }
+   /**
+    *Funcion para hacer un cargador transparente
+    *@return void
+    */
+    function cargador_general(){
+
+       $("#cargador_general").css('background-color',"#fff");
+       $("#cargador_general").css('opacity',"0.40");
+       $("#cargador_general").css('top',"0");
+       $("#cargador_general").css('left',"0");
+       $("#cargador_general").css('width',"100%");
+       $("#cargador_general").css('height',"100%");
+       $("#cargador_general").css('position',"fixed");
+       $("#cargador_general").css('z-index',"21474");
+       $('#cargador_general').show();
+
+    }

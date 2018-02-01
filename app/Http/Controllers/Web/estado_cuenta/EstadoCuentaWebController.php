@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Web\estado_cuenta;
 
-use Session;
 use App\StatusAccount;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Model\Apirest\TblSolicitud;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\Web\MasterWebController;
 use App\ModelWeb\estado_cuenta\EstadoCuentaWebModel;
@@ -14,6 +14,7 @@ class EstadoCuentaWebController extends MasterWebController
 {
     
     public function __construct(){
+
         parent::__construct();
         $this->session_expire();
     }
@@ -70,6 +71,7 @@ class EstadoCuentaWebController extends MasterWebController
             ,'class'     => 'form-control'
             ,'leyenda'   => "-- SELECCIONE --"
             ,'attr'      => 'disabled'
+            ,'event'     => 'data_viajes(this)'
         ]);
 
         $select_etiquetas = dropdown([
@@ -79,6 +81,7 @@ class EstadoCuentaWebController extends MasterWebController
             ,'id'        => 'id_etiqueta'
             ,'class'     => 'form-control'
             ,'leyenda'   => "-- SELECCIONE --"
+            ,'event'     => 'etiquetas(this)'
         ]);
 
         $select_estatus = dropdown([
@@ -90,21 +93,81 @@ class EstadoCuentaWebController extends MasterWebController
             ,'leyenda'   => "-- SELECCIONE --"
         ]);
 
-        $data = [
-            'titulo_principal' 		=> "Estados de Cuenta"
-            ,'avatar'          		=> ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
-            ,'usuario'         		=> Session::get('name')
-            ,'select_proyecto'		=> $select_proyecto
-            ,'select_subproyecto' 	=> $select_subproyecto
-            ,'select_viaje'			=> $select_viaje
-            ,'select_etiquetas'		=> $select_etiquetas
-            ,'select_estatus'		=> $select_estatus
-        ];
+        $where = [
+            'id_empresa'  => Session::get('business_id')
+            ,'id_usuario' => $_SERVER['HTTP_USUARIO']
+         ];
+         
+         #debuger(Session::all());
+         #debuger($this->_tipo_user);
+        $solicitudes = json_to_object( TblSolicitud::solicitudes_model( $where ) );
+        #debuger($solicitudes);
+         $titulos = [
 
+                    'Proyecto'
+                    ,'Sub Proyecto'
+                    ,'Viaje'
+                    ,'Fecha Inicio'
+                    ,'Fecha Fin'
+                    ,'Destino'
+                    ,'Estatus'
+                    ,'Total'
+                    ,''
+                    ,''
+                    ,''
+                ];
+        $table = array(
+                'titulos'       => $titulos
+                ,'registros'    => $solicitudes->result
+                ,'class'        => "table table-hover table-striped table-response"
+                ,'class_thead'   => ""
+        );
+
+        $data = [
+            'titulo_principal'      => "Estados de Cuenta"
+            ,'avatar'               => ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
+            ,'usuario'              => Session::get('name')
+            ,'select_proyecto'      => $select_proyecto
+            ,'select_subproyecto'   => $select_subproyecto
+            ,'select_viaje'         => $select_viaje
+            ,'select_etiquetas'     => $select_etiquetas
+            ,'select_estatus'       => $select_estatus
+            #,'tabla_estado_cuenta' => data_table_general($table)
+            ,'tabla_estado_cuenta' => ( isset($solicitudes->result) )? $solicitudes->result :false
+        ];
+        #debuger($data);
         return view('account.estados_cuenta',$data);
 
+    }
+    /**
+     *Metodo de controller donde se realiza la parte del filtro
+     *@access public 
+     *@param Request $request [Description]
+     *@return html
+     */
+    public function filtros ( Request $request ){
+        
+        $where = [
+            'id_empresa'        => Session::get('business_id')
+            ,'id_usuario'       => $_SERVER['HTTP_USUARIO']
+        ];
+        $cond = [];
+        foreach ($request->all() as $key => $value) {
+            if ( $value ) {
+                $cond[$key] = $value;
+            }
+        }
+        $condicion = array_merge($where,$cond);
+        $response = json_to_object( TblSolicitud::solicitudes_model( $condicion ) );
+
+        if ( $response->success == true ) {
+            return message($response->success,$response->result,'Transaccion Realizada');
+        }else{
+            return message($response->success,[],'¡Ocurrio un Error!');
+        }
 
     }
+
 
 
 

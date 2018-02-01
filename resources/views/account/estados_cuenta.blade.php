@@ -35,11 +35,11 @@
 					</div>
 					<div class="col-sm-5 right">
 						<span class="icon-calendario"></span> De:
-						<input type="text" class="form-control" id="datepicker_inicio">
+						<input type="text" class="form-control" id="datepicker_inicio" readonly="">
 					</div>
 					<div class="col-sm-5 right">
 						<span class="icon-calendario"></span> A:
-						<input type="text" class="form-control" id="datepicker_fin">
+						<input type="text" class="form-control" id="datepicker_fin" readonly="" onblur="between_fecha()">
 					</div>	
 
 				</div>
@@ -67,7 +67,7 @@
 		</div>
 		
 		<div class="col-sm-2">
-			<label class="control-label">Estatus</label>
+			<label class="control-label">Conceptos</label>
 			{!! $select_estatus !!}
 		</div>
 		
@@ -97,52 +97,147 @@
 	<!-- seccion del grid -->
 	<div class="row">
 
-		<div class="table-responsive">
+		<div class="col-sm-12">
+
+				<div class="table-responsive col-sm-7">
+
+					<table class="table table-hover table-striped table-responsive" id="datatable_usuario">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th class="center">USUARIO</th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>
+									<div class="row">PROYECTO</div>
+									<div class="row">SUBPROYECTO</div>
+									<div class="row">VIAJE</div>
+								</th>
+								<th>
+									<div class="row"> CONCEPTO</div>
+									<div class="row"><br></div>
+									<div class="row"> MOVIMIENTOS</div>
+								</th>
+								<th>
+									<div class="row"><br></div>
+									<div class="row">ETIQUETA</div>
+									<div class="row"><br></div>
+								</th>
+								<th>
+									<div class="row"><br></div>
+									<div class="row">FECHA</div>
+									<div class="row"><br></div>
+								</th>
+								<th>
+									<div class="row"><br></div>
+									<div class="row"> MONTO PAGADO</div>
+									<div class="row"><br></div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($tabla_estado_cuenta as $estadoscuenta)
+							<tr>
+								<td></td>
+								<td>
+									<div class="row">{{ $estadoscuenta->proyecto }}</div>
+									<div class="row">{{ $estadoscuenta->subproyecto }}</div>
+									<div class="row">{{ $estadoscuenta->viaje }}</div>
+								</td>
+								<td></td>
+								<td>
+									<div class="row"><br></div>
+									<div class="row"><center>{{ $estadoscuenta->etiqueta_nombre }}</center></div>
+									<div class="row"><br></div>
+								</td>
+								<td>
+									<div class="row"><br></div>
+									<div class="row"><center>{{ $estadoscuenta->solicitud_fecha_inicio }}</center></div>
+									<div class="row"><br></div>
+								</td>
+								<td>
+									<div class="row"><br></div>
+									<div class="row"><center>{{ $estadoscuenta->viatico_costo_unitario }}</center></div>
+									<div class="row"><br></div>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+
+				</div>
+				<div class="table-responsive col-sm-5">
+					<table class="table table-hover table-striped table-responsive" id="datatable_admin">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th class="center">ADMINISTRADOR</th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>
+									<div class="row"><br></div>
+									<div class="row"> <center> COMPROBACION </center> </div>
+									<div class="row"><br></div>
+								</th>
+								<th>
+									<div class="row"><br></div>
+									<div class="row"> <center>SALDO</center> </div>
+									<div class="row"><br></div>
+								</th>
+								<th>
+									<div class="row"><br></div>
+									<div class="row"><center>ESTATUS</center> </div>
+									<div class="row"><br></div>
+								</th>
+								<th>
+									<div class="row"><br></div>
+									<div class="row"> <center>METODO DE PAGO</center> </div>
+									<div class="row"><br></div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($tabla_estado_cuenta as $estadoscuenta)
+							<tr>
+								<td></td>
+								<td>
+										<div class="row"><br></div>
+										<div class="row"><center> {{ $estadoscuenta->monto_tipo_pago }} </center></div>
+										<div class="row"><br></div>
+									</td>
+									<td>
+										<div class="row"><br></div>
+										<div class="row"><center> {{ $estadoscuenta->monto_tipo_pago }} </center></div>
+										<div class="row"><br></div>
+									</td>
+									<td>
+										<div class="row"><br></div>
+										<div class="row"><center> {{ $estadoscuenta->monto_tipo_pago }} </center></div>
+										<div class="row"><br></div>
+									</td>
+									<td>
+										<div class="row"><br></div>
+										<div class="row"><center> {{ $estadoscuenta->monto_tipo_pago }} </center></div>
+										<div class="row"><br></div>
+									</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+
+			</div>
 			
-			<table class="table table-hover table-striped table-response">
-				<thead>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th class="center">USUARIO</th>						
-						<th></th>
-						<th class="center">ADMINISTRADOR</th>
-					</tr>
-					<tr>
-						<th>Proyectos Subproyectos viajes</th>
-						<th>Concepto</th>
-						<th>Etiqueta Predeterminada</th>
-						<th>Fecha</th>
-						<th>Monto Pagado</th>
-						<th>Comprobacion</th>
-						<th>Saldo</th>
-						<th>Estatus</th>
-						<th>Metodo de Pago</th>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
-
 		</div>
-
-	</div>
 	<!-- seccion de mensajes de total -->
 	<div class="row">
 		

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Apirest;
 
+use App\TblViaje;
+use App\TblProyecto;
+use App\TblSubProyecto;
+use App\Model\MasterModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\Apirest\TblEtiqueta;
@@ -76,11 +80,6 @@ class SolicitudController extends MasterController
         if (isset($request->data)) {
           $response = json_decode( json_encode($request->data) );
           return self::transaccion_insert($response);
-            /*$datos = self::parse_register($request->data,new TblSolicitud,$this->_fechas);
-            if( isset($datos['success']) && $datos['success'] == false ){
-                return $this->show_error(3,$datos['result']);
-            }
-            debuger($datos);*/
         } 
 
         return $this->show_error(5);
@@ -93,6 +92,7 @@ class SolicitudController extends MasterController
      * @return \Illuminate\Http\Response
      */
     public function show( $data = array() ){
+
         $datos = self::parse_register($data,new TblSolicitud,[]);
         if( isset($datos['success']) && $datos['success'] == false ){
             return $this->show_error(3,$datos['result']);
@@ -102,11 +102,12 @@ class SolicitudController extends MasterController
         $result = [];
         if (count($response) > 0) {
             foreach ($response as $response) {
+
                 $result[] =[
-                    'id_solicitud'                    => $response->id_solicitud
-                    ,'id_proyecto'                    => $response->id_proyecto
-                    ,'id_subproyecto'                 => $response->id_subproyecto
-                    ,'id_viaje'                       => $response->id_viaje
+                    'id_solicitud'                    => ($response->id_solicitud)
+                    ,'id_proyecto'                    => MasterModel::show_model(['nombre'],['id_proyecto' => $response->id_proyecto],new TblProyecto)[0]->nombre
+                    ,'id_subproyecto'                 => MasterModel::show_model( ['nombre'],['id_subproyecto' => $response->id_subproyecto],new TblSubProyecto)[0]->nombre
+                    ,'id_viaje'                       => MasterModel::show_model(['nombre'],['id_viaje' => $response->id_viaje],new TblViaje)[0]->nombre
                     ,'id_usuario'                     => $response->id_usuario
                     ,'id_empresa'                     => $response->id_empresa
                     ,'solicitud_fecha_inicio'         => $response->solicitud_fecha_inicio
@@ -226,7 +227,8 @@ class SolicitudController extends MasterController
         if (count($response) > 0) {
             foreach ($response as $response) {
                 $result[] =[
-                    'viatico'                       => self::viaticos_etiqueta( $response )['etiqueta_nombre']
+                    #'viatico'                       => self::viaticos_etiqueta( $response )['etiqueta_nombre']
+                    'viatico'                       => MasterModel::show_model(['etiqueta_nombre'],['id_etiqueta' => $response->id_viatico],new TblEtiqueta )[0]->etiqueta_nombre
                     ,'viatico_cantidad'             => $response->viatico_cantidad
                     ,'viatico_unidad'               => $response->viatico_unidad
                     ,'viatico_costo_unitario'       => $response->viatico_costo_unitario
@@ -254,7 +256,15 @@ class SolicitudController extends MasterController
                     ,'id_viatico' => $data->id_viatico 
             ];
          #se hace la cosulta realizada por identifocado
-        $response = CatSolicitudMonto::where($where)->get();
+        $params = [
+          'monto_tipo_solicitud' 
+          ,'monto_tipo_pago'
+          ,'monto_importe'
+          ,'monto_importe_autorizado'
+        ];
+        $response = MasterModel::show_model($params,$where,new CatSolicitudMonto);
+        #debuger($response);
+        #$response = CatSolicitudMonto::where($where)->get();
         $result = [];
         $total = 0;
         if (count($response) > 0) {
@@ -286,17 +296,18 @@ class SolicitudController extends MasterController
                 #,'id_usuario' => $data->id_usuario
         ];
          #se hace la cosulta realizada por identifocado
-        $response = CatSolicitudCompanion::where($where)->get();
+        $response = MasterModel::show_model([],$where,new CatSolicitudCompanion);
+        #$response = CatSolicitudCompanion::where($where)->get();
         $result = [];
+        $i = 0;
         if (count($response) > 0) {
             foreach ($response as $response) {
-                $result[] =[
-                    'id_acompañante'                      => $response->id_usuario
-                ]; 
+                $result['id_acompañante'][$i] = $response->id_usuario; 
+                $i++;
             }
-            return $result;
-            return self::_message_success(200,$result);
+            #return self::_message_success(200,$result);
         }      
+          return $result;
     
     }
      /**
@@ -306,6 +317,7 @@ class SolicitudController extends MasterController
       *@return array [description]
       */
      public function viaticos_etiqueta( $data = array() ){
+
          $where = ( isset($data->id_viatico) )? ['id_etiqueta' => $data->id_viatico] : [ 'etiqueta_nombre' => $data->viatico ];
          $response = TblEtiqueta::where( $where )->get();
          $result = [];

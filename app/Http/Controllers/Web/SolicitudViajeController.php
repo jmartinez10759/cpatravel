@@ -32,8 +32,6 @@ class SolicitudViajeController extends MasterWebController
      */
     public function index( Request $request ){
 
-       #if ($this->_permits) { return view('auth.session_expire'); }
-
          $url               = "http://".$this->_domain."/api/travel/proyecto?status=1";
          $url_subproyectos  = "http://".$this->_domain."/api/travel/subproyectos?status=1";
          $url_viajes        = "http://".$this->_domain."/api/travel/viajes?status=1";
@@ -65,6 +63,7 @@ class SolicitudViajeController extends MasterWebController
                 "username"  => "juliocastrop@cpavs.mx",
                 "name"      => "julio apellido_1 apellido_2"
             ]
+        
         ];
 
         $horario = dropdown([
@@ -179,13 +178,12 @@ class SolicitudViajeController extends MasterWebController
      */    
     public function save_viaticos_solicitud( Request $request ){
 
-        #if ($this->_permits) { return view('auth.session_expire'); }
-
         $id_solicitud = ( !empty( $request->id_solicitud ) )? $request->id_solicitud : false;
         #si la solicitud es null hacer una inserccion a la tabla solicitudes y lo cachamos verificando que es el ultimo registro
         if ( !$id_solicitud ) {
-
-            $solicitud = json_to_object(TblSolicitud::save_solicitud( $request ));
+            #debuger($request->all());
+            $solicitud = json_to_object(TblSolicitud::save_solicitud_model( $request ));
+            
             if ( $solicitud->success == true ) {
                 #se manda a llamar el metodo a insertar
                 $data = [
@@ -217,30 +215,17 @@ class SolicitudViajeController extends MasterWebController
                     if ( $montos->success == true ) {
 
                         $response = [
-                            'success'       => true,
-                            'result'        => [
-                                'solicitud'    => $solicitud->result
-                                ,'viaticos'     => $viaticos->result
-                                ,'montos'       => $montos->result
-                            ],
-                            'message' => "Transaccion Exitosa"
-
+                            'solicitud'     => $solicitud->result
+                            ,'viaticos'     => $viaticos->result
+                            ,'montos'       => $montos->result
                         ];
-                        #debuger($response);
-                        return json_encode($response);
+                        return message($montos->success,$response,'Transaccion Exitosa');
 
-                    }else{
-                       return json_encode(['success' => false ,'message' => "Ocurrio un Error"]); 
-                    }
+                    }else{return json_encode(['success' => false ,'message' => "Ocurrio un Error"]); }
 
-                }else{
-                    return json_encode(['success' => false ,'message' => "Ocurrio un Error"]); 
-                }
+                }else{return json_encode(['success' => false ,'message' => "Ocurrio un Error"]); }
 
-            }else{
-                return json_encode(['success' => false, 'message' => "Ocurrio un error"]); 
-
-            }
+            }else{ return json_encode(['success' => false, 'message' => "Ocurrio un error"]); }
             
         }else{
 
@@ -279,26 +264,20 @@ class SolicitudViajeController extends MasterWebController
                 $montos = json_to_object( CatSolicitudMonto::save_montos( $datos ) );
 
                 if ( $montos->success == true ) {
-                                    
+                        
                         $response = [
-                            'success'       => true,
-                            'result'        => [
-                                'solicitud'    => $solicitud->result
-                                ,'viaticos'     => $viaticos->result
-                                ,'montos'       => $montos->result
-                            ],
-                            'message' => "Transaccion Exitosa"
-
+                            'solicitud'     => $solicitud->result
+                            ,'viaticos'     => $viaticos->result
+                            ,'montos'       => $montos->result
                         ];
-                        #debuger($response);
-                        return json_encode($response);
-
+                        return message($montos->success,$response,'Transaccion Exitosa');
+                        
                     }else{
-                       return json_encode(['success' => false]); 
+                       return json_encode(['success' => false, 'message' => "Ocurrio un Error"]); 
                     }
                 
             }else{
-                return json_encode(['success' => false]); 
+                return json_encode(['success' => false, 'message' => "Ocurrio un Error"]); 
             }           
 
         }
@@ -361,10 +340,10 @@ class SolicitudViajeController extends MasterWebController
                         $respuesta = json_to_object(AcompananteController::guardar( array_to_object($data) ) );
                         if ($respuesta->success == true) {
                             return message(true,$result['id_solicitud'],'Transaccion Exitosa');
-                            return json_encode( ['success' => true, 'result' => $result['id_solicitud'],'message' => "Transaccion Exitosa" ] );
                         }else{
                             return ['success' => false, 'menssage' => "Ocurrio un Error en Insertar Los Acompañantes!"];
                         }
+
                     }else{
                         return ['success' => false, 'menssage' => "Ocurrio un Error en Insertar Solicitudes!"];
                     }
@@ -457,6 +436,7 @@ class SolicitudViajeController extends MasterWebController
             'id_empresa' =>  Session::get('business_id')
             ,'id_usuario' => $_SERVER['HTTP_USUARIO']
         ];
+        #debuger($where);
         $response = json_to_object(TblSolicitud::solicitudes_pendientes( $where ));
         #debuger($response->result);
         $registros = [];
@@ -525,8 +505,8 @@ class SolicitudViajeController extends MasterWebController
     public function consulta_solicitud( Request $request ){
         #SE REALIZA LA CONSULTA PARA OBTENER TODOS LOS VIATICOS
         $where = [
-                'id_empresa'   =>  Session::get('business_id')
-                ,'id_usuario'   => $_SERVER['HTTP_USUARIO']
+                'id_empresa'     =>  Session::get('business_id')
+                ,'id_usuario'    =>  $_SERVER['HTTP_USUARIO']
                 ,'id_solicitud'  =>  $request->id_solicitud
             ];
         $solicitud  = json_to_object(TblSolicitud::solicitudes_pendientes( $where ));
@@ -633,7 +613,6 @@ class SolicitudViajeController extends MasterWebController
     public function cancel_solicitud( Request $request ){
 
         #se debe mandar el id_solicitud para poder actualizar el estatus a Procesando solicitud
-        #debuger( $request->all() );
         $where = ['id_solicitud' => $request->id_solicitud ];
         $datos = ['estatus' => 'Cancelado'];
         TblSolicitud::where( $where )->update($datos);

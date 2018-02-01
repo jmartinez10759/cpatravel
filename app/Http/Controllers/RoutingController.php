@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-#use App\Label;
-#use App\Country;
-use App\Http\Controllers;
+#use App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Request as Solicitude;
 use App\Model\Apirest\TblSolicitud;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Web\MasterWebController;
-use App\Http\Controllers\Web\estado_cuenta\EstadoCuentaWebController;
 
 class RoutingController extends MasterWebController
 {
@@ -81,7 +77,7 @@ class RoutingController extends MasterWebController
                 "carga_vista_html('proyecto','business/process')"
                 ,"carga_vista_html('authorization','business/process')"
                 ,"carga_vista_html('','business/process')"
-                ,"carga_vista_html('pending','business/process')"
+                ,"carga_vista_html('pendientes','business/process')"
             ];
 
             $images = [
@@ -100,7 +96,7 @@ class RoutingController extends MasterWebController
                 'titulo_principal'   => 'Proceso de Negocio'
                 ,'bloque_vista'      => build_vista( $event, $images, $titulo )
             ];
-            #return view('menus.business_processes',$data);
+
             return view('menus.menu_principal',$data);
 
     }
@@ -114,8 +110,8 @@ class RoutingController extends MasterWebController
         $data = [
             'button1'       => "Solicitud de gastos de viaje"
             ,'button2'      => "Tranferencia de saldo"
-            ,'ruta'         => route('solicitud_viaje_pendiente')
-            ,'return'       => route('business_process')
+            #,'ruta'         => route('solicitud_viaje_pendiente')
+            #,'return'       => route('business_process')
         ];
         return view('menus.travel_authorization',$data);
     
@@ -148,7 +144,6 @@ class RoutingController extends MasterWebController
                 ,'bloque_vista'      => build_vista( $event, $images, $titulo )
             ];
         return view('menus.menu_principal',$data);
-        #return view('politicas.menu_politicas',$data);
     
     }
     /**
@@ -180,92 +175,16 @@ class RoutingController extends MasterWebController
         #return view('conciliacion.menu_conciliacion',$data);
     }
     /**
-     *Metodo para ver una tabla de los pendientes de las solicitudes.
-     *@access public 
-     *@return void
-     */
-    public static function pending( Request $request ){
-        
-        #$data= Solicitude::where('status',2)->where('user_id',Session::get('user_id'))->get();
-        #$modeladoStage = ServiciosController::getStateBusiness($state = 1)->getData();
-        #return view('authorizations.pending',compact('data','modeladoStage'));
-        #se realiza una conulta por estatus para mostrar unicamante las solicitudes pendientes.
-        $where = [
-            'estatus'       => "Pendiente"
-            ,'id_usuario'   => $_SERVER['HTTP_USUARIO']
-            ,'id_empresa'   => Session::get('business_id')
-        ];
-        $response = json_to_object(TblSolicitud::solicitudes_pendientes( $where ) );
-        #debuger($response);
-        $registros = [];
-        if ( $response->success  == true ) {
-            $i = 1;
-            foreach ( $response->result as $response) {
-                
-                $params = ['id_solicitud' => $response->id_solicitud];
-                $registros[] = [
-
-                    'id_proyecto'                       =>  $response->proyecto
-                    ,'id_subproyecto'                   =>  $response->subproyecto
-                    ,'id_viaje'                         =>  $response->viaje
-                    ,'solicitud_fecha_inicio'           =>  $response->solicitud_fecha_inicio
-                    ,'solicitud_fecha_fin'              =>  $response->solicitud_fecha_fin
-                    ,'solicitud_destino_final'          =>  $response->solicitud_destino_final
-                    ,'status'                           =>  $response->estatus
-                    ,'total'                            =>  format_currency($response->total)
-                    ,'editar'                         =>  build_acciones_usuario(['id'=> $response->id_solicitud],'detail_solicitud',"",'btn btn-info',"fa fa-pencil-square",false)
-                    ,'enviar'                                 => build_acciones_usuario(['id'=> $response->id_solicitud],'send_solicitud',"",'btn btn-primary',"fa fa-paper-plane-o",false)
-                    ,'borrar'                                 => build_acciones($params,'cancel_solicitud',"",'btn btn-danger',"fa fa-trash",false)
-                ];
-
-                $i++;
-            }
-
-        }
-
-         $titulos = [
-
-                    'Proyecto'
-                    ,'Sub Proyecto'
-                    ,'Viaje'
-                    ,'Fecha Inicio'
-                    ,'Fecha Fin'
-                    ,'Destino'
-                    ,'Estatus'
-                    ,'Total'
-                    ,''
-                    ,''
-                    ,''
-                ];
-        $table = array(
-                'titulos'       => $titulos
-                ,'registros'    => $registros
-                ,'class'        => "table table-hover table-striped table-response"
-                ,'class_thead'  => "head"
-        );
-
-
-
-        $datos = [
-            'avatar'               => ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
-            ,'usuario'              => Session::get('name')
-            ,'table_pendientes'     => data_table_general($table)
-        ];
-        #debuger($datos);
-        return view( 'process_bussines.autorizaciones.pendientes_auth',$datos );
-    
-    }
-    /**
      *Metodo donde se encaga de mandar a la vista de estados de cuenta
      *@access public
      *@return view 
      */
-    public static function accountStatus( Request $request ){
+    /*public static function accountStatus( Request $request ){
 
         #se manda a llamar el controller de Estados de cuenta.
         $estados_cuenta = new EstadoCuentaWebController;
         return $estados_cuenta->index();
-    }
+    }*/
     
 
 

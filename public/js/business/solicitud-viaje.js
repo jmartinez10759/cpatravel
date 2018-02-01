@@ -218,9 +218,8 @@ $().ready(function(){
 
         
         if (object.viaticos == "seccion_viaticos") {
-
             //se realiza una consulta de los viaticos con su id_solicitud para utilizar el servicio creado
-            var url = domain('solicitud/consulta');
+            /*var url = domain('solicitud/consulta');
             var fields = { 'id_solicitud' : object.id_solicitud }
 
             console.log( 'Datos enviados al controller : '+url );
@@ -231,7 +230,7 @@ $().ready(function(){
                 $('#send_solicitudes').removeAttr('disabled');
                 consulta_solicitud(json.result[0]);
 
-            });
+            });*/
 
         }else{
             
@@ -484,6 +483,8 @@ $().ready(function(){
                                 ,'id_solicitud'     :  (id_solicitud)? id_solicitud :json.result.solicitud.id_solicitud
                             }
                     console.log(seccion.id_solicitud);
+                    $('.btn-default').attr('disabled',false);
+                    $('.btn-default').removeClass('hidden');
                     detail_solicitud( seccion.id_solicitud );
 
                 });

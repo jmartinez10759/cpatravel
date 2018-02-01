@@ -7,7 +7,6 @@ use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Model\Apirest\TblEtiqueta;
 use App\Model\Apirest\TblPolitica;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Web\MasterWebController;
 
 class EtiquetaWebController extends MasterWebController
@@ -120,7 +119,7 @@ class EtiquetaWebController extends MasterWebController
             ,'table_usuario'        =>  data_table_general( $table_usuario )
     		,'table_corporativas' 	=>  data_table_general( $table_corporativas )
     	];
-
+        #debuger($data);
     	return view('politicas.etiquetas_politicas.etiquetas_politicas',$data);
 
     }

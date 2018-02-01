@@ -1,21 +1,21 @@
 @extends('template.dashboard')
 @section('content')
-        <div class="container">
+        <div class="container" id="content_general">
             <div class="row">
                 <div class="container">
 
                     <div class="row">
                         <div class="col-sm-12 row-cont-info">
-                            <div  class="col-sm-2" id="sensor_edo_cta" url="{{route('account_status')}}" onmouseleave="restaura()" onmouseover="destaca('home_boton_edo_cta')" onclick="openview(this)">
+                            <div  class="col-sm-2" id="sensor_edo_cta" onmouseleave="restaura()" onmouseover="destaca('home_boton_edo_cta')" onclick="openview('estadoscuenta')">
                             </div>
                             
-                            <div class="col-sm-2" id="sensor_proceso" url="{{route('business_process')}}" onmouseleave="restaura()" onmouseover="destaca('home_boton_proceso')" onclick="openview(this)">
+                            <div class="col-sm-2" id="sensor_proceso" onmouseleave="restaura()" onmouseover="destaca('home_boton_proceso')" onclick="openview('business/process')">
                             </div>
                             
-                            <div class="col-sm-2" id="sensor_politicas" url="{{route('policies')}}" onmouseleave="restaura()" onmouseover="destaca('home_boton_politicas')" onclick="openview(this)">
+                            <div class="col-sm-2" id="sensor_politicas" onmouseleave="restaura()" onmouseover="destaca('home_boton_politicas')" onclick="openview('policies')">
                             </div>
 
-                            <div class="col-sm-2" id="sensor_registros" url="{{route('registration_conciliation')}}" onmouseleave="restaura()" onmouseover="destaca('home_boton_registros')" onclick="openview(this)">
+                            <div class="col-sm-2" id="sensor_registros" onmouseleave="restaura()" onmouseover="destaca('home_boton_registros')" onclick="openview('registration/conciliation')">
                             </div>
                             <div class="col-sm-offset-1">
                                 <img id="maincircle" src="images/circulo.png" class="circulo img-responsive center-block">
@@ -29,7 +29,7 @@
                     <div id="carousel-example" class="carousel slide" data-ride="carousel">
                         <!-- Wrapper for slides -->
                         <div class="row">
-                            <div class="col-sm-offset-3 col-sm-7">
+                            <div class="col-sm-offset-2 col-sm-8">
                                 <div class="carousel-inner">
                                     <div class="item active">
                                         <div class="carousel-content">
@@ -90,8 +90,12 @@
             </center>
         </div>
 <!--end Loader  -->
-
 </div>
+
+<!-- pantalla obscura para la carga de las vistas del menu -->
+<div class="container" style="display: none;" id="cargador_general"></div>
+
+
 
 
 <!--Se carga el script para la carga de los modales y sus respectivas vistas -->
