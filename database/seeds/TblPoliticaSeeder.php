@@ -17,10 +17,10 @@ class TblPoliticaSeeder extends Seeder
         for ($i=1; $i <= 9; $i++) {
 
              TblPolitica::create([
-                'importe_ded_nal'               => 0
-                ,'importe_ded_ext'              => 0
-                ,'importe_emp_nal'              => 0
-                ,'importe_emp_ext'              => 0
+                'importe_ded_nal'               => 1000
+                ,'importe_ded_ext'              => 1000
+                ,'importe_emp_nal'              => 1000
+                ,'importe_emp_ext'              => 1000
                 ,'status'                       => 1
                 ,'id_usuario'                   => 27391
                 ,'id_empresa'                   => 11613

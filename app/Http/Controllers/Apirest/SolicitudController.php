@@ -105,9 +105,12 @@ class SolicitudController extends MasterController
 
                 $result[] =[
                     'id_solicitud'                    => ($response->id_solicitud)
-                    ,'id_proyecto'                    => MasterModel::show_model(['nombre'],['id_proyecto' => $response->id_proyecto],new TblProyecto)[0]->nombre
-                    ,'id_subproyecto'                 => MasterModel::show_model( ['nombre'],['id_subproyecto' => $response->id_subproyecto],new TblSubProyecto)[0]->nombre
-                    ,'id_viaje'                       => MasterModel::show_model(['nombre'],['id_viaje' => $response->id_viaje],new TblViaje)[0]->nombre
+                    ,'id_proyecto'                    => $response->id_proyecto
+                    ,'proyecto'                       => MasterModel::show_model(['nombre'],['id_proyecto' => $response->id_proyecto],new TblProyecto)[0]->nombre
+                    ,'id_subproyecto'                 => $response->id_subproyecto
+                    ,'subproyecto'                    => MasterModel::show_model( ['nombre'],['id_subproyecto' => $response->id_subproyecto],new TblSubProyecto)[0]->nombre
+                    ,'id_viaje'                       => $response->id_viaje
+                    ,'viaje'                       => MasterModel::show_model(['nombre'],['id_viaje' => $response->id_viaje],new TblViaje)[0]->nombre
                     ,'id_usuario'                     => $response->id_usuario
                     ,'id_empresa'                     => $response->id_empresa
                     ,'solicitud_fecha_inicio'         => $response->solicitud_fecha_inicio

@@ -139,28 +139,12 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::post('politicas/upload','Web\etiquetas_politicas\EtiquetaWebController@upload')->name('upload');
 
     ####################### SECCCION DE AUTORIZACION ########################
-
     Route::get('autorizacion/{id_solicitud?}','Web\autorizacion\AutorizacionWebController@login_auth')->name('autorizacion');
     Route::post('autorizacion','Web\autorizacion\AutorizacionWebController@auth')->name('page_auth');
-    # Inicio de solicitud de viaje 
-    
-    /*Route::get('solicitude/lodging/{iden}','SolicitudeController@lodging')->name('label_hospedaje');
-    Route::get('solicitude/foot/{iden}','SolicitudeController@foot')->name('label_foot');
-    Route::get('solicitude/taxi/{iden}','SolicitudeController@taxi')->name('label_taxi');
-    Route::get('solicitude/mileage/{iden}','SolicitudeController@mileage')->name('label_mileage');
-    Route::get('solicitude/rent/car/{iden}','SolicitudeController@rentCar')->name('label_rent_car');
-    Route::get('solicitude/ground/transportation/{iden}','SolicitudeController@groundTransportation')->name('label_transporte_terrestre');
-    Route::get('solicitude/conference/{iden}','SolicitudeController@conference')->name('label_conference');
-    Route::get('solicitude/airplane/{iden}','SolicitudeController@airplane')->name('label_airplane');*/
+    Route::post('autorizacion/enviar','Web\autorizacion\AutorizacionWebController@validate_autorizacion')->name('validate_autorizacion');
 
+    ####################### SECCCION DE COMPROBANTES CFDI ########################
 
-
-
-
-
-    #Route::get('/prueba/logout', 'PruebaController@logout')->name('logout');
-    /*Route::get('vista','PruebaController@vista')->name('vista');
-    Route::get('prueba','PruebaController@prueba');
-    Route::get('prueba/view','PruebaController@pruebaView');
-    Route::get('prueba/inbox','ServiciosController@modeladoInbox');
-    Route::get('business/state/{state}','ServiciosController@getStateBusiness');*/
+    Route::get('comprobantes/menus','RoutingController@comprobantes')->name('comprobantes_menus');
+    Route::get('comprobantes/register','Web\comprobantes\ComprobanteController@register')->name('comprobante_regiter');
+    Route::get('comprobantes/busqueda','Web\comprobantes\ComprobanteController@busqueda')->name('comprobante_busqueda');

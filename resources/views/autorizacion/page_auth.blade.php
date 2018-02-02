@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<input type="hidden" id="id_solicitud" value="">
+<input type="text" id="id_solicitud" value="{{ $solicitudes['id_solicitud'] }}">
 <input type="hidden" id="extranjeros" value="{{$extranjero}}">
 <input type="hidden" id="nacionales" value="{{$nacional}}">
     <div class="container">
@@ -130,8 +130,8 @@
                 <div class="col-sm-3">
                         <div class="col-sm-12">
                             <label class="label-fechas"><i class="icon-acompanantes"></i> Acompañantes</label>
-                            {{$solicitudes['acompanante']}}
                         </div> 
+                        {{$solicitudes['acompanante']}}
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@
                                               @foreach( $viaticos as $response )
                                               <tr>
                                                 <td>{{ ($response['viatico']) }}</td>
-                                                <td>{{ ($response['viatico_costo_unitario']) }}</td>
+                                                <td>{{ ($response['viatico_total']) }}</td>
                                               </tr>
                                               @endforeach
                                             </tbody>
@@ -264,21 +264,21 @@
                                     <tr class="tr_solicitados_monto_nacional ">
                                         <td> Autorizado</td>
                                         <td>
-                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_1" class="form-control" value="0" >
+                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_1" class="form-control" value="{{ str_replace(['$',','],'',$cheques_nacional) }}" onblur="suma_montos()">
                                         </td>
                                         <td>
-                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_2" class="form-control" value="0" >
+                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_2" class="form-control" value="{{ str_replace(['$',','],'',$debito_nacional) }}" onblur="suma_montos()">
                                         </td>
                                         <td>
-                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_3" class="form-control" value="0" >
+                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_3" class="form-control" value="{{ str_replace(['$',','],'',$credito_nacional) }}" onblur="suma_montos()">
                                         </td>
                                         <td>
-                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_4" class="form-control" value="0" >
+                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_4" class="form-control" value="{{ str_replace(['$',','],'',$efectivo_nacional) }}" onblur="suma_montos()">
                                         </td>
                                         <td>
-                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_5" class="form-control" value="0">
+                                          <input type="text" placeholder="$"  id="tr_autorizado_monto_nacional_5" class="form-control" value="{{ str_replace(['$',','],'',$corporativa_nacional) }}" onblur="suma_montos()">
                                         </td>
-                                        <!-- <td>Monto Autorizado</td> -->
+                                        <td> $<strong id="total_nacional"></strong> </td>
                                     </tr>
                                     <tr> <td colspan="7"><hr></td> </tr>
                                     </tbody>
@@ -367,20 +367,21 @@
                                         <tr class="tr_solicitados_monto_extranjero">
                                             <td> Autorizado</td>
                                             <td>
-                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_1" class="form-control" value="0">
+                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_1" class="form-control" value="{{ str_replace(['$',','],'',$cheques_extranjero) }}" onblur="suma_montos()">
                                             </td>
                                             <td>
-                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_2" class="form-control" value="0">
+                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_2" class="form-control" value="{{ str_replace(['$',','],'',$debito_extranjero) }}" onblur="suma_montos()">
                                             </td>
                                             <td>
-                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_3" class="form-control" value="0">
+                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_3" class="form-control" value="{{ str_replace(['$',','],'',$credito_extranjero) }}" onblur="suma_montos()">
                                             </td>
                                             <td>
-                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_4" class="form-control" value="0">
+                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_4" class="form-control" value="{{ str_replace(['$',','],'',$efectivo_extranjero) }}" onblur="suma_montos()">
                                             </td>
                                             <td>
-                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_5" class="form-control" value="0">
+                                              <input type="text" placeholder="$" id="tr_autorizado_monto_extranjero_5" class="form-control" value="{{ str_replace(['$',','],'',$corporativa_extranjero) }}" onblur="suma_montos()">
                                             </td>
+                                            <td> $<strong id="total_extranjero"></strong> </td>
                                         </tr>
                                     </tbody>
                               </table>
@@ -406,16 +407,15 @@
                                             <div class="col-sm-12">
 
                                                 <div class="col-sm-6">
-                                                    <button type="button" id="" class="btn btn-primary">Autorizar</button>
+                                                    <button type="button" class="btn btn-primary" estatus="1" onclick="autorizaciones(this)">Autorizar</button>
                                                 </div>
                                                 <div class="col-sm-6" >
-                                                    <button type="button" class="btn btn-danger" onclick="" id="" >Rechazar</button>
+                                                    <button type="button" class="btn btn-danger" onclick="autorizaciones(this)" estatus="0" >Rechazar</button>
                                                 </div>
 
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-4 center">
+                                        <!-- <div class="col-sm-4 center">
                                                 <div id="autorizacion">
                                                     <span class="icon-acompanantes" style="font-size: 60px;">
 
@@ -424,7 +424,7 @@
                                                 <input type="hidden" name="user_id_autorization" id="user_id_autorization" value="af125f96-6750-44c2-bdde-67b9d23b131e" class="user_id_autorization">
                                                 <br>
                                                 Pendiente por Autorizar {{ $autorizador }}
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 
@@ -444,41 +444,7 @@
 
         </div>
 
-<script type="text/javascript">
-  
-$().ready(function(){
-    
-    var nacional  = $('#nacionales').val();
-    var extranjero = $('#extranjeros').val();
-
-    if ( nacional == 1 && extranjero == 0) {
-        $('#tabla_nacional').show();
-        $('#nacional').show();
-        $('#tabla_extranjero').hide();
-        $('#extranjero').hide();
-    }
-
-    if (extranjero == 1 && nacional == 0) {
-        $('#tabla_extranjero').show();
-        $('#extranjero').show();
-        $('#tabla_nacional').hide();
-        $('#nacional').hide();
-    }
-
-    if (extranjero == 1 && nacional == 1) {
-        $('#tabla_extranjero').show();
-        $('#extranjero').show();
-        $('#tabla_nacional').show();
-        $('#nacional').show();
-    }
-
-
-
-});
-
-</script>
-
-
+<script type="text/javascript" src="{{asset('js/validate_autorizacion/validate_autorizacion.js')}}"></script>
 
 
 @endsection

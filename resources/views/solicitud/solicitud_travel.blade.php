@@ -166,6 +166,8 @@
                                 <option value="{{ $user['id'] }}">{{$user['name']}}</option>
                                @endforeach
                            </select>
+                           <strong id="acompanantes"></strong>
+
                         </div>
                 </div>
             </div>

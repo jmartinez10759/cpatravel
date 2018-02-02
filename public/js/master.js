@@ -43,7 +43,7 @@ $().ready(function(){
 	        
 	        if (json.success == true) {
 
-	          pnotify("¡Acción Realizada.!",json.message,'success'); 
+	          //pnotify("¡Acción Realizada.!",json.message,'success'); 
 	          success(json);
 
 	        }else{

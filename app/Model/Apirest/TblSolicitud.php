@@ -32,6 +32,7 @@ class TblSolicitud extends Model
      */
     public static function solicitudes_pendientes( $where = array() ){
     	
+        #debuger($where);
     	$id_solicitud = (isset( $where['id_solicitud'] ))? ' AND ts.id_solicitud = :id_solicitud' : false;
     	$estatus = (isset( $where['estatus'] ))? ' AND ts.estatus = :estatus' : false;
         #$group = ( isset( $where['group'] ) )? 'GROUP BY ts.id_solicitud' : false;
@@ -49,7 +50,7 @@ class TblSolicitud extends Model
 								,tp.nombre as proyecto
 								,tsub.nombre as subproyecto
 								,tv.nombre as viaje
-                                ,csc.id_usuario as id_acompanante
+                                #,csc.id_usuario as id_acompanante
 								FROM tbl_solicitudes ts
 								LEFT JOIN tbl_proyectos tp on ts.id_proyecto = tp.id_proyecto
 								LEFT JOIN tbl_subproyectos tsub on ts.id_subproyecto = tsub.id_subproyecto
@@ -64,12 +65,13 @@ class TblSolicitud extends Model
 								and ts.id_empresa = csm.id_empresa
 								AND cvt.id_viatico = csm.id_viatico
 								AND cvt.id_detalle = csm.id_detalle
-                                LEFT JOIN cat_solicitudes_companion csc on ts.id_solicitud = csc.id_solicitud
-                                AND ts.id_empresa = csc.id_empresa
+                                #LEFT JOIN cat_solicitudes_companion csc on ts.id_solicitud = csc.id_solicitud
+                                #AND ts.id_empresa = csc.id_empresa
 								WHERE ts.id_empresa = :id_empresa AND ts.id_usuario = :id_usuario'.$id_solicitud.''.$estatus.'
 								GROUP BY ts.id_solicitud 
                                 ORDER BY ts.id_solicitud DESC',$where
 							);
+
     	if ( count($response) > 0) {
     		return json_encode( ['success' => true, 'result' => $response] );
     	}else{

@@ -34,6 +34,7 @@ class RoutingController extends MasterWebController
                     ,'/pending'                     => 'pending'
                     ,'/account/status'              => 'accountStatus'
                     ,'/registration/conciliation'   => 'registrationConciliation'
+                    ,'/comprobantes/menus'          => 'comprobantes'
                 ]
             ,19 => [
                     '/business/process'             => 'businessProcess'
@@ -42,6 +43,7 @@ class RoutingController extends MasterWebController
                     ,'/pending'                     => 'pending'
                     ,'/account/status'              => 'accountStatus'
                     ,'/registration/conciliation'   => 'registrationConciliation'
+                    ,'/comprobantes/menus'          => 'comprobantes'
                 ]
             ,44 => [
                     '/business/process'             => 'businessProcess'
@@ -50,6 +52,7 @@ class RoutingController extends MasterWebController
                     ,'/pending'                     => 'pending'
                     ,'/account/status'              => 'accountStatus'
                     ,'/registration/conciliation'   => 'registrationConciliation'
+                    ,'/comprobantes/menus'          => 'comprobantes'
                 ]
             ,45 => [
                     '/business/process'             => 'businessProcess'
@@ -58,6 +61,7 @@ class RoutingController extends MasterWebController
                     ,'/pending'                     => 'pending'
                     ,'/account/status'              => 'accountStatus'
                     ,'/registration/conciliation'   => 'registrationConciliation'
+                    ,'/comprobantes/menus'          => 'comprobantes'
                 ]
 
         ] ;
@@ -179,12 +183,31 @@ class RoutingController extends MasterWebController
      *@access public
      *@return view 
      */
-    /*public static function accountStatus( Request $request ){
+    public static function comprobantes( Request $request ){
 
-        #se manda a llamar el controller de Estados de cuenta.
-        $estados_cuenta = new EstadoCuentaWebController;
-        return $estados_cuenta->index();
-    }*/
+        $event = [
+                "carga_vista_html('comprobantes/register','comprobantes/menus')"
+                ,"carga_vista_html('comprobantes/busqueda','comprobantes/menus')"
+                ,"carga_vista_html('','comprobantes/menus')"
+            ];
+
+            $images = [
+                asset('images/menu/creacion_proyectos.png')
+                ,asset('images/menu/autorisacion_comprobacion.png')
+                ,asset('images/menu/autorisacion_comprobacion.png')
+            ];
+            $titulo = [
+                'CFDI'
+                ,'Busqueda CFDI'
+                ,'Notas'
+            ];
+            $data = [
+                'titulo_principal'   => 'CFDI FACTURACION'
+                ,'bloque_vista'      => build_vista( $event, $images, $titulo )
+            ];
+
+            return view('menus.menu_principal',$data);
+    }
     
 
 

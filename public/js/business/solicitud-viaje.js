@@ -542,7 +542,9 @@ $().ready(function(){
         //se parsean los datos de viaticos para crear la tabla dinamica de viaticos
         data_table_general(json.viaticos,'table_body_concepto');
         //se parsean los datos de los montos en sus respectivos formas de pago y nacional y/o extranjero
-        seccion_parser_montos(json.montos); 
+        seccion_parser_montos(json.montos);
+        //seccion de los acompanantes
+        $('#acompanantes').text(json.acompanantes);
         //realiza la suma despues de cargar los datos de la solicitud.
         sumDays();
 

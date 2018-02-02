@@ -8,6 +8,7 @@ use Session;
 use App\Label;
 use App\Country;
 use App\StatusAccount;
+use App\Model\MasterModel;
 use App\ModelWeb\TblHorario;
 use Illuminate\Http\Request;
 use App\Model\Apirest\TblEtiqueta;
@@ -47,118 +48,118 @@ class SolicitudViajeController extends MasterWebController
             $viajes             = self::endpoint($url_viajes,$headers,[],$method);
             $etiquetas          = self::endpoint($url_etiquetas,$headers,[],$method);
             #debuger($etiquetas);
-        $databaseUsers = [
-            [
-                "id"        => 4152589,
-                "username"  => "ricardo@cpavs.mx",
-                "name"      => "Ricardo apellido_1 apellido_2"
-            ],
-            [
-                "id"        => 7377382,
-                "username"  => "omar@cpavs.mx",
-                "name"      => "Omar apellido_1 apellido_2"
-            ],
-            [
-                "id"        => 748137,
-                "username"  => "juliocastrop@cpavs.mx",
-                "name"      => "julio apellido_1 apellido_2"
-            ]
-        
-        ];
+            $databaseUsers = [
+                [
+                    "id"        => 4152589,
+                    "username"  => "ricardo@cpavs.mx",
+                    "name"      => "Ricardo apellido_1 apellido_2"
+                ],
+                [
+                    "id"        => 7377382,
+                    "username"  => "omar@cpavs.mx",
+                    "name"      => "Omar apellido_1 apellido_2"
+                ],
+                [
+                    "id"        => 748137,
+                    "username"  => "juliocastrop@cpavs.mx",
+                    "name"      => "julio apellido_1 apellido_2"
+                ]
+            
+            ];
 
-        $horario = dropdown([
-            'data'      => TblHorario::get()
-            ,'value'     => 'rango'
-            ,'text'      => 'rango'
-            ,'id'        => 'hora_salida'
-            ,'class'     => 'form-control-sm'
-            #'event'     => 'loadEmpresas(this.value)'
-        ]);
+            $horario = dropdown([
+                'data'      => TblHorario::get()
+                ,'value'     => 'rango'
+                ,'text'      => 'rango'
+                ,'id'        => 'hora_salida'
+                ,'class'     => 'form-control-sm'
+                #'event'     => 'loadEmpresas(this.value)'
+            ]);
 
-        $hora_final = dropdown([
-            'data'      => TblHorario::get()
-            ,'value'     => 'rango'
-            ,'text'      => 'rango'
-            ,'id'        => 'hora_final'
-            ,'class'     => 'form-control-sm'
-        ]);
+            $hora_final = dropdown([
+                'data'      => TblHorario::get()
+                ,'value'     => 'rango'
+                ,'text'      => 'rango'
+                ,'id'        => 'hora_final'
+                ,'class'     => 'form-control-sm'
+            ]);
 
-        $country_inicio = dropdown([
-            'data'      => Country::orderBy('name','ASC')->get()
-            ,'value'     => 'name'
-            ,'text'      => 'name'
-            ,'id'        => 'id_destino_inicial'
-            ,'class'     => 'form-control-sm'
-            ,'leyenda'   => "-- SELECCIONE --"
-        ]);
+            $country_inicio = dropdown([
+                'data'      => Country::orderBy('name','ASC')->get()
+                ,'value'     => 'name'
+                ,'text'      => 'name'
+                ,'id'        => 'id_destino_inicial'
+                ,'class'     => 'form-control-sm'
+                ,'leyenda'   => "-- SELECCIONE --"
+            ]);
 
-        $country_final = dropdown([
-            'data'      => Country::orderBy('name','ASC')->get()
-            ,'value'     => 'name'
-            ,'text'      => 'name'
-            ,'id'        => 'id_destino_final'
-            ,'class'     => 'form-control-sm'
-            ,'leyenda'   => "-- SELECCIONE --"
-        ]);
+            $country_final = dropdown([
+                'data'      => Country::orderBy('name','ASC')->get()
+                ,'value'     => 'name'
+                ,'text'      => 'name'
+                ,'id'        => 'id_destino_final'
+                ,'class'     => 'form-control-sm'
+                ,'leyenda'   => "-- SELECCIONE --"
+            ]);
 
-        $select_proyecto = dropdown([
-            'data'       => isset( $proyecto->result )? $proyecto->result :[]
-            ,'value'     => 'id_proyecto'
-            ,'text'      => 'nombre'
-            ,'id'        => 'proyecto'
-            ,'class'     => 'form-control'
-            ,'leyenda'   => "-- SELECCIONE --"
-            ,'event'     => 'show_subproyecto(this)'
-        ]);
-
-        $select_subproyecto = dropdown([
-                'data'       => isset( $subproyectos->result )? $subproyectos->result :[]
-                ,'value'     => 'id_subproyecto'
+            $select_proyecto = dropdown([
+                'data'       => isset( $proyecto->result )? $proyecto->result :[]
+                ,'value'     => 'id_proyecto'
                 ,'text'      => 'nombre'
-                ,'id'        => 'subproyectos'
+                ,'id'        => 'proyecto'
+                ,'class'     => 'form-control'
+                ,'leyenda'   => "-- SELECCIONE --"
+                ,'event'     => 'show_subproyecto(this)'
+            ]);
+
+            $select_subproyecto = dropdown([
+                    'data'       => isset( $subproyectos->result )? $subproyectos->result :[]
+                    ,'value'     => 'id_subproyecto'
+                    ,'text'      => 'nombre'
+                    ,'id'        => 'subproyectos'
+                    ,'class'     => 'form-control'
+                    ,'leyenda'   => "-- SELECCIONE --"
+                    ,'attr'      => 'disabled'
+                    ,'event'     => 'show_viajes(this)'
+                ]);
+            $select_viaje = dropdown([
+                'data'       => isset( $viajes->result )? $viajes->result :[]
+                ,'value'     => 'id_viaje'
+                ,'text'      => 'nombre'
+                ,'id'        => 'viajes'
                 ,'class'     => 'form-control'
                 ,'leyenda'   => "-- SELECCIONE --"
                 ,'attr'      => 'disabled'
-                ,'event'     => 'show_viajes(this)'
             ]);
-        $select_viaje = dropdown([
-            'data'       => isset( $viajes->result )? $viajes->result :[]
-            ,'value'     => 'id_viaje'
-            ,'text'      => 'nombre'
-            ,'id'        => 'viajes'
-            ,'class'     => 'form-control'
-            ,'leyenda'   => "-- SELECCIONE --"
-            ,'attr'      => 'disabled'
-        ]);
 
-        $bpm = new ServiciosController();
+            $bpm = new ServiciosController();
 
-        $data = [
-            "titulo_principal"  	=> "SOLICITUD DE GASTOS DE VIAJE"
-            ,'leyenda'              => "TIPO DE VIATICO: "
-            ,'usuario'              => Session::get('name')
-		    ,'id_empresa'           => Session::get('business_id')
-		    ,'avatar'               => ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
-            ,'country_inicio'       => $country_inicio
-            ,'country_final'        => $country_final
-            #,'modelado_auth'    	=> $bpm->bpm_auth()
-            ,'horario'              => $horario
-            ,'hora_final'		    => $hora_final
-            ,'usuarios'             => $databaseUsers
-            ,'etiquetas'            => isset( $etiquetas->result )?$etiquetas->result:[]
-            ,'proyectos'            => $select_proyecto
-            ,'subproyectos'         => $select_subproyecto
-            ,'viajes'			    => $select_viaje
-            ,'proyecto_url' 		=> route('show_subproyectos')
-            ,'subproyecto_url' 		=> route('show_by_id')
-            ,'viaticos'             => route('viaticos')
-            ,'cargar_solicitud'     => route('solicitud_carga_solicitud')
-            ,'solicitud_show'       => route('solicitud_show_solicitud')
-            ,'return'               => route('solicitud_viaje_pendiente')
+            $data = [
+                "titulo_principal"  	=> "SOLICITUD DE GASTOS DE VIAJE"
+                ,'leyenda'              => "TIPO DE VIATICO: "
+                ,'usuario'              => Session::get('name')
+                ,'avatar'               => ( !is_null(Session::get('img') ) )? Session::get('img') : asset('images/avatar.jpeg')
+    		    ,'id_empresa'           => Session::get('business_id')
+                ,'country_inicio'       => $country_inicio
+                ,'country_final'        => $country_final
+                #,'modelado_auth'    	=> $bpm->bpm_auth()
+                ,'horario'              => $horario
+                ,'hora_final'		    => $hora_final
+                ,'usuarios'             => $databaseUsers
+                ,'etiquetas'            => isset( $etiquetas->result )?$etiquetas->result:[]
+                ,'proyectos'            => $select_proyecto
+                ,'subproyectos'         => $select_subproyecto
+                ,'viajes'			    => $select_viaje
+                ,'proyecto_url' 		=> route('show_subproyectos')
+                ,'subproyecto_url' 		=> route('show_by_id')
+                ,'viaticos'             => route('viaticos')
+                ,'cargar_solicitud'     => route('solicitud_carga_solicitud')
+                ,'solicitud_show'       => route('solicitud_show_solicitud')
+                ,'return'               => route('solicitud_viaje_pendiente')
 
-        ];
-        #debuger($data);
-        return view( 'solicitud.solicitud_travel',$data );
+            ];
+            #debuger($data);
+            return view( 'solicitud.solicitud_travel',$data );
 
     }
     /**
@@ -181,7 +182,7 @@ class SolicitudViajeController extends MasterWebController
         $id_solicitud = ( !empty( $request->id_solicitud ) )? $request->id_solicitud : false;
         #si la solicitud es null hacer una inserccion a la tabla solicitudes y lo cachamos verificando que es el ultimo registro
         if ( !$id_solicitud ) {
-            #debuger($request->all());
+            
             $solicitud = json_to_object(TblSolicitud::save_solicitud_model( $request ));
             
             if ( $solicitud->success == true ) {
@@ -436,8 +437,16 @@ class SolicitudViajeController extends MasterWebController
             'id_empresa' =>  Session::get('business_id')
             ,'id_usuario' => $_SERVER['HTTP_USUARIO']
         ];
-        #debuger($where);
-        $response = json_to_object(TblSolicitud::solicitudes_pendientes( $where ));
+        #$response = json_to_object(TblSolicitud::solicitudes_pendientes( $where ));
+        $url = 'http://'.$this->_domain.'/api/travel/solicitudes?id_empresa='.Session::get('business_id').'&id_usuario='.$_SERVER['HTTP_USUARIO'];
+        $headers = [ 
+            'Content-Type'  => 'application/json'
+            ,'usuario'      => $_SERVER['HTTP_USUARIO']
+            ,'token'        => $_SERVER['HTTP_TOKEN']
+        ];
+        $data = [];
+        $method = "get";
+        $response = self::endpoint($url,$headers,$data,$method);
         #debuger($response->result);
         $registros = [];
         if ( $response->success  == true ) {
@@ -445,7 +454,7 @@ class SolicitudViajeController extends MasterWebController
             foreach ( $response->result as $response) {
 
                 $params = ['id_solicitud' => $response->id_solicitud];
-                $cancel = ( $response->estatus == "Cancelado" )? ' disabled ': false;
+                $cancel = ( $response->status == "Cancelado" )? ' disabled ': false;
                 $registros[] = [
 
                     'id_proyecto'                       =>  $response->proyecto
@@ -454,7 +463,7 @@ class SolicitudViajeController extends MasterWebController
                     ,'solicitud_fecha_inicio'           =>  $response->solicitud_fecha_inicio
                     ,'solicitud_fecha_fin'              =>  $response->solicitud_fecha_fin
                     ,'solicitud_destino_final'          =>  $response->solicitud_destino_final
-                    ,'status'                           =>  $response->estatus
+                    ,'status'                           =>  $response->status
                     ,'total'                            =>  format_currency($response->total)
                     ,'editar' =>  build_acciones_usuario(['id'=> $response->id_solicitud],'detail_solicitud',"",'btn btn-info',"fa fa-pencil-square",'data-toggle="tooltip" title="Editar Solicitud"'.$cancel)
                     ,'enviar' => build_acciones_usuario(['id'=> $response->id_solicitud],'send_solicitud',"",'btn btn-primary',"fa fa-paper-plane-o",'data-toggle="tooltip" title="Enviar Solicitud"'.$cancel)
@@ -509,14 +518,23 @@ class SolicitudViajeController extends MasterWebController
                 ,'id_usuario'    =>  $_SERVER['HTTP_USUARIO']
                 ,'id_solicitud'  =>  $request->id_solicitud
             ];
-        $solicitud  = json_to_object(TblSolicitud::solicitudes_pendientes( $where ));
+        $url = 'http://'.$this->_domain.'/api/travel/solicitudes?id_empresa='.Session::get('business_id').'&id_usuario='.$_SERVER['HTTP_USUARIO'].'&id_solicitud='.$request->id_solicitud;
+        $headers = [ 
+            'Content-Type'  => 'application/json'
+            ,'usuario'      => $_SERVER['HTTP_USUARIO']
+            ,'token'        => $_SERVER['HTTP_TOKEN']
+        ];
+        $data = [];
+        $method = "get";
+        $solicitud  = self::endpoint($url,$headers,$data,$method);
         $viaticos   = json_to_object(CatViaticoDetalle::viaticos_by_id( $where ));
         $montos     = json_to_object(CatSolicitudMonto::montos_by_id( $where ));
-        
+        #debuger($solicitud);
         $result_solicitud = [];
         $result_viaticos = [];
         $result_montos = [];
-        if ( count($solicitud) > 0 ) {
+        $result_acompanantes = [];
+        if ( $solicitud->success == true ) {
 
             foreach ($solicitud->result as $response) {
 
@@ -537,24 +555,21 @@ class SolicitudViajeController extends MasterWebController
                     ,'total'                        => $response->total
 
                 ];
+
+                $result_acompanantes = [
+                    'id_acompanante' => $response->acompanantes->id_acompañante
+                ];
                 
             }
 
         }
-        if ( $viaticos->success == true ) {
+        #if ( count($viaticos) > 0  ) {
+        if ( $viaticos->success == true  ) {
             
             foreach ($viaticos->result as $response) {
 
                 $result_viaticos[] = [
-        
-                    /*'id_detalle'                        => $response->id_detalle
-                    ,'id_solicitud'                     => $response->id_solicitud
-                    ,'id_viatico'                       => $response->id_viatico
-                    ,'id_usuario'                       => $response->id_usuario
-                    ,'id_empresa'                       => $response->id_empresa
-                    ,'viatico_cantidad'                 => $response->viatico_cantidad
-                    ,'viatico_unidad'                   => $response->viatico_unidad
-                    ,'viatico_costo_unitario'           => $response->viatico_costo_unitario*/
+                    #'etiqueta_nombre'                   => MasterModel::show_model(['etiqueta_nombre'],['id_etiqueta' => $response->id_viatico],new TblEtiqueta)[0]->etiqueta_nombre
                     'etiqueta_nombre'                   => $response->etiqueta_nombre
                     ,'total'                            => format_currency($response->total)
 
@@ -563,15 +578,16 @@ class SolicitudViajeController extends MasterWebController
             }
 
         }
+        #if ( count($montos) > 0 ) {
         if ( $montos->success == true ) {
-            
+            #$monto_viatico_total = 0;
             foreach ($montos->result as $response) {
-
                 $result_montos[] = [
 
                     'monto_tipo_solicitud'            => $response->monto_tipo_solicitud
                     ,'monto_tipo_pago'                => $response->monto_tipo_pago
                     ,'monto_importe'                  => $response->monto_importe
+                    #,'monto_viatico_total'            => format_currency($monto_viatico_total += $response->monto_importe)
                     ,'monto_viatico_total'            => format_currency($response->monto_viatico_total)
                     ,'monto_importe_autorizado'       => $response->monto_importe_autorizado
 
@@ -583,12 +599,12 @@ class SolicitudViajeController extends MasterWebController
         }
 
         $data = ['success' => true, 'result' => [
-                                    'solicitud' => $result_solicitud
-                                    ,'viaticos' => $result_viaticos
-                                    ,'montos'   => $result_montos
+                                        'solicitud'       => $result_solicitud
+                                        ,'viaticos'       => $result_viaticos
+                                        ,'montos'         => $result_montos
+                                        ,'acompanantes'   => implode(',', $result_acompanantes['id_acompanante'] )
                                     ],'message' => "Transaccion Exitosa" 
                 ];
-                
         return json_encode( $data );
 
     }

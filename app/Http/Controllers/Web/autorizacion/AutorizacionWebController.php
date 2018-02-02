@@ -69,15 +69,17 @@ class AutorizacionWebController extends MasterWebController
 					foreach ($response->result as $response) {
 						
 						$solicitudes = [
-							'fecha_inicio' 			=>  $response->solicitud_fecha_inicio
+
+							'id_solicitud' 			=>  $response->id_solicitud
+							,'fecha_inicio' 		=>  $response->solicitud_fecha_inicio
 							,'fecha_fin' 			=>  $response->solicitud_fecha_fin
 							,'horario_salida' 		=>  $response->solicitud_horario_inicio
 							,'horario_regreso' 		=>  $response->solicitud_horario_fin
 							,'destino_origen' 		=>  $response->solicitud_destino_inicio
 							,'destino' 				=>  $response->solicitud_destino_final
-							,'proyecto' 			=>  $response->id_proyecto
-							,'subproyecto' 			=>  $response->id_subproyecto
-							,'viajes' 				=>  $response->id_viaje
+							,'proyecto' 			=>  $response->proyecto
+							,'subproyecto' 			=>  $response->subproyecto
+							,'viajes' 				=>  $response->viaje
 							,'total' 				=>  $response->total
 							,'usuario' 				=>  $response->id_usuario
 							,'acompanante' 			=>  ( isset($response->acompanantes->id_acompañante) )? implode(',',$response->acompanantes->id_acompañante ) : false
@@ -92,7 +94,7 @@ class AutorizacionWebController extends MasterWebController
 									,'viatico_cantidad' 		=> $response->viatico_cantidad
 									,'viatico_unidad' 			=> $response->viatico_unidad
 									,'viatico_costo_unitario' 	=> $response->viatico_costo_unitario
-
+									,'viatico_total' => format_currency($response->viatico_costo_unitario*$response->viatico_cantidad*$response->viatico_unidad)
 								];
 
 								if ( count( $response->montos_viaticos ) > 0) {
@@ -209,20 +211,20 @@ class AutorizacionWebController extends MasterWebController
 
 			}
 
-				$data['total_nacional'] 		= format_currency($total_nacional);
-				$data['cheques_nacional'] 		= format_currency($cheques_nacional);
-				$data['debito_nacional'] 		= format_currency($debito_nacional);
-				$data['credito_nacional'] 		= format_currency($credito_nacional);
-				$data['efectivo_nacional'] 		= format_currency($efectivo_nacional);
-				$data['corporativa_nacional'] 	= format_currency($corporativa_nacional);
+				$data['total_nacional'] 			= format_currency($total_nacional);
+				$data['cheques_nacional'] 			= format_currency($cheques_nacional);
+				$data['debito_nacional'] 			= format_currency($debito_nacional);
+				$data['credito_nacional'] 			= format_currency($credito_nacional);
+				$data['efectivo_nacional'] 			= format_currency($efectivo_nacional);
+				$data['corporativa_nacional'] 		= format_currency($corporativa_nacional);
 				$data['total_extranjero'] 			= format_currency($total_extranjero);
 				$data['cheques_extranjero'] 		= format_currency($cheques_extranjero);
 				$data['debito_extranjero'] 			= format_currency($debito_extranjero);
 				$data['credito_extranjero'] 		= format_currency($credito_extranjero);
 				$data['efectivo_extranjero'] 		= format_currency($efectivo_extranjero);
 				$data['corporativa_extranjero'] 	= format_currency($corporativa_extranjero);
-				$data['nacional'] 	= $nacional;
-				$data['extranjero'] = $extranjero;
+				$data['nacional'] 					= $nacional;
+				$data['extranjero'] 				= $extranjero;
 				#debuger($data);
             	return view('autorizacion/page_auth',$data);
 
@@ -268,6 +270,51 @@ class AutorizacionWebController extends MasterWebController
         }
 
 	}
+	/**
+	 *Metodo para validar la autorizacion si fue rechazada y/o aceptada con los montos...
+	 *@access public
+	 *@param Request $request [description]
+	 *@return json
+	 */
+	public function validate_autorizacion( Request $request ){
+
+		$nombres_montos = ['cheques','debito','credito','efectivo','corporativa'];
+		$montos_autorizados_nacional   =  [];
+		$montos_autorizados_extranjero =  [];
+		for ($i=0; $i < count($request->montos_autorizados_nacional) ; $i++) { 
+			$montos_autorizados_nacional[$nombres_montos[$i]] = $request->montos_autorizados_nacional[$i];
+			$montos_autorizados_extranjero[$nombres_montos[$i]] = $request->montos_autorizados_extranjero[$i];
+
+		}
+		#se realiza la consulta para obtener todos los datos de la solicitud
+		$url 	= 'http://'.$this->_domain.'/api/travel/solicitudes?id_solicitud='.$request->id_solicitud;
+		$headers 	= [
+			'Content-Type'  => 'application/json'
+        	,'usuario'      => Session::get('user_id')
+        	,'token'        => Session::get('token')
+    	];
+		$data 		= [];
+		$method 	= 'get';
+		$response 	= self::endpoint($url,$headers,$data,$method);
+
+
+		$data = [
+			#'solicitud' 		 => isset($response->result)? $response->result : []
+			'id_solicitud' 		=> $request->id_solicitud
+			,'montos_autorizados' => [
+				'montos_autorizados_nacional' 		=> $montos_autorizados_nacional
+				,'montos_autorizados_extranjero' 	=> $montos_autorizados_extranjero
+			]
+			,'estatus' => $request->estatus
+			,'total_nacional_autorizado' 	=> str_replace(',', '', $request->total_nacional)
+			,'total_extranjero_autorizado' => str_replace(',', '', $request->total_extranjero )
+		];
+
+		return message(true,$data,'Transaccion exitosa');
+
+
+	}
+
 
 
 }

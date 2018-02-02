@@ -267,15 +267,15 @@
         }
          #total{
             display: inline-block;
-            padding-top: 25px;
-            padding-bottom: 10px;
+            padding-top: 50px;
+            padding-bottom: 35px;
             text-align: center;
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             background-color: #008e7e;
             color: white;
-            font-size: 30px;
+            font-size: 20px;
             vertical-align: middle;
 
         }

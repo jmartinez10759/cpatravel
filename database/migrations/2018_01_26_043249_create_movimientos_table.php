@@ -18,6 +18,7 @@ class CreateMovimientosTable extends Migration
             $table->string('descripcion');
             $table->boolean('afecta_saldo');
             $table->integer('id_estatus');
+            $table->integer('orden');
             $table->boolean('usuario');
             $table->boolean('administrador');
             $table->string('proceso');
