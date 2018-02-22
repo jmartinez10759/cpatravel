@@ -363,3 +363,28 @@
         }
 
     }
+    /**
+     *recorre cualquier objeto o arreglo para enviar los datos deseados particular consultas ELOQUENT
+     *@access public
+     *@param $data instace [Description]
+     *@return object
+     */
+    if (!function_exists('data_march')) {
+        
+        function data_march( $data = array() ){
+
+            $response = [];
+            $i = 0;
+            foreach ($data as $key => $values) {
+
+                foreach ($values->fillable as $key => $value) {
+                    $response[$i][$value] = $values->$value;
+                }
+                $i++;
+            }
+
+            return array_to_object($response);
+
+        }
+
+    }

@@ -33,7 +33,7 @@ class EtiquetaWebController extends MasterWebController
         ];
         $method = 'get';
     	$response = self::endpoint($url,$headers,[],$method);
-        #debuger($response->success);
+        #debuger(Session::get('user_id'));
         $predeterminada = [];
         $usuario = [];
         $corporativas = [];
@@ -42,13 +42,13 @@ class EtiquetaWebController extends MasterWebController
             $response = $response->result;
             $i = 1;
             foreach ( $response as $response) {
-
                 $params = [
                 	'id_etiqueta' 	=> $response->id_etiqueta
-                	,'id_usuario' 	=> $response->id_usuario
+                	#,'id_usuario' 	=> $response->id_usuario
                 	,'id_empresa' 	=> $response->id_empresa
                     ,'url'          => $response->etiqueta_img
             	];
+                #if ( $this->_tipo_user != 21 ) { $params['id_usuario'] = $_SERVER['HTTP_USUARIO']; }
 
             	if ($response->etiqueta_tipo == "predeterminadas") {
             		
@@ -56,27 +56,26 @@ class EtiquetaWebController extends MasterWebController
 
 		                    'icon'  =>  build_img($params,"detalles_etiqueta",$response->etiqueta_img,'data-toggle="tooltip" title="'.$response->etiqueta_nombre.'"' )
 		                    ,'etiqueta_nombre'          =>  $response->etiqueta_nombre
-		                    /*,'borrar' => build_acciones($params,'borrar_etiqueta',"",'btn btn-danger',"fa fa-trash",'data-toggle="tooltip" title="Eliminar Etiqueta" disabled')*/
 		                ];
 
             	}
-            	if ($response->etiqueta_tipo == "usuario") {
-
+            	/*if ($response->etiqueta_tipo == "usuario") {
+                     #$url = "http://".$this->_domain."/api/travel/etiquetas?id_usuario=".Session::get('user_id');
+                     #$response = self::endpoint($url,$headers,[],$method);
+                     $params['id_usuario'] = Session::get('user_id');
                      $usuario[] = [
-
                             'icon'  =>  build_img($params,"detalles_etiqueta",$response->etiqueta_img,'data-toggle="tooltip" title="'.$response->etiqueta_nombre.'"' )
                             ,'etiqueta_nombre'          =>  $response->etiqueta_nombre
                             ,'borrar' => build_acciones($params,'borrar_etiqueta',"",'btn btn-danger',"fa fa-trash",'data-toggle="tooltip" title="Eliminar Etiqueta" ')
                         ];           		
 
-            	}
+            	}*/
             	if ($response->etiqueta_tipo == "corporativas") {
             		
                     $corporativas[] = [
 
                             'icon'  =>  build_img($params,"detalles_etiqueta",$response->etiqueta_img,'data-toggle="tooltip" title="'.$response->etiqueta_nombre.'"' )
                             ,'etiqueta_nombre'          =>  $response->etiqueta_nombre
-                            /*,'editar' =>  build_acciones($params,'detalles_etiqueta',"",'btn btn-info',"fa fa-pencil-square",'data-toggle="tooltip" title="Editar Etiqueta"')*/
                             ,'borrar' => build_acciones($params,'borrar_etiqueta',"",'btn btn-danger',"fa fa-trash",'data-toggle="tooltip" title="Eliminar Etiqueta" ')
                         ];
 
@@ -194,8 +193,9 @@ class EtiquetaWebController extends MasterWebController
     public function detalles_politicas( Request $request ){
         
         #se realiza la consulta por medio de su ids y utilizando el servicio
-        $url = "http://".$this->_domain."/api/travel/etiquetas?id_etiqueta=".$request->id_etiqueta."&id_usuario=".$request->id_usuario."&id_empresa=".$request->id_empresa;
-        $urls = "http://".$this->_domain."/api/travel/politicas?id_etiqueta=".$request->id_etiqueta."&id_usuario=".$request->id_usuario."&id_empresa=".$request->id_empresa;
+        $id_usuario = (isset($request['id_usuario'] ) )? "&id_usuario=".$request->id_usuario : false;
+        $url = "http://".$this->_domain."/api/travel/etiquetas?id_etiqueta=".$request->id_etiqueta.$id_usuario."&id_empresa=".$request->id_empresa;
+        $urls = "http://".$this->_domain."/api/travel/politicas?id_etiqueta=".$request->id_etiqueta.$id_usuario."&id_empresa=".$request->id_empresa;
         #servicio de politicas
         $headers = [ 
             'Content-Type'  => 'application/json'

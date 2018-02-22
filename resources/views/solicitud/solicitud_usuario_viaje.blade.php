@@ -19,9 +19,10 @@
 								<select class="form-control" id="filtro_estatus" onchange="filtro_estatus()" >
 									<option value="Todos">Todos</option>
 									<option value="Pendiente">Pendiente</option>
+									<option value="Enviado">Enviado</option>
 									<option value="Rechazado">Rechazado</option>
 									<option value="Autorizado">Autorizado</option>
-									<option value="Cancelado">Cancelado</option>
+									<option value="Cancelado">Canceslado</option>
 								</select>
 							</div>
             			</div>

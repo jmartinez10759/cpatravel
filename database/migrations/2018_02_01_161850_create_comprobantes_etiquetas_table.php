@@ -15,8 +15,9 @@ class CreateComprobantesEtiquetasTable extends Migration
     {
         Schema::create('comprobantes_etiquetas', function (Blueprint $table) {
             $table->increments('id_comprobante_etiqueta');
-            $table->integer('id_comprobante_detalle');
             $table->integer('id_comprobante');
+            $table->integer('id_comprobante_detalle');
+            $table->integer('id_etiqueta');
             $table->timestamps();
         });
     }

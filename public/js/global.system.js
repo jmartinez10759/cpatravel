@@ -5,6 +5,26 @@ $().ready(function(){
 
 });
 
+/**
+ *Se crea una funcion para debuger la ejecucion del front
+ *@access {public} 
+ *@param {element} [description]
+ *@return {json}
+ */
+ debuger = function( element ){
+
+    var salida = "";
+    for (var p in element) {
+        salida += p + ": " + element[p];
+    }
+    alert(salida);
+    alert(  JSON.stringify(element) );
+    console.log(element);
+
+ }
+
+
+
 function debug(arra){
     alert(dump_var(arra));
 }
@@ -40,7 +60,7 @@ function formData(selector, template){
     *               tener el atributo:data-campo="[nombre_campo]"
     * Ejemplo:      <div id="formulario"><input id="id_orden" type="hidden" data-campo="id_orden" value="{id_orden}" /></div>
     *               <script> var objData = formData('#formulario'); </script>
-    * @author:      Oscar Maldonado - O3M
+    * @author:      Jorge Martinez
     */
     var data = template ? template : {}; // Valores predeterminados - Opcional
     var c, f, r, v, m, $e, $elements = jQuery(selector).find("input, select, textarea");
@@ -816,35 +836,35 @@ function check_status_xhr(status, title, text, type, accept) {
                     });
 
     }
-/**
- *Funcion para crear la descarga del layout en general
- *@param [type] [description]
- *@param [type] [description]
- *@return void 
- */
-function download_layout_general(url,data){
-    var fields = {'data' : data};
-    send_post(fields,url,false,false);
-}
-/**
- *Funcion para crear la descarga del pdf en general
- *@param [type] [description]
- *@param [type] [description]
- *@return void 
- */
-function download_pdf_general(url,data,success ){
-    var fields = {'data' : data};
-    //send_post(fields,url,false,false);
-    requestAjaxSend( url,fields,function(mgs) {
-        success(mgs);
-    });
-}
-/**
- *Funcion para contar los dias trancurridos
- *@param fecha1
- *@param fecha2
- *@return date
- */
+    /**
+     *Funcion para crear la descarga del layout en general
+     *@param [type] [description]
+     *@param [type] [description]
+     *@return void 
+     */
+    function download_layout_general(url,data){
+        var fields = {'data' : data};
+        send_post(fields,url,false,false);
+    }
+    /**
+     *Funcion para crear la descarga del pdf en general
+     *@param [type] [description]
+     *@param [type] [description]
+     *@return void 
+     */
+    function download_pdf_general(url,data,success ){
+        var fields = {'data' : data};
+        //send_post(fields,url,false,false);
+        requestAjaxSend( url,fields,function(mgs) {
+            success(mgs);
+        });
+    }
+    /**
+     *Funcion para contar los dias trancurridos
+     *@param fecha1
+     *@param fecha2
+     *@return date
+     */
     restaFechas = function(fecha1,fecha2){
 
         var aFecha1 = fecha1.split('-'); 
@@ -857,12 +877,12 @@ function download_pdf_general(url,data,success ){
         return dias;
     
     }
-/**
- *Funcion para contar los dias trancurridos
- *@param fecha1
- *@param fecha2
- *@return date
- */
+    /**
+     *Funcion para contar los dias trancurridos
+     *@param fecha1
+     *@param fecha2
+     *@return date
+     */
     convert_date = function( fecha ){
         var fechas = fecha.split('-');
         var anio = fechas[0]; 
@@ -871,12 +891,12 @@ function download_pdf_general(url,data,success ){
         var fnew = dia+"-"+mes+"-"+anio;
         return fnew;
     }
-/**
- *Funcion para validar si las fecha inicial es menor a la final
- *@param fecha1 [description]
- *@param fecha2 [description]
- *@return json
- */
+    /**
+     *Funcion para validar si las fecha inicial es menor a la final
+     *@param fecha1 [description]
+     *@param fecha2 [description]
+     *@return json
+     */
     validate_date =  function( fecha1, fecha2 ){
 
         var fecha_inicial = new Date(fecha1);
@@ -889,11 +909,11 @@ function download_pdf_general(url,data,success ){
         }
 
     }
-/**
- *Funcion para regresar a la vista anterior
- *@param url [description]
- *@return void
- */
+    /**
+     *Funcion para regresar a la vista anterior
+     *@param url [description]
+     *@return void
+     */
     back_button = function( object ){
 
           var ruta = $('#return').val();
@@ -1071,18 +1091,63 @@ function download_pdf_general(url,data,success ){
             }
 
         }
-        /**
-         *Metodo para mostrar y/o ocultar secciones
-         *@param mostrar [descritption]
-         *@param ocultar [description]
-         *@return void
-         */
-         function toggle_mostrar(identificador){
+    /**
+     *Metodo para mostrar y/o ocultar secciones
+     *@param mostrar [descritption]
+     *@param ocultar [description]
+     *@return void
+     */
+    function toggle_mostrar(identificador){
 
-            for (var i = 0; i < identificador.length; i++) {
-                $('#'+identificador[i]).toggle('slow');
-                $('.'+identificador[i]).toggle('slow');
+        for (var i = 0; i < identificador.length; i++) {
+            $('#'+identificador[i]).toggle('slow');
+            $('.'+identificador[i]).toggle('slow');
 
-            }
+        }
 
-         }
+    }
+    /**
+     *Funcion que valida si el dato es mayor a un numero y agrega un indice
+     *@return indice
+     */ 
+    addZero = function( i ){
+        
+        return ( i < 10 )? '0'+i: i;
+
+    }
+    /**
+     *Funcion para obtener la fecha y horas
+     *@return date fecha[descripcion]
+     */    
+    get_actual_fulldate = function( sign = '-', sign_hrs = ":" ) {
+        var d = new Date();
+        var day = addZero(d.getDate());
+        var month = addZero(d.getMonth()+1);
+        var year = addZero(d.getFullYear());
+        var h = addZero(d.getHours());
+        var m = addZero(d.getMinutes());
+        var s = addZero(d.getSeconds());
+        return day + sign + month + sign + year + " (" + h + sign_hrs + m + sign_hrs + s + ")";
+    }
+    /**
+     *Funcion para obtener las horas
+     *@return date fecha[descripcion]
+     */    
+    get_actual_hour = function( sign = ':' ) {
+        var d = new Date();
+        var h = addZero(d.getHours());
+        var m = addZero(d.getMinutes());
+        var s = addZero(d.getSeconds());
+        return h + sign  + m + sign  + s;
+    }
+    /**
+     *Funcion para obtener la fecha
+     *@return date fecha[descripcion]
+     */ 
+    get_actual_date = function( sign = '-' ) {
+        var d = new Date();
+        var day = addZero(d.getDate());
+        var month = addZero(d.getMonth()+1);
+        var year = addZero(d.getFullYear());
+        return day + sign + month + sign + year;
+    }

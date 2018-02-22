@@ -12,6 +12,7 @@ $().ready(function(){
           'id'            :  json.id_empresa
           ,'group_id'     :  json.id_grupo
           ,'description'  :  json.description
+          ,'rfc'          :  json.rfc
       }
       var url = domain('generate/business');
       var main = domain('home');

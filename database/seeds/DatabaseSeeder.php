@@ -28,5 +28,10 @@ class DatabaseSeeder extends Seeder
         $this->call(TblSubProyectosSeeder::class);
         $this->call(TblViajesSeeder::class);
         $this->call(RelUsuariosProyectosSeeder::class);
+        
+        $this->call(TblEtiqueta::class);
+        $this->call(TblPolitica::class);
+        $this->call(TblHorario::class);
+
     }
 }

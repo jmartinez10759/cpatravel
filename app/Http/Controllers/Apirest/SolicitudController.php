@@ -20,6 +20,7 @@ class SolicitudController extends MasterController
     
     private $_id = "id_solicitud";
     private $_fechas = ['solicitud_fecha_inicio','solicitud_fecha_fin'];
+    private $_model;
 
      /**
      * Display a listing of the resource.
@@ -28,6 +29,7 @@ class SolicitudController extends MasterController
      */
     public function index( Request $request ){
         #se manda a llamar el metodo para hacer la validacion de los permisos.
+        $this->_model = new TblSolicitud;
         return self::validate_permisson($this->_id,[],$request);
     }
     /**
@@ -36,38 +38,42 @@ class SolicitudController extends MasterController
      *@param $data array [description]
      *@return json
      */
-    public function all(){        
-             #se realiza la consulta regresando los valores en formato json
-                $result = [];
-                $data = TblSolicitud::all();
+    public function all(){
 
-                if (count($data) > 0) {
+         #se realiza la consulta regresando los valores en formato json
+            $result = [];
+            $data = MasterModel::show_model( [], [], $this->_model );
 
-                    foreach ($data as $response) {
-                        $result[] = [
-                                'id_solicitud'                    => $response->id_solicitud
-                                ,'id_proyecto'                    => $response->id_proyecto
-                                ,'id_subproyecto'                 => $response->id_subproyecto
-                                ,'id_viaje'                       => $response->id_viaje
-                                ,'id_usuario'                     => $response->id_usuario
-                                ,'id_empresa'                     => $response->id_empresa
-                                ,'solicitud_fecha_inicio'         => $response->solicitud_fecha_inicio
-                                ,'solicitud_fecha_fin'            => $response->solicitud_fecha_fin
-                                ,'solicitud_horario_inicio'       => $response->solicitud_horario_inicio
-                                ,'solicitud_horario_fin'          => $response->solicitud_horario_fin
-                                ,'solicitud_destino_inicio'       => $response->solicitud_destino_inicio
-                                ,'solicitud_destino_final'        => $response->solicitud_destino_final
-                                ,'status'                         => $response->estatus
-                                ,'total'                          => self::viaticos_detalles($response)['total']
-                                ,'viaticos_detalles'              => self::viaticos_detalles($response)['result']
-                                ,'acompanantes'                   => self::companion_solicitud($response)
-                            ]; 
+            if (count($data) > 0) {
 
-                    }
-                    return $this->_message_success(200,$result);
+                foreach ($data as $response) {
+                    $result[] = [
+                            'id_solicitud'                    => $response->id_solicitud
+                            ,'id_proyecto'                    => $response->id_proyecto
+                            ,'proyecto'                       => MasterModel::show_model(['nombre'],['id_proyecto' => $response->id_proyecto],new TblProyecto)[0]->nombre
+                            ,'id_subproyecto'                 => $response->id_subproyecto
+                            ,'subproyecto'                    => MasterModel::show_model( ['nombre'],['id_subproyecto' => $response->id_subproyecto],new TblSubProyecto)[0]->nombre
+                            ,'id_viaje'                       => $response->id_viaje
+                            ,'viaje'                          => MasterModel::show_model(['nombre'],['id_viaje' => $response->id_viaje],new TblViaje)[0]->nombre
+                            ,'id_usuario'                     => $response->id_usuario
+                            ,'id_empresa'                     => $response->id_empresa
+                            ,'solicitud_fecha_inicio'         => $response->solicitud_fecha_inicio
+                            ,'solicitud_fecha_fin'            => $response->solicitud_fecha_fin
+                            ,'solicitud_horario_inicio'       => $response->solicitud_horario_inicio
+                            ,'solicitud_horario_fin'          => $response->solicitud_horario_fin
+                            ,'solicitud_destino_inicio'       => $response->solicitud_destino_inicio
+                            ,'solicitud_destino_final'        => $response->solicitud_destino_final
+                            ,'status'                         => $response->estatus
+                            ,'total'                          => self::viaticos_detalles($response)['total']
+                            ,'viaticos_detalles'              => self::viaticos_detalles($response)['result']
+                            ,'acompanantes'                   => self::companion_solicitud($response)
+                        ]; 
+
                 }
+                return $this->_message_success(200,$result);
+            }
 
-                return $this->show_error(4);         
+            return $this->show_error(4);        
     
     }
     /**
@@ -93,16 +99,20 @@ class SolicitudController extends MasterController
      */
     public function show( $data = array() ){
 
-        $datos = self::parse_register($data,new TblSolicitud,[]);
+        $datos = self::parse_register([$data],$this->_model,$this->_fechas);
         if( isset($datos['success']) && $datos['success'] == false ){
             return $this->show_error(3,$datos['result']);
         }
        #se hace la cosulta realizada por identifocado
-        $response = TblSolicitud::where($datos)->get();
+        $response = MasterModel::show_model( [],$datos,$this->_model );
         $result = [];
         if (count($response) > 0) {
             foreach ($response as $response) {
-
+                $where = [
+                  'id_solicitud' => $response->id_solicitud
+                  ,'id_empresa' =>  $response->id_empresa
+                  ,'id_usuario' =>  $response->id_usuario
+                ];
                 $result[] =[
                     'id_solicitud'                    => ($response->id_solicitud)
                     ,'id_proyecto'                    => $response->id_proyecto
@@ -125,6 +135,7 @@ class SolicitudController extends MasterController
                     ,'acompanantes'                   => self::companion_solicitud($response)
                 ]; 
             }
+
             return $this->_message_success(200,$result);
         }
 
@@ -141,9 +152,12 @@ class SolicitudController extends MasterController
     public function update( $request, $id){
         
         if( !empty( $id ) ){
+
             $where = [$this->_id => $id];
-            $data = TblSolicitud::where($where)
-                                ->update($request);
+            $response = MasterModel::update_model( $where, $request, $this->_model );
+            return $this->_message_success(202,$response);
+
+        /*    $data = TblSolicitud::where($where)->update($request);
         #se realiza una cosulta del dato que se actualizo.
             $consulta = TblSolicitud::where($where)->get();
              $result = [];
@@ -166,7 +180,7 @@ class SolicitudController extends MasterController
                     ]; 
                 }
                 return $this->_message_success(202,$result);
-            }
+            }*/
         }   
         return $this->show_error(3);
     
@@ -182,8 +196,7 @@ class SolicitudController extends MasterController
         
         if( !empty( $id ) ){
             $where = [$this->_id => $id];
-            $data = TblSolicitud::where($where)
-                                ->update(['status' => 0 ]);
+            $data = TblSolicitud::where($where)->update(['status' => 0 ]);
         #se realiza una cosulta del dato que se actualizo.
             $result = [];
             $consulta = TblSolicitud::where($where)->get();
@@ -224,13 +237,21 @@ class SolicitudController extends MasterController
 
         $where = ['id_solicitud' => $data->id_solicitud, 'id_empresa' => $data->id_empresa, 'id_usuario' => $data->id_usuario];
          #se hace la cosulta realizada por identifocado
-        $response = CatViaticoDetalle::where($where)->get();
+        $response = MasterModel::show_model([],$where, new CatViaticoDetalle);
         $result = [];
         $total = 0;
         if (count($response) > 0) {
             foreach ($response as $response) {
+                $where = array_merge($where,['id_viatico' => $response->id_viatico , 'id_detalle' => $response->id_detalle]);
+                 $params = [
+                    'monto_tipo_solicitud' 
+                    ,'monto_tipo_pago'
+                    ,'monto_importe'
+                    ,'monto_importe_autorizado'
+                  ];
+                #debuger($where);
                 $result[] =[
-                    #'viatico'                       => self::viaticos_etiqueta( $response )['etiqueta_nombre']
+
                     'viatico'                       => MasterModel::show_model(['etiqueta_nombre'],['id_etiqueta' => $response->id_viatico],new TblEtiqueta )[0]->etiqueta_nombre
                     ,'viatico_cantidad'             => $response->viatico_cantidad
                     ,'viatico_unidad'               => $response->viatico_unidad
@@ -239,8 +260,9 @@ class SolicitudController extends MasterController
                 ]; 
                 $total += self::montos_viaticos($response)['total'];
             }
+
             return ['result' => $result, 'total' => $total ];
-            return self::_message_success(200,$result);
+            
         }
 
     }
@@ -253,10 +275,11 @@ class SolicitudController extends MasterController
     public function montos_viaticos( $data = array() ){
 
         $where = [
-                    'id_solicitud' => $data->id_solicitud
-                    ,'id_empresa' => $data->id_empresa
-                    ,'id_usuario' => $data->id_usuario
-                    ,'id_viatico' => $data->id_viatico 
+                  'id_solicitud' => $data->id_solicitud
+                  ,'id_empresa' => $data->id_empresa
+                  ,'id_usuario' => $data->id_usuario
+                  ,'id_viatico' => $data->id_viatico 
+                  ,'id_detalle' => $data->id_detalle
             ];
          #se hace la cosulta realizada por identifocado
         $params = [
@@ -265,9 +288,8 @@ class SolicitudController extends MasterController
           ,'monto_importe'
           ,'monto_importe_autorizado'
         ];
-        $response = MasterModel::show_model($params,$where,new CatSolicitudMonto);
+        $response = MasterModel::show_model([],$where,new CatSolicitudMonto);
         #debuger($response);
-        #$response = CatSolicitudMonto::where($where)->get();
         $result = [];
         $total = 0;
         if (count($response) > 0) {
@@ -281,7 +303,6 @@ class SolicitudController extends MasterController
                 $total += $response->monto_importe;
             }
             return ['result' => $result, 'total' => $total];
-            return self::_message_success(200,$result);
         }
     
     }
@@ -308,7 +329,7 @@ class SolicitudController extends MasterController
                 $result['id_acompañante'][$i] = $response->id_usuario; 
                 $i++;
             }
-            #return self::_message_success(200,$result);
+
         }      
           return $result;
     
@@ -319,7 +340,7 @@ class SolicitudController extends MasterController
       *@param $data array [ description ]
       *@return array [description]
       */
-     public function viaticos_etiqueta( $data = array() ){
+     /*public function viaticos_etiqueta( $data = array() ){
 
          $where = ( isset($data->id_viatico) )? ['id_etiqueta' => $data->id_viatico] : [ 'etiqueta_nombre' => $data->viatico ];
          $response = TblEtiqueta::where( $where )->get();
@@ -332,7 +353,7 @@ class SolicitudController extends MasterController
          }
          return $result;
 
-     }
+     }*/
      /**
       *Se crea un metodo donde se hace toda la inserccion de las tablas que se realcionan
       *@access public 
@@ -345,7 +366,8 @@ class SolicitudController extends MasterController
         try {
             #se manda a llamar una funcion para insertar la parte de solicitudes de viajes
 
-            $id_solicitud = self::insert_solicitud($result);
+            #$id_solicitud = self::insert_solicitud($result);
+            $id_solicitud = MasterModel::insert_model([$result],new TblSolicitud)[0]->id_solicitud;
             if (!$id_solicitud) {
                 return ['success' => false, 'menssage' => "Solicitud debe contener registro "];
             }
@@ -432,8 +454,8 @@ class SolicitudController extends MasterController
       *@param array $response [description]
       *@return void
       */
-    public function insert_solicitud( $response = array() ){
-          
+   /* public function insert_solicitud( $response = array() ){
+
              TblSolicitud::create([
                     'id_proyecto'                     => $response->id_proyecto
                     ,'id_subproyecto'                 => $response->id_subproyecto
@@ -470,7 +492,7 @@ class SolicitudController extends MasterController
                     return $result[0]['id_solicitud'];
                 }
 
-    }
+    }*/
 
 
 

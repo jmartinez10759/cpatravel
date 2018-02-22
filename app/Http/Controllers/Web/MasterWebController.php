@@ -14,10 +14,12 @@ class MasterWebController extends Controller
     public $_tipo_user;
     public $_domain = "34.225.245.91";
     protected $_tipo = "application/json";
+    public $_http;
 
     public function __construct(){
         $this->_client = new Client();
         $this->_domain = $_SERVER['HTTP_HOST'];
+        $this->_http   = $_SERVER['REQUEST_SCHEME'];
     }
     /**
      *Verifica si tiene acceso a esta parte del menu por cada accion
@@ -34,24 +36,23 @@ class MasterWebController extends Controller
 
         $url_permisos   = "http://52.44.90.182/api/privileges";
         $url_token      = "http://52.44.90.182/api/userData";
-        $headers = ['Content-Type' => 'application/json'];
-        $data = ['token' => $http_token ,'usuario' => $http_usuario ];
-        
+        $headers        = ['Content-Type' => 'application/json'];
+        $data           = ['token' => $http_token ,'usuario' => $http_usuario ];
+        $method         = 'post';
         if ($http_token && $http_usuario) {
-            $token = self::endpoint($url_token,$headers, $data ,'post');
+            $token = self::endpoint($url_token,$headers, $data , $method );
             if ( isset($token->error) && $token->error == true ) {
                 return $this->show_error(1);
             }
         }
-        $datos = array_merge($data,['producto' => 7]);
-        $permisson = self::endpoint($url_permisos,$headers,$datos,'post');
+        $data['producto'] = 7;
+        $permisson = self::endpoint( $url_permisos,$headers,$data, $method );
         if ( isset( $permisson->rows[0] ) ) {
         	$permisson =  $permisson->rows[0]->perfil_id;
         	$this->_tipo_user = $permisson;
-
         }else{ $permisson = 0; }
         if ( !in_array( $permisson, [21,19,44,45] )) {
-            return $this->show_error(0);
+            return $this->show_error(0,$permisson);
         }
 
         #return $this->show_error(0);
@@ -70,7 +71,6 @@ class MasterWebController extends Controller
             $response = $this->_client->$method( $url, ['headers'=> $headers, 'body' => json_encode( $data ) ]);
             $zonerStatusCode = $response->getStatusCode();
             return json_decode($response->getBody());
-            #return $zonerResponse);            
 
     }
     /**
@@ -240,7 +240,7 @@ class MasterWebController extends Controller
 
     }
     /**
-     *Metodo donde parsea la cadena
+     *Metodo donde parsea la cadena del query string 
      *@access public
      *@return array $datos [description]
      */
@@ -261,7 +261,24 @@ class MasterWebController extends Controller
         }
         return $datos;
     }
+    /**
+     *Metodo donde muestra el mensaje de success
+     *@access protected
+     *@param array $data [description]
+     *@return json
+     */
+    protected function _message_success( $code = false, $data = array() ){
 
+        $code = ( $code )? $code : 200 ;
+        $datos = [
+            "success"   => true
+            ,"message"   => "Transaccion exitosa."
+            ,"code"      => "CPA-".$code
+            ,"result"    => $data
+        ];
+
+        return json_encode($datos);
+    }
 
 
 

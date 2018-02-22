@@ -1,8 +1,7 @@
 <?php
 
-
 Auth::routes();
-Route::get('/', 'HomeController@index')->name('beginin');
+Route::get( "/",'HomeController@index')->name('beginin');
 Route::post('/home', 'AuthController@store')->name('auth.store');
 #Route::post('/home', 'LoginController@login')->name('auth.store');
 #Route::get('/func', 'PruebaController@func');
@@ -24,7 +23,6 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::resource('subproject','SubProjectWebController');
     Route::resource('travel','TravelWebController');
     Route::resource('label','LabelWebController');
-
 /*
     Route::get('prueba/search','PruebaController@search')->name('search');
     Route::get('autocomplete','PruebaController@autocomplete')->name('autocomplete');
@@ -43,9 +41,7 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('taxi/create','TaxiTagController@create')->name('taxi_create');
     Route::get('pending/detail/{iden}','RequestController@detail')->name('detail_pending');*/
 
-
-
-    Route::get('user/search','AuthController@autocompletSearch')->name('search_users');
+    /*Route::get('user/search','AuthController@autocompletSearch')->name('search_users');
     Route::get('country/search','ContryController@searchCountry')->name('search_country');
     Route::get('city/search','CityCodeController@searchCity')->name('search_city');
     Route::get('city/autocomplete','CityCodeController@autocomplete')->name('auto_search_city');
@@ -54,24 +50,25 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('city/search_2','CityCodeController@searchCity_2')->name('search_city_2');
     Route::get('city/autocomplete_2','CityCodeController@autocomplete_2')->name('auto_search_city_2');
 
-    Route::get('money/authorization','RequestController@moneyAuthorization')->name('money_authorization');
+    Route::get('money/authorization','RequestController@moneyAuthorization')->name('money_authorization');*/
 
 
 
 });
 
-    ####################### SECCCION DE LOGOUT ########################
+    ####################### SECCCION DE LOGOUT ###########################
     #ruta para desloguear al usuario
     Route::get('auth/logout','AuthController@logout')->name('logout');
+
     ####################### SECCCION DE LISTADO DE EMPRESA ########################
-    #muestra la ruta de las empresas del usuario
+
     Route::get('list/business','BusinessController@lista')->name('list');
+
     ####################### SECCCION DE EMPRESAS ########################
-    #manda a session las variables de la empresa
+
     Route::get('generate/business','BusinessController@generateBusiness')->name('busine_select');
 
     ####################### SECCCION DE MENU PRICIPAL ########################
-    #rutas principales de la vista principal y menu principal.
 
     Route::get('business/process','RoutingController@businessProcess')->name('business_process');
     Route::get('authorization','RoutingController@viaje_authorization')->name('authorization_travel');
@@ -79,10 +76,8 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('pending','RoutingController@pending')->name('pending');
     Route::get('account/status','RoutingController@accountStatus')->name('account_status');
     Route::get('registration/conciliation','RoutingController@registrationConciliation')->name('registration_conciliation');
-    
 
     ####################### SECCCION DE SOLICITUD DE VIAJE ########################
-    #se crea la ruta de la solicitud de viaje crud
     Route::get('solicitud','Web\SolicitudViajeController@index')->name('solicitud_viaje');
     Route::get('solicitud/pendientes','Web\SolicitudViajeController@solicitudes_pendientes')->name('solicitud_viaje_pendiente');
     Route::get('solicitud/filtro','Web\SolicitudViajeController@filtro_estatus')->name('filtro_estatus');
@@ -91,6 +86,7 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::post('solicitud/particular','Web\SolicitudViajeController@show_register_solicitud')->name('solicitud_show_solicitud');
     Route::get('solicitud/consulta','Web\SolicitudViajeController@consulta_solicitud')->name('consulta_solicitud');
     Route::post('solicitud/cancel','Web\SolicitudViajeController@cancel_solicitud')->name('cancel');
+    Route::post('solicitud/send','Web\SolicitudViajeController@send_solicitud')->name('enviar_solicitud');
 
     ####################### SECCCION DE SOLICITUDES PENDIENTES  ########################
     Route::get('pendientes','Web\PendientesWebController@index')->name('pendientes');
@@ -148,3 +144,10 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('comprobantes/menus','RoutingController@comprobantes')->name('comprobantes_menus');
     Route::get('comprobantes/register','Web\comprobantes\ComprobanteController@register')->name('comprobante_regiter');
     Route::get('comprobantes/busqueda','Web\comprobantes\ComprobanteController@busqueda')->name('comprobante_busqueda');
+    Route::get('comprobantes/nocfdi','Web\comprobantes\ComprobanteController@nocfdi')->name('comprobante_nocfdi');
+    Route::post('comprobantes/create','Web\comprobantes\ComprobanteController@create')->name('comprobante_create');
+
+    ####################### SECCCION DE CONFIGURACION DEL ORGANIGRAMA ########################
+
+    Route::get('configuracion','Web\configuracion\ConfiguracionWebController@index')->name('configuracion');
+    Route::post('configuracion/guardar','Web\configuracion\ConfiguracionWebController@create_configuracion')->name('configuracion_save');

@@ -407,7 +407,7 @@
                                             <div class="col-sm-12">
 
                                                 <div class="col-sm-6">
-                                                    <button type="button" class="btn btn-primary" estatus="1" onclick="autorizaciones(this)">Autorizar</button>
+                                                    <button type="button" class="btn btn-success" estatus="1" onclick="autorizaciones(this)">Autorizar</button>
                                                 </div>
                                                 <div class="col-sm-6" >
                                                     <button type="button" class="btn btn-danger" onclick="autorizaciones(this)" estatus="0" >Rechazar</button>

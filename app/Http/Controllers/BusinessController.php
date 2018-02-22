@@ -34,6 +34,7 @@ class BusinessController extends MasterWebController
                 'id_grupo'          => $response->id_grupo
                 ,'id_empresa'       => $response->empresa
                 ,'description'      => $response->nombreGrupo
+                ,'rfc'              => $response->rfc
             ];
             $registros[] = [
                 ''                      => $i
@@ -84,6 +85,7 @@ class BusinessController extends MasterWebController
                 'business_id'               => $request->id
                 ,'group_id'                 => $request->group_id
                 ,'business_description'     => $request->description
+                ,'rfc'                      => $request->rfc
             ];
             Session::put( $put );
             return message(true,[],false);

@@ -1,6 +1,6 @@
 @extends('template.dashboard-container')
 @section('content')
-	<div class="container">
+<div class="container">
 			
 		<div class="row">
 			
@@ -14,7 +14,7 @@
 			</div>
 
 		</div>
-		<!-- seccion de la parte de los datos del usuaria logueado -->
+		<!-- seccion de la parte de los datos del usuario logueado -->
 		<div class="row">
 
 				<div class="col-sm-5">
@@ -37,30 +37,51 @@
 		</div>
 
 	</div>
-	<br>
-	<br>
+	<br><br>
 	<!-- seccion del formulario y/o grid -->
 	<div class="container-fluid">
 		
 		<div class="row">
 
 			<form role="form" class="">
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 
 				  <div class="form-group">
-				    <label for="">RFC EMISOR</label>
-				    <input type="text" class="form-control" id="emisor" name="data['emisor']" placeholder="Ingrese emisor">
+				    <label for="">CONCEPTOS</label>
+				    <input type="text" class="form-control" id="conceptos" placeholder="Ingrese conceptos">
 				  </div>
 					
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 				  
 				  <div class="form-group">
-				    <label for="">RFC RECEPTOR</label>
-				    <input type="text" class="form-control" id="receptor" name="data['receptor']" placeholder="Ingrese Receptor">
+				    <label for="">ETIQUETAS</label>
+				    {!! $select_etiqueta !!}
 				  </div>
 					
 				</div>
+
+				<div class="col-sm-3">
+				  
+				  <div class="form-group">
+				    	<label for="">IMPORTE</label>
+					  	<div class="input-group">
+						    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+						    <input id="importe" type="text" class="form-control" placeholder="" onkeyup="numerico(this)">
+						</div>
+				  </div>
+					
+				</div>
+
+				<div class="col-sm-3">
+
+				  <div class="form-group">
+				    <label for="">FECHA FINAL</label>
+				    <input type="text" class="form-control" id="fecha" readonly="">
+				  </div>
+					
+				</div>
+
 			</form>
 
 		</div>
@@ -68,31 +89,25 @@
 		<div class="row">
 
 			<form role="form" class="">
-				<div class="col-sm-6">
+				<div class="col-sm-4">
 
 				  <div class="form-group">
-				    <label for="">UUID</label>
-				    <input type="text" id="uuid" name="data['uuid']" class="form-control" placeholder="Ingrese uuid" >
+				    <label for="">COMENTARIOS</label>
+				    <textarea class="form-control" id="comentarios"></textarea>
 				  </div>
 					
 				</div>
-				<div class="col-sm-6">
-				  
-				  <div class="col-sm-5">
-				  		
-					  <div class="form-group">
-					    	<label for="">IMPORTE</label>
-						  	<div class="input-group">
-							    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-							    <input id="importe"  name="data['importe']" type="text" class="form-control" placeholder="">
-							</div>
-					  </div>
 
+				<div class="col-sm-4">
+
+				  <div class="form-group">
+				    <label for="">SUBIR IMAGEN</label>
+				    <textarea class="form-control" id="imagen"></textarea>
+				    <input type="hidden" id="path_url_img">
 				  </div>
-
-
 					
 				</div>
+
 			</form>
 
 		</div>
@@ -100,7 +115,7 @@
 		<div class="row">
 		
 			<div class="pull-right">
-				<button type="button" class="btn btn-warning btn-lg" onclick="agregar_comprobante()">Agregar</button>
+				<button type="button" class="btn btn-warning btn-lg" onclick="nocfdi_comprobante()"> Buscar</button>
 			</div>
 
 		</div>
@@ -108,7 +123,6 @@
 
 	</div>
 
-
-<script type="text/javascript" src="{{ asset('js/comprobantes/comprobantes.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/comprobantes/comprobantes.js') }}"></script>
 
 @endsection

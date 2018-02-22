@@ -163,8 +163,8 @@ class TblSolicitud extends Model
         $id_viaje        = ( !empty($where['id_viaje']) )? 'AND ts.id_viaje= :id_viaje ' :false;
         $id_etiqueta     = ( !empty($where['id_etiqueta']) )? 'AND te.id_etiqueta= :id_etiqueta ' :false;
         $fecha_inicio    = ( !empty($where['solicitud_fecha_inicio']) )? 'AND ts.solicitud_fecha_inicio BETWEEN :solicitud_fecha_inicio AND :solicitud_fecha_fin' :false;
+        $id_usuario     =  ( !empty($where['id_usuario']) || isset( $where['id_usuario'] ) )? 'AND ts.id_usuario= :id_usuario ' :false;
         #debuger();
-
         $query = 'SELECT 
                     ts.*
                     ,tp.nombre as proyecto 
@@ -191,8 +191,8 @@ class TblSolicitud extends Model
                     AND ts.id_empresa = csm.id_empresa
                     AND cvt.id_viatico = csm.id_viatico
                     AND cvt.id_detalle = csm.id_detalle
-                    WHERE ts.id_empresa = :id_empresa AND ts.id_usuario= :id_usuario
-                    '.$id_proyecto.' '.$id_subproyecto.' '.$id_viaje.' '.$id_etiqueta
+                    WHERE ts.id_empresa = :id_empresa 
+                    '.$id_usuario.' '.$id_proyecto.' '.$id_subproyecto.' '.$id_viaje.' '.$id_etiqueta
                     .'ORDER BY ts.id_solicitud DESC';
 
         $response = DB::select( $query,$where );

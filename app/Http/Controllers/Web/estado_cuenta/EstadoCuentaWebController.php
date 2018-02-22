@@ -40,7 +40,9 @@ class EstadoCuentaWebController extends MasterWebController
         $proyecto           = self::endpoint($url,$headers,$datos,$method);
         $subproyectos       = self::endpoint($url_subproyectos,$headers,$datos,$method);
         $viajes             = self::endpoint($url_viajes,$headers,$datos,$method);
+        #debuger($url_etiquetas);
         $etiquetas          = self::endpoint($url_etiquetas,$headers,$datos,$method);
+        #$etiquetas          = [];
 
 
         $select_proyecto = dropdown([
@@ -92,16 +94,11 @@ class EstadoCuentaWebController extends MasterWebController
             ,'class'     => 'form-control'
             ,'leyenda'   => "-- SELECCIONE --"
         ]);
-
-        $where = [
-            'id_empresa'  => Session::get('business_id')
-            ,'id_usuario' => $_SERVER['HTTP_USUARIO']
-         ];
-         
-         #debuger(Session::all());
-         #debuger($this->_tipo_user);
+        $where['id_empresa'] = Session::get('business_id');
+        if ( $this->_tipo_user != 21 ) { $where['id_usuario'] = $_SERVER['HTTP_USUARIO']; }
+        #debuger($where);
         $solicitudes = json_to_object( TblSolicitud::solicitudes_model( $where ) );
-        #debuger($solicitudes);
+
          $titulos = [
 
                     'Proyecto'
@@ -147,10 +144,8 @@ class EstadoCuentaWebController extends MasterWebController
      */
     public function filtros ( Request $request ){
         
-        $where = [
-            'id_empresa'        => Session::get('business_id')
-            ,'id_usuario'       => $_SERVER['HTTP_USUARIO']
-        ];
+        $where['id_empresa'] = Session::get('business_id');
+        if ( $this->_tipo_user != 21 ) { $where['id_usuario'] = $_SERVER['HTTP_USUARIO']; }
         $cond = [];
         foreach ($request->all() as $key => $value) {
             if ( $value ) {

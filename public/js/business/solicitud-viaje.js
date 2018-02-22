@@ -600,3 +600,22 @@ $().ready(function(){
         });
 
     }
+/**
+ *Funcion para enviar los datos de la solicitud para que el empleado envie la solicitud
+ *@access public
+ *@param return
+ */
+  send_solicitud = function( object ){
+
+    var url = domain('solicitud/send');
+    var fields = {
+      'id_solicitud' : $('#id_solicitud').val() 
+    };
+    create_register(url,fields,function(json){
+      carga_vista_html('solicitud/pendientes','authorization');
+    },function(json){
+      carga_vista_html('solicitud/pendientes','authorization');
+    });
+
+
+  }

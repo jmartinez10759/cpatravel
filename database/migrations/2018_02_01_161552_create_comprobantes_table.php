@@ -19,11 +19,13 @@ class CreateComprobantesTable extends Migration
             $table->integer('id_empresa');
             $table->integer('id_proyecto');
             $table->integer('id_subproyecto');
+            $table->integer('id_viaje');
             $table->string('uuid');
             $table->string('rfc_emisor');
             $table->string('rfc_receptor');
             $table->double('importe',39,9);
             $table->text('comentarios');
+            $table->date('fecha_emision');
             $table->boolean('estatus')->default(1);
             $table->string('concepto');
             $table->text('imagen');

@@ -137,21 +137,19 @@ $().ready(function(){
           var url = domain(path_url);
            requestAjaxSend(url,false,function(json){
 
-	           	  
-	              //$("#content_general").css('position',"relative");
 	           	  $('#cargador_general').hide();
 	              $("#content-view").css('background-color',"#fff");
-	              $("#content-view").css('opacity',"0.98");
+	              $("#content-view").css('opacity',"0.90");
 	              $("#content-view").css('top',"0");
 	              $("#content-view").css('left',"0");
 	              $("#content-view").css('width',"100%");
 	              $("#content-view").css('height',"100%");
-	              $("#content-view").css('position',"absolute");
-	              $("#content-view").css('z-index',"21474");
+	              $("#content-view").css('position',"fixed");
+	              $("#content-view").css('z-index',"1040");
+	              $('#content-view').css('overflow','scroll');
 	              $('#content-view').show('slow');
+           		  $('body').css('overflow','hidden');
 	              $('#container-views').html(json);
-                  //$("#content-view").css('position',"fixed");
-                  //$("#content-view").css('display',"block");
 
            },function(header){
                 header.setRequestHeader("usuario",$('#id_usuario').val());
@@ -170,7 +168,6 @@ $().ready(function(){
   function hideview(object){
  		   
        $('#content-view').hide('slow');
-
   }
 /**
  *Funcion para cargar las vistas necesarias html de una platilla
@@ -199,11 +196,11 @@ $().ready(function(){
    *@param ruta [description]
    *@return html
    */
-   function carga_vista_html( ruta, ruta_back ){
-
-      $('#button_back_general').attr('disabled',false);
+   function carga_vista_html( ruta, ruta_next ,ruta_back , disabled ){
+   	  disabled = (disabled)? true: false;
+      $('#button_back_general').attr('disabled',disabled);
       $('#button_back_general').removeAttr('onclick');
-      $('#button_back_general').attr('onclick','carga_vista_html("'+ruta_back+'")');
+      $('#button_back_general').attr('onclick','carga_vista_html("'+ruta_next+'","'+ruta_back+'")');
 
       var url = domain( ruta );
       var fields = false;

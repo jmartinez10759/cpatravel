@@ -31,7 +31,7 @@ class AutorizacionWebController extends MasterWebController
 			$headers 	= ['Content-Type' => 'application/json'];
 			$data 		= ['token' => Session::get('token') ,'usuario' => Session::get('user_id') ];
 			$method 	= 'post';
-			$token = self::endpoint( $url,$headers,$data,$method );
+			$token 		= self::endpoint( $url,$headers,$data,$method );
 			if ( isset($token->error) && $token->error == true ) {
                 $logout =[
 		            'user_id'
@@ -49,7 +49,7 @@ class AutorizacionWebController extends MasterWebController
 		        return redirect( 'autorizacion?id_solicitud='.Session::get('id_solicitud') );
             }
 
-			$url 	= 'http://'.$this->_domain.'/api/travel/solicitudes?id_solicitud='.Session::get('id_solicitud');
+			$url 	= $this->_http.'://'.$this->_domain.'/api/travel/solicitudes?id_solicitud='.Session::get('id_solicitud');
 			$headers 	= [
 				'Content-Type'  => 'application/json'
             	,'usuario'      => Session::get('user_id')
@@ -284,10 +284,9 @@ class AutorizacionWebController extends MasterWebController
 		for ($i=0; $i < count($request->montos_autorizados_nacional) ; $i++) { 
 			$montos_autorizados_nacional[$nombres_montos[$i]] = $request->montos_autorizados_nacional[$i];
 			$montos_autorizados_extranjero[$nombres_montos[$i]] = $request->montos_autorizados_extranjero[$i];
-
 		}
 		#se realiza la consulta para obtener todos los datos de la solicitud
-		$url 	= 'http://'.$this->_domain.'/api/travel/solicitudes?id_solicitud='.$request->id_solicitud;
+		$url 	= $this->_http.'://'.$this->_domain.'/api/travel/solicitudes?id_solicitud='.$request->id_solicitud;
 		$headers 	= [
 			'Content-Type'  => 'application/json'
         	,'usuario'      => Session::get('user_id')
@@ -296,7 +295,6 @@ class AutorizacionWebController extends MasterWebController
 		$data 		= [];
 		$method 	= 'get';
 		$response 	= self::endpoint($url,$headers,$data,$method);
-
 
 		$data = [
 			#'solicitud' 		 => isset($response->result)? $response->result : []
@@ -309,8 +307,15 @@ class AutorizacionWebController extends MasterWebController
 			,'total_nacional_autorizado' 	=> str_replace(',', '', $request->total_nacional)
 			,'total_extranjero_autorizado' => str_replace(',', '', $request->total_extranjero )
 		];
-
-		return message(true,$data,'Transaccion exitosa');
+		$url        = 'https://cpainbox.cpavision.mx/bpm/authorization/approve';
+        $header    = ['Content-Type'  => 'application/json']; 
+        $method     = 'post'; 
+        $cpainbox   = self::endpoint($url,$header,$data,$method);
+        if ($cpainbox->success == true) {
+			return message( $cpainbox->success,[],'Transaccion exitosa' );
+        }else{
+        	return message(false,[],'Ocurrio un error');
+        }
 
 
 	}

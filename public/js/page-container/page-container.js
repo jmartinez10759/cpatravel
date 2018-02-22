@@ -341,7 +341,7 @@ $().ready(function(){
             var url = domain('solicitud/cancel');
             //se manda a llamar una funcion del js master para la actualizacion del estatus
             update_register(url,fields,function(json){
-                carga_vista_html('solicitud/pendientes');
+                carga_vista_html('solicitud/pendientes','authorization');
             });
 
 

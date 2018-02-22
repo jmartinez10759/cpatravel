@@ -78,7 +78,7 @@
 
 		<div class="col-sm-2">
 			
-			  <div class="col-sm-4" style="cursor: pointer;" data-toggle="tooltip" title="Pendientes" onclick="carga_vista_html('comprobantes/menus','estadoscuenta')">
+			  <div class="col-sm-4" style="cursor: pointer;" data-toggle="tooltip" title="Pendientes" onclick="carga_vista_html('comprobantes/menus','estadoscuenta','estadoscuenta')">
 				<span class="icon-pendientes element-viatico"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
 			  </div>
 

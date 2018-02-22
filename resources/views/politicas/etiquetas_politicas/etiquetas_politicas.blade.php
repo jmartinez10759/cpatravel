@@ -49,20 +49,16 @@
 			height:auto;
 			overflow: auto;
 		}
-		
-		
-		
+        
     </style>
-    
     <div class="row titulo-pantalla">
         <div class="col-md-12 col-sm-12 col-xs-6 center">
             <div class="about-item scrollpoint sp-effect2" style="text-align: center;padding-top: 44px;">
 			<span class="icon-icon_etiquetas icon-tam2"></span>ETIQUETAS</div>
         </div>
     </div>
-    <br><br>
+    <br>
     <div class="row">
-        
         <div class="col-sm-6">
             <div class="col-sm-12">
                 <div class="col-sm-3">
@@ -96,9 +92,6 @@
                     </div>
                     <div class="row" id="seccion_predeterminadas" style="display: none;">
                             <div class="col-md-12 col-xs-12 nombre-etiquetas2">Nombre 
-                                <!-- <span  etiqueta="predeterminadas" class="icon-mas icon-tam etiquetas" style="cursor: pointer;">
-                                    <span class="path1"></span><span class="path2"></span>
-                                </span> -->
                             </div>
                             {!! $table_etiquetas !!}
                     </div>

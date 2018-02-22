@@ -374,7 +374,7 @@ class SolicitudViajeController extends MasterWebController
             foreach ( $response->result as $response) {
                 
                 $params = ['id_solicitud' => $response->id_solicitud];
-                $cancel = ( $response->estatus == "Cancelado" )? ' disabled ': false;
+                $cancel = ( $response->estatus == "Cancelado" || $response->estatus == "Enviado")? ' disabled ': false;
                 $registros[] = [
 
                     'id_proyecto'                       =>  $response->proyecto
@@ -447,14 +447,14 @@ class SolicitudViajeController extends MasterWebController
         $data = [];
         $method = "get";
         $response = self::endpoint($url,$headers,$data,$method);
-        #debuger($response->result);
         $registros = [];
         if ( $response->success  == true ) {
             $i = 1;
             foreach ( $response->result as $response) {
 
-                $params = ['id_solicitud' => $response->id_solicitud];
-                $cancel = ( $response->status == "Cancelado" )? ' disabled ': false;
+                $params  = ['id_solicitud' => $response->id_solicitud];
+                $cancel  = ( $response->status == "Cancelado" || $response->status == "Enviado")? ' disabled ': false;
+                #$enviado = ( $response->status == "Enviado" )? ' disabled ': false;
                 $registros[] = [
 
                     'id_proyecto'                       =>  $response->proyecto
@@ -501,7 +501,6 @@ class SolicitudViajeController extends MasterWebController
             ,'ruta'             => route('solicitud_viaje')
             ,'return'           => route('authorization_travel')
         ];
-        #debuger($data);
         return view( 'solicitud.solicitud_usuario_viaje',$data );
 
     }
@@ -529,7 +528,7 @@ class SolicitudViajeController extends MasterWebController
         $solicitud  = self::endpoint($url,$headers,$data,$method);
         $viaticos   = json_to_object(CatViaticoDetalle::viaticos_by_id( $where ));
         $montos     = json_to_object(CatSolicitudMonto::montos_by_id( $where ));
-        #debuger($solicitud);
+
         $result_solicitud = [];
         $result_viaticos = [];
         $result_montos = [];
@@ -557,7 +556,7 @@ class SolicitudViajeController extends MasterWebController
                 ];
 
                 $result_acompanantes = [
-                    'id_acompanante' => $response->acompanantes->id_acompañante
+                    'id_acompanante' => isset($response->acompanantes->id_acompañante)? $response->acompanantes->id_acompañante : []
                 ];
                 
             }
@@ -582,8 +581,8 @@ class SolicitudViajeController extends MasterWebController
         if ( $montos->success == true ) {
             #$monto_viatico_total = 0;
             foreach ($montos->result as $response) {
-                $result_montos[] = [
 
+                $result_montos[] = [
                     'monto_tipo_solicitud'            => $response->monto_tipo_solicitud
                     ,'monto_tipo_pago'                => $response->monto_tipo_pago
                     ,'monto_importe'                  => $response->monto_importe
@@ -598,14 +597,15 @@ class SolicitudViajeController extends MasterWebController
 
         }
 
-        $data = ['success' => true, 'result' => [
-                                        'solicitud'       => $result_solicitud
-                                        ,'viaticos'       => $result_viaticos
-                                        ,'montos'         => $result_montos
-                                        ,'acompanantes'   => implode(',', $result_acompanantes['id_acompanante'] )
-                                    ],'message' => "Transaccion Exitosa" 
+        $data = [
+                   'solicitud'       => $result_solicitud
+                  ,'viaticos'        => $result_viaticos
+                  ,'montos'          => $result_montos
+                  ,'acompanantes'    => implode(',', $result_acompanantes['id_acompanante'] )
                 ];
-        return json_encode( $data );
+                
+        return message(true,$data,'Transaccion Exitosa');
+        #return json_encode( $data );
 
     }
     /**
@@ -615,9 +615,50 @@ class SolicitudViajeController extends MasterWebController
      *@return void
      */
     public function send_solicitud( Request $request ){
-
-        #se debe mandar el id_solicitud para poder actualizar el estatus a Procesando solicitud
-        debuger( $request->all() );
+        #se debe mandar el id_solicitud para poder actualizar el estatus a enviado solicitud
+        $where['id_empresa']    =  Session::get('business_id');
+        $where['id_solicitud']  =  $request->id_solicitud;
+        $id_usuario = false;
+        if ($this->_tipo_user = 21) {
+            $id_usuario = '&id_usuario='.$_SERVER['HTTP_USUARIO'];
+        }
+        $url = $this->_http.'://'.$this->_domain.'/api/travel/solicitudes?id_empresa='.Session::get('business_id').$id_usuario.'&id_solicitud='.$request->id_solicitud;
+        $headers = [ 
+            'Content-Type'  => 'application/json'
+            ,'usuario'      => $_SERVER['HTTP_USUARIO']
+            ,'token'        => $_SERVER['HTTP_TOKEN']
+        ];
+        $data = [];
+        $method = "get";
+        $solicitud  = self::endpoint($url,$headers,$data,$method);
+        $estatus = "Enviado";
+        if( isset( $solicitud->result )){
+            #aqui se envia la informacion en el endpoint proporcionado.
+            $url        = 'https://cpainbox.cpavision.mx/bpm/authorization/approve';
+            $header    = ['Content-Type'  => 'application/json']; 
+            $data       = [
+                'id_solicitud' => $solicitud->result[0]->id_solicitud
+                ,'estatus'     => $estatus
+            ]; 
+            $method     = 'post'; 
+            $cpainbox   = self::endpoint($url,$header,$data,$method);
+            if ($cpainbox->success != true) {
+                return message(false,[],"No se envio la informacion correctamente");   
+            }
+        }
+        $url = $this->_http.'://'.$this->_domain.'/api/travel/solicitudes';
+        $datos = ['data' => [ 
+                            'id_solicitud'  => $request->id_solicitud 
+                            ,'estatus'      => $estatus
+                        ]
+                ];
+        $method = 'put';
+        $solicitud_update  = self::endpoint($url,$headers,$datos,$method);
+        if ($solicitud_update->success == true) {
+            return message($solicitud_update->success,[],"Los datos fueron enviados correctamente");
+        }else{
+            return message(false,[],'Ocurrio un error en enviar la solicitud');
+        }
 
     }
     /**

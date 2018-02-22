@@ -59,14 +59,14 @@ class MasterController extends Controller
 		    			return $this->show_error(0);
                     break;
                 case 'PUT':
-                        $id = isset($request->data[$indice])? $request->data[$indice] :"";
+                        $id = isset($request->data[$indice])? $request->data[$indice] :false;
                         if ( in_array( $permisson, [21,44]  ) ) {
                             return $this->update($request->data,$id);
                         }
 						return $this->show_error(0);
                     break;
                 case 'DELETE':
-                        $id = isset($request->data[$indice])? $request->data[$indice] :"";
+                        $id = isset($request->data[$indice])? $request->data[$indice] :false;
                         if ( in_array( $permisson, [21]  ) ){
                             return $this->destroy($id);
                         }
@@ -273,55 +273,67 @@ class MasterController extends Controller
      *@param $class object [description]
      *@return array
      */
-    public function parse_register($data = array(), $class, $claves_date = []){
+    public function parse_register( $data = array(), $clase, $claves_date = []){
 
         $datos = [];
-        foreach ($data as $key => $value) {
-            #verifica que no vayan nulos los campos y si no estan nulos los regresa en un arreglo
-            if ($data[$key] == null) {
-                return ['success' => false,'result' => $data ];
+        #verifica que no vayan nulos los campos y si no estan nulos los regresa en un arreglo
+        if ( count($data) > 0 ) {
+            
+            for ($i=0; $i < count($data); $i++) { 
+                
+                foreach ($data[$i] as $key => $value) {
+
+                    if ($data[$i][$key] == null) {
+                        return ['success' => false,'result' => $data[$i] ];
+                    }
+                    if ($value != false) {
+                        $datos[$key] = $value;
+                    }
+                } 
+                #se valida la fecha
+                if ( $claves_date ) {
+
+                    for ($j=0; $j < count($claves_date); $j++) { 
+                        $validate_fecha = isset( $data[$i][$claves_date[$j]] )? $data[$i][$claves_date[$j]] : false;
+                        $fecha = self::schema_fecha( $validate_fecha );
+                        if ( isset($fecha['success']) && $fecha['success'] == false ) {
+                            return ['success' => false,'result' => $claves_date[$j] ];        
+                         }
+
+                    }
+
+                }
+
             }
-            if ($value != false) {
-                $datos[$key] = $value;
-            }
-        }  
+
+        }
         #validaciones de datos diferentes.
-        if ( array_diff( array_keys($datos), $class->fillable) ) {
-            return ['success' => false,'result' => array_values(array_diff( array_keys($datos), $class->fillable))  ];
+        if ( array_diff( array_keys($datos), $clase->fillable) ) {
+            return ['success' => false,'result' => array_values(array_diff( array_keys($datos), $clase->fillable))  ];
         }
-        #se valida la fecha
-        if ($claves_date) {
 
-            for ($i=0; $i < count($claves_date); $i++) { 
-                $fecha = self::schema_fecha( $data[$claves_date[$i]] );
-                if ( !$fecha['success'] ) {
-                    return ['success' => false,'result' => $claves_date[$i] ];        
-                 } 
-            }
-
-        }
         return $datos;
 
     }
     /**
-     *Metodo para verificar si estan correctamete los valores ingresados
+     *Metodo Master para verificar si estan correctamente los valores ingresados de la fecha 
      *@access public 
      *@param $fecha string  [description]
      *@return array
      */
     public function schema_fecha( $fecha= false ){
-
+        
         if ( $fecha ) {
                 $fechas = explode("-", $fecha );
-                if ( count($fechas) != 3 ) {
-                    return ['success' => false,'message' => "Fecha incorrecta"];
+                if ( count( $fechas ) == 3 ) {
+                    if ( checkdate( $fechas[1],$fechas[2],$fechas[0]) != false ) {
+                        return ['success' => true,'message' => "Fecha correcta"];
+                    }
                 }
-                if ( checkdate( $fechas[1],$fechas[2],$fechas[0]) == false ) {
-                    return ['success' => false,'message' => "Fecha incorrecta"];
-                }
-                return ['success' => true,'message' => "Fecha correcta"];
+                return ['success' => false,'message' => "Fecha incorrecta"];
             
-            }
+        }
+
     
     }
    

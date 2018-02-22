@@ -20,67 +20,100 @@ Route::post('prueba','HomeController@prueba')->name('token');
  *Se crean las rutas respectivas 2017-11-16
  */
 
-#se crea el endpoint para la auth de login
+	############################ API LOGIN #################################
 	Route::post('access/auth','Apirest\LoginController@auth');
-#se crea el endpoint para la empresa 
+
+	############################ API EMPRESAS #################################
+
 	Route::post('access/business','Apirest\EmpresaController@business');
-#se crea el endpoint para la persmiso
+
+	############################ API PERMISOS #################################
+
 	Route::post('access/permission','Apirest\PermisoController@permission');
-#se crea un endpoit para validar el token si sigue vigente.
+
+	############################ API TOKEN #################################
+
 	Route::post('access/token','Apirest\ValidateTokenController@token');
 	Route::post('access/valiatetoken','Apirest\ValidateTokenController@tokenweb');
-#se crea el endpoint de proyectos
+
+	############################ API PROYECTOS #################################
+	
 	Route::get('travel/proyecto{?}','Apirest\ProyectosController@index');
 	Route::get('travel/proyecto','Apirest\ProyectosController@index');
 	Route::post('travel/proyecto','Apirest\ProyectosController@index');
 	Route::put('travel/proyecto','Apirest\ProyectosController@index');
 	Route::delete('travel/proyecto','Apirest\ProyectosController@index');
-#se crea el endpoint de subproyectos
+	
+	############################ API SUBPROYECTOS #################################
+	
 	Route::get('travel/subproyectos{?}','Apirest\SubProyectosController@index');
 	Route::get('travel/subproyectos','Apirest\SubProyectosController@index');
 	Route::post('travel/subproyectos','Apirest\SubProyectosController@index');
 	Route::put('travel/subproyectos','Apirest\SubProyectosController@index');
 	Route::delete('travel/subproyectos','Apirest\SubProyectosController@index');
-#se crea el endpoint de viajes
+	
+	############################ API VIAJES #################################
+	
 	Route::get('travel/viajes{?}','Apirest\ViajesController@index');
 	Route::get('travel/viajes','Apirest\ViajesController@index');
 	Route::post('travel/viajes','Apirest\ViajesController@index');
 	Route::put('travel/viajes','Apirest\ViajesController@index');
 	Route::delete('travel/viajes','Apirest\ViajesController@index');
-#se crea el endpoint de relacion proyecto usuario
+	
+	############################ API RELACION #################################
+	
 	Route::get('travel/relations/{?}','Apirest\RelUsuarioProyectoController@index');
 	Route::get('travel/relations','Apirest\RelUsuarioProyectoController@index');
 	Route::post('travel/relations','Apirest\RelUsuarioProyectoController@index');
 	Route::put('travel/relations','Apirest\RelUsuarioProyectoController@index');
 	Route::delete('travel/relations','Apirest\RelUsuarioProyectoController@index');
-#se crea un endpoint para politicas
+	
+	############################ API POLITICAS  #################################
+
 	Route::get('travel/politicas{?}','Apirest\PoliticaController@index');
 	Route::get('travel/politicas','Apirest\PoliticaController@index');
 	Route::post('travel/politicas','Apirest\PoliticaController@index');
 	Route::put('travel/politicas','Apirest\PoliticaController@index');
 	Route::delete('travel/politicas','Apirest\PoliticaController@index');
-#se crea un endpoint para etiquetas
+	
+	############################ API ETIQUETAS  #################################
+	
 	Route::get('travel/etiquetas{?}','Apirest\EtiquetaController@index');
 	Route::get('travel/etiquetas','Apirest\EtiquetaController@index');
 	Route::post('travel/etiquetas','Apirest\EtiquetaController@index');
 	Route::put('travel/etiquetas','Apirest\EtiquetaController@index');
 	Route::delete('travel/etiquetas','Apirest\EtiquetaController@index');
-#se crea el endpoint de solicitudes
-	#se crea un endpoint para etiquetas
+
+	############################ API SOLICITUDES  #################################
+	
 	Route::get('travel/solicitudes{?}','Apirest\SolicitudController@index');
 	Route::get('travel/solicitudes','Apirest\SolicitudController@index');
 	Route::post('travel/solicitudes','Apirest\SolicitudController@index');
 	Route::put('travel/solicitudes','Apirest\SolicitudController@index');
 	Route::delete('travel/solicitudes','Apirest\SolicitudController@index');
+	
+	############################ API COMPROBANTE CFDI #################################
+	
+	Route::get('travel/comprobantes{?}','Apirest\ComprobanteApiController@index');
+	Route::get('travel/comprobantes','Apirest\ComprobanteApiController@index');
+	Route::post('travel/comprobantes','Apirest\ComprobanteApiController@index');
+	Route::put('travel/comprobantes','Apirest\ComprobanteApiController@index');
+	Route::delete('travel/comprobantes','Apirest\ComprobanteApiController@index');
 
-
+	############################ API CONCEPTOS CFDI #################################
+	
+	Route::get('travel/conceptos{?}','Apirest\ComprobanteDetalleApiController@index');
+	Route::get('travel/conceptos','Apirest\ComprobanteDetalleApiController@index');
+	Route::post('travel/conceptos','Apirest\ComprobanteDetalleApiController@index');
+	Route::put('travel/conceptos','Apirest\ComprobanteDetalleApiController@index');
+	Route::delete('travel/conceptos','Apirest\ComprobanteDetalleApiController@index');
 
 #api anterior
-Route::group(['middleware' => ['token']], function () {
+/*Route::group(['middleware' => ['token']], function () {
     Route::resource('travel','Api\TravelController');
     Route::resource('project','Api\ProjectController');
     Route::resource('subproject','Api\SubProjectController');
     Route::get('projects','Api\ProjectExtendController@projects');
-});
+});*/
 
 

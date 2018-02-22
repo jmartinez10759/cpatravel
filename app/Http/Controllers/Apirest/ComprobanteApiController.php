@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Apirest;
 
-use App\TblProyecto;
 use App\Model\MasterModel;
 use Illuminate\Http\Request;
+#use App\Http\Controllers\Controller;
+use App\Model\Apirest\ComprobanteApiModel;
 use App\Http\Controllers\Apirest\MasterController;
 
-class ProyectosController extends MasterController
+class ComprobanteApiController extends MasterController
 {
-
-   
-    private $_id = "id_proyecto";
+    
+    private $_id = "id_comprobante";
+    private $_fechas = ['fecha_emision'];
     private $_model;
      /**
      * Display a listing of the resource.
@@ -20,7 +21,7 @@ class ProyectosController extends MasterController
      */
     public function index( Request $request ){
         #se manda a llamar el metodo para hacer la validacion de los permisos.
-        $this->_model = new TblProyecto;
+        $this->_model = new ComprobanteApiModel;
         return self::validate_permisson($this->_id,[],$request);
     }
     /**
@@ -125,5 +126,6 @@ class ProyectosController extends MasterController
         return $this->show_error(3);
     
     }
+
 
 }

@@ -35,6 +35,7 @@ class RoutingController extends MasterWebController
                     ,'/account/status'              => 'accountStatus'
                     ,'/registration/conciliation'   => 'registrationConciliation'
                     ,'/comprobantes/menus'          => 'comprobantes'
+                    ,'/configuracion'               => 'configuracion'
                 ]
             ,19 => [
                     '/business/process'             => 'businessProcess'
@@ -78,23 +79,28 @@ class RoutingController extends MasterWebController
     public static function businessProcess( Request $request ){
             #se manda a llamar el submenu principal con sus caracteristicas
             $event = [
+                
                 "carga_vista_html('proyecto','business/process')"
                 ,"carga_vista_html('authorization','business/process')"
                 ,"carga_vista_html('','business/process')"
-                ,"carga_vista_html('pendientes','business/process')"
+                #,"carga_vista_html('pendientes','business/process')"
+                ,"carga_vista_html('configuracion','business/process')"
             ];
 
             $images = [
+
                 asset('images/menu/creacion_proyectos.png')
                 ,asset('images/menu/autorizacion_viaje.png')
                 ,asset('images/menu/autorisacion_comprobacion.png')
+                #,asset('images/menu/autorizacion_pendientes.png')
                 ,asset('images/menu/autorizacion_pendientes.png')
             ];
             $titulo = [
                 'Creación de proyectos, subproyectos y viajes.'
                 ,'Autorización del viaje.'
                 ,'Autorización de comprobación del viaje.'
-                ,'Autorizaciones pendientes'
+                #,'Autorizaciones pendientes'
+                ,'Asignacion de Autorizadores'
             ];
             $data = [
                 'titulo_principal'   => 'Proceso de Negocio'
@@ -185,11 +191,11 @@ class RoutingController extends MasterWebController
      */
     public static function comprobantes( Request $request ){
 
-        $event = [
-                "carga_vista_html('comprobantes/register','comprobantes/menus')"
-                ,"carga_vista_html('comprobantes/busqueda','comprobantes/menus')"
-                ,"carga_vista_html('','comprobantes/menus')"
-            ];
+            $event = [
+                    "carga_vista_html('comprobantes/busqueda','comprobantes/menus','estadoscuenta')"
+                    ,"carga_vista_html('comprobantes/nocfdi','comprobantes/menus','estadoscuenta')"
+                    ,"carga_vista_html('','comprobantes/menus','estadoscuenta')"
+                ];
 
             $images = [
                 asset('images/menu/creacion_proyectos.png')
@@ -197,8 +203,8 @@ class RoutingController extends MasterWebController
                 ,asset('images/menu/autorisacion_comprobacion.png')
             ];
             $titulo = [
-                'CFDI'
-                ,'Busqueda CFDI'
+                'Busqueda CFDI'
+                ,'No CFDI'
                 ,'Notas'
             ];
             $data = [
