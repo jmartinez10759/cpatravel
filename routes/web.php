@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('pending','RoutingController@pending')->name('pending');
     Route::get('account/status','RoutingController@accountStatus')->name('account_status');
     Route::get('registration/conciliation','RoutingController@registrationConciliation')->name('registration_conciliation');
+    Route::get('comprobantes/menus','RoutingController@comprobantes')->name('comprobantes_menus');
 
     ####################### SECCCION DE SOLICITUD DE VIAJE ########################
     Route::get('solicitud','Web\SolicitudViajeController@index')->name('solicitud_viaje');
@@ -141,7 +142,7 @@ Route::group(['middleware' => ['auth.session']], function () {
 
     ####################### SECCCION DE COMPROBANTES CFDI ########################
 
-    Route::get('comprobantes/menus','RoutingController@comprobantes')->name('comprobantes_menus');
+    #Route::get('comprobantes/menus','RoutingController@comprobantes')->name('comprobantes_menus');
     Route::get('comprobantes/register','Web\comprobantes\ComprobanteController@register')->name('comprobante_regiter');
     Route::get('comprobantes/busqueda','Web\comprobantes\ComprobanteController@busqueda')->name('comprobante_busqueda');
     Route::get('comprobantes/nocfdi','Web\comprobantes\ComprobanteController@nocfdi')->name('comprobante_nocfdi');

@@ -182,7 +182,7 @@ class RoutingController extends MasterWebController
             ];
 
             return view('menus.menu_principal',$data);
-        #return view('conciliacion.menu_conciliacion',$data);
+            #return view('conciliacion.menu_conciliacion',$data);
     }
     /**
      *Metodo donde se encaga de mandar a la vista de estados de cuenta
@@ -192,18 +192,21 @@ class RoutingController extends MasterWebController
     public static function comprobantes( Request $request ){
 
             $event = [
-                    "carga_vista_html('comprobantes/busqueda','comprobantes/menus','estadoscuenta')"
-                    ,"carga_vista_html('comprobantes/nocfdi','comprobantes/menus','estadoscuenta')"
-                    ,"carga_vista_html('','comprobantes/menus','estadoscuenta')"
+                    "carga_vista_html('estadoscuenta','comprobantes/menus')"
+                    ,"carga_vista_html('comprobantes/busqueda','comprobantes/menus')"
+                    ,"carga_vista_html('comprobantes/nocfdi','comprobantes/menus')"
+                    ,"carga_vista_html('','comprobantes/menus')"
                 ];
 
             $images = [
                 asset('images/menu/creacion_proyectos.png')
-                ,asset('images/menu/autorisacion_comprobacion.png')
-                ,asset('images/menu/autorisacion_comprobacion.png')
+                ,asset('images/menu/creacion_proyectos.png')
+                ,asset('images/menu/creacion_proyectos.png')
+                ,asset('images/menu/creacion_proyectos.png')
             ];
             $titulo = [
-                'Busqueda CFDI'
+                'Estados de Cuenta'
+                ,'Busqueda CFDI'
                 ,'No CFDI'
                 ,'Notas'
             ];

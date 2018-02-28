@@ -772,68 +772,68 @@ function check_status_xhr(status, title, text, type, accept) {
  *@param methods [type][description]
  *@return void
  */
-    function upload_file(id,path_url,maxfile,type_file,methods){
+    upload_file = function (id, path_url, maxfile, type_file, methods){
         //path_url = "Upload/Upload_file";
         $('#modal_dialog').css('width','60%');
         Dropzone.autoDiscover = false;
         $('#div_dropzone_file').html('<div class="dropzone" id="dropzone_xlsx_file" height="20px"><div class="fallback"><input name="file" type="file"/></div></div>').ready(function(){
-                var jsonResponse;
-                    $("#dropzone_xlsx_file").dropzone({
-                                    uploadMultiple: true,
-                                    url: path_url,
-                                    maxFiles: maxfile,
-                                    paramName: "file",
-                                    acceptedFiles: type_file,
-                                    dictDefaultMessage: "Favor de Cargar Archivo",
-                                    dictFallbackMessage: "layoutLang['mjs_navegador']",
-                                    dictFileTooBig: "layoutLang['file_size']",
-                                    dictInvalidFileType: "layoutLang['file_type']",
-                                    dictResponseError: "layoutLang['error_server']",
-                                    dictCancelUpload: "layoutLang['cancel']",
-                                    dictCancelUploadConfirmation: "layoutLang['confirmacion']",
-                                    dictRemoveFile: "layoutLang['eliminar_file']",
-                                    dictMaxFilesExceeded: "No se puede subir mas archivos de los permitidos",
-                                    headers: {
-                                        'usuario': $('#id_usuario').val()
-                                        ,'token':  $('#token').val()
-                                        ,'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    },
-                                    //dictRemoveFile:true,
-                                    success:function( data, datos ) {
-                                        var jsonRequest = JSON.parse(datos);
-                                           if (jsonRequest.success === true) {
-                                                pnotify('Archivo Cargado.!','El archivo seleccionado se cargo con exito','success');
-                                           }else{
-                                                pnotify('No se Cargado Correctamente.!','El archivo no se cargo con exito','error');
-                                           }
-                                           methods(jsonRequest);
+            var jsonResponse;
+                $("#dropzone_xlsx_file").dropzone({
+                            uploadMultiple: true,
+                            url: path_url,
+                            maxFiles: maxfile,
+                            paramName: "file",
+                            acceptedFiles: type_file,
+                            dictDefaultMessage: "Favor de Cargar o arrastrar archivo",
+                            dictFallbackMessage: "layoutLang['mjs_navegador']",
+                            dictFileTooBig: "layoutLang['file_size']",
+                            dictInvalidFileType: "layoutLang['file_type']",
+                            dictResponseError: "layoutLang['error_server']",
+                            dictCancelUpload: "layoutLang['cancel']",
+                            dictCancelUploadConfirmation: "layoutLang['confirmacion']",
+                            dictRemoveFile: "layoutLang['eliminar_file']",
+                            dictMaxFilesExceeded: "No se puede subir mas archivos de los permitidos",
+                            headers: {
+                                'usuario': $('#id_usuario').val()
+                                ,'token':  $('#token').val()
+                                ,'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            //dictRemoveFile:true,
+                            success:function( data, datos ) {
+                                var jsonRequest = JSON.parse(datos);
+                                   if (jsonRequest.success === true) {
+                                        pnotify('Archivo Cargado.!','El archivo seleccionado se cargo con exito','success');
+                                   }else{
+                                        pnotify('No se Cargado Correctamente.!','El archivo no se cargo con exito','error');
+                                   }
+                                   methods(jsonRequest);
 
-                                    },
-                                    accept: function(file, done){
-                                        if (file.name == "imagen.jpg") {done("Archivo Incorrecto");}else {done();}
-                                    },
-                                    sending: function(parmt1,parmt2,data){
-                                            data.append('id', id );
-                                            //$('.loader').show();
-                                            //$('#dropzone_div').hide();
-                                    },
-                                    init: function() {
-                                        this.on("complete", function(file) {
-                                            //this.removeAllFiles(true);
-                                        });
-                                    },
-                                    complete: function(data) {
-                                        //pnotify('Archivo Cargado.!','El archivo seleccionado se cargo con exito','success');
-                                            /* swal(
-                                              'Archivo Cargado Correctamente.!',
-                                              datos.response.mgs,
-                                              'success'
-                                            );*/
-                                    }
-
+                            },
+                            accept: function(file, done){
+                                if (file.name == "imagen.jpg") {done("Archivo Incorrecto");}else {done();}
+                            },
+                            sending: function(parmt1,parmt2,data){
+                                    data.append('id', id );
+                                    //$('.loader').show();
+                                    //$('#dropzone_div').hide();
+                            },
+                            init: function() {
+                                this.on("complete", function(file) {
+                                    //this.removeAllFiles(true);
                                 });
+                            },
+                            complete: function(data) {
+                                //pnotify('Archivo Cargado.!','El archivo seleccionado se cargo con exito','success');
+                                    /* swal(
+                                      'Archivo Cargado Correctamente.!',
+                                      datos.response.mgs,
+                                      'success'
+                                    );*/
+                            }
 
-                    });
+                        });
+
+                });
 
     }
     /**
@@ -1144,10 +1144,17 @@ function check_status_xhr(status, title, text, type, accept) {
      *Funcion para obtener la fecha
      *@return date fecha[descripcion]
      */ 
-    get_actual_date = function( sign = '-' ) {
+    get_actual_date = function( sign, format ) {
+
+        sign    = ( !sign )? "-": sign;
         var d = new Date();
         var day = addZero(d.getDate());
         var month = addZero(d.getMonth()+1);
         var year = addZero(d.getFullYear());
-        return day + sign + month + sign + year;
+        if (format) {
+            return year + sign + month + sign + day;
+        }else{
+            return day + sign + month + sign + year;
+        }
+
     }

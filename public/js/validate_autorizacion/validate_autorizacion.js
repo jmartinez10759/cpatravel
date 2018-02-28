@@ -77,7 +77,8 @@ $().ready(function(){
  	}
 
  	$('#total_nacional').text(number_format(total_nacional,2));
- 	$('#total_extranjero').text( number_format(total_extranjero,2) );
+  $('#total_extranjero').text( number_format(total_extranjero,2) );
+ 	$('.total_importe_autorizado').text( number_format(total_nacional,2) );
 
 
   }

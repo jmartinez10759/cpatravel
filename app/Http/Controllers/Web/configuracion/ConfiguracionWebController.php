@@ -23,6 +23,26 @@ class ConfiguracionWebController extends MasterWebController
 	 */
 	public function index(){
 
+		if ($this->_tipo_user != 21) {
+			echo "<script> buildSweetAlert('Permiso Denegado','No Cuenta con permisos para ingresar','error');</script>";die();
+		}
+		return $this->store_autorizacion();
+		$url = "https://cpainbox.cpavision.mx/bpm/authorization/getRules/";
+        $headers = [ 'Content-Type'  => 'application/json'];
+        $data=['empresa' => Session::get('business_id'),'proceso' => 'x'];
+        $method = 'post';
+        $autorizaciones = self::endpoint($url,$headers,$data,$method);
+        debuger($autorizaciones);
+		
+
+	}
+	/**
+     *Metodo crear los grupos de los autorizadores
+	 *@access public
+	 *@return void
+	 */
+	public function store_autorizacion(){
+
 		$url = "http://52.44.90.182/system/getUsersByEmpresa";
         $headers = [ 'Content-Type'  => 'application/json'];
         $data=['empresa' => Session::get('business_id')];
@@ -47,14 +67,14 @@ class ConfiguracionWebController extends MasterWebController
 	 */
 	public function create_configuracion( Request $request ){
 		
-		if (!$request->id_autorizador) {
-			return message(false,[],"Asigna los autorizador");
+		if ( count( $request->autorizadores ) == 0 || count($request->empleados) == 0 ) {
+			return message(false,[],"Asigna los autorizadores");
 		}
-		$autorizador = explode('|', $request->id_autorizador);
+		#$autorizador = explode('|', $request->id_autorizador);
 		$data = [
-			'id_autorizador' => $autorizador[0]
-			,'correo' 		 => $autorizador[1]
-			,'empleados' 	 => $request->autorizador_empleado
+			'importe' 			=> $request->importe
+			,'autorizadores' 	=> $request->autorizadores
+			,'empleados' 	 	=> $request->empleados
 		];
 		$result = [
 			'empresa'	=> Session::get('business_id')
@@ -62,6 +82,7 @@ class ConfiguracionWebController extends MasterWebController
 			,'stage' 	=> 0
 			,'rules'    => $data
 		];
+		
 		$url 		=  "https://cpainbox.cpavision.mx/bpm/authorization/save";
 		$headers 	=  [ 'Content-Type'  => 'application/json'];
 		$datos  	=  $result;

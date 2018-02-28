@@ -4,7 +4,7 @@
         <div class="row">
 
             <div class="col-sm-12 row-cont-info">
-                <div  class="col-sm-2" id="sensor_edo_cta" onmouseleave="restaura()" onmouseover="destaca('home_boton_edo_cta')" onclick="openview('estadoscuenta')">
+                <div  class="col-sm-2" id="sensor_edo_cta" onmouseleave="restaura()" onmouseover="destaca('home_boton_edo_cta')" onclick="openview('comprobantes/menus')">
                 </div>
                 
                 <div class="col-sm-2" id="sensor_proceso" onmouseleave="restaura()" onmouseover="destaca('home_boton_proceso')" onclick="openview('business/process')">

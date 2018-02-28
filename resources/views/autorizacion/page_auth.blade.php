@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<input type="text" id="id_solicitud" value="{{ $solicitudes['id_solicitud'] }}">
+<input type="hidden" id="id_solicitud" value="{{ $solicitudes['id_solicitud'] }}">
 <input type="hidden" id="extranjeros" value="{{$extranjero}}">
 <input type="hidden" id="nacionales" value="{{$nacional}}">
     <div class="container">
-      <a href="{{$logout}}"> Logout </a>
+      <a href="{{$logout}}" class="btn btn-warning"> Cerrar Sesion </a>
         <div class="col-sm-12">
             <div class="row" id="seccion_solicitud">
                 <!--SE CARGA LA FILA CONTENEDORA DE TODO EL FORMULARIO-->
@@ -20,7 +20,7 @@
                     <div class="col-sm-12">
                         <div class="col-sm-7">
                             <div class="conten-img-title">
-                                USUARIO: {{ $solicitudes['usuario'] }}
+                                SOLICITANTE: {{ $solicitudes['usuario'] }}
                             </div>
                         </div>
                     </div>
@@ -400,7 +400,15 @@
                                              </div>
                                                 <input type="hidden" name="total_solicitud_txt" id="total_solicitud_txt" class="total_solicitud_txt">
                                                 <br>
-                                                TOTAL
+                                                TOTAL SOLICITADO
+                                        </div>
+                                        <div class="col-sm-4 center">
+                                             <div id="total_autorizado" class="total_solicitud">
+                                              <span class="total_importe_autorizado"></span>
+                                             </div>
+                                                <input type="hidden" name="total_solicitud_txt" id="total_solicitud_txt" class="total_solicitud_txt">
+                                                <br>
+                                                TOTAL AUTORIZADO
                                         </div>
 
                                         <div class="col-sm-4 center">
